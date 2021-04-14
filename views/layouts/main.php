@@ -13,22 +13,36 @@ frontend\modules\arenda\assets\AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-	<?php //<meta name="robots" content="noindex, nofollow" />?>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="yandex-verification" content="483683dd3d41a86f" />
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="http://fonts.fontstorage.com/import/firasans.css">
-    <!-- <link href="https://allfont.ru/allfont.css?fonts=lora" rel="stylesheet" type="text/css" /> -->
     <title><?php echo $this->title ?></title>
     <?php $this->head() ?>
     <?php if (isset($this->params['desc']) and !empty($this->params['desc'])) echo "<meta name='description' content='".$this->params['desc']."'>";?>
     <?php if (isset($this->params['canonical']) and !empty($this->params['canonical'])) echo "<link rel='canonical' href='".$this->params['canonical']."'>";?>
     <?php if (isset($this->params['kw']) and !empty($this->params['kw'])) echo "<meta name='keywords' content='".$this->params['kw']."'>";?>
     <?php if (isset($this->params['robots']) and $this->params['robots']) echo "<meta name='robots' content='noindex, follow'>";?>
+    <?php if (isset($this->params['robots_2']) and $this->params['robots_2']) echo "<meta name='robots' content='noindex, nofollow'>";?>
     <?= Html::csrfMetaTags() ?>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PQ92WXZ');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQ92WXZ"
+height="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <?php $this->beginBody() ?>
 
     <div class="main_wrap">
@@ -55,7 +69,7 @@ frontend\modules\arenda\assets\AppAsset::register($this);
 
                         <p class="back_to_header_menu">Назад в меню</p>
 
-                        <h4>Выберите город</h4>
+                        <p class="pseudo_h4">Выберите город</p>
 
                         <?php /*<div class="input_search_wrapper">
 

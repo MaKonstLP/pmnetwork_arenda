@@ -226,10 +226,9 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
         // exit;
 
         foreach ($restaurants as $restaurant) {
-            $roomNumber = 0;
+
             foreach ($restaurant->rooms as $room) {
-                $roomNumber++;
-                $res = self::addRecord($room, $restaurant, $restaurants_types, $restaurants_spec, $roomNumber);
+                $res = self::addRecord($room, $restaurant, $restaurants_types, $restaurants_spec);
             }            
         }
         echo 'Обновление индекса '. self::index().' '. self::type() .' завершено<br>';
@@ -273,7 +272,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
         );
     }
 
-    public static function addRecord($room, $restaurant, $restaurants_types, $restaurants_spec, $roomNumber){
+    public static function addRecord($room, $restaurant, $restaurants_types, $restaurants_spec){
         $isExist = false;
         
         try{
@@ -414,12 +413,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
             $record->slug = $row['slug'];
         } else {
             $slug = self::getTransliterationForUrl($room->name);
-            // $isSameSlug = count(array_filter($rooms, function ($prevRoom) use ($slug) {
-            //     return $prevRoom['slug'] == $slug;
-            // })) > 0;
-            // $slugPostFix = $isSameSlug ? "-$idx" : "";
-            // $slug .= $slugPostFix;
-            $slug .= '-' . $roomNumber;
+            $slug .= '-' . $restaurant->id;
             $record->slug = $slug;
             \Yii::$app->db->createCommand()->insert('restaurant_slug', ['gorko_id' => $room->gorko_id, 'slug' =>  $record->slug])->execute();
         }

@@ -132,17 +132,18 @@ class ListingController extends Controller
 			'current' => $page,
 		]);
 		$seo_type = $type ? $type : 'listing';
-		// echo '<pre>';
-		// print_r($items->total);
-		// exit;
 		$seo = $this->getSeo($seo_type, $page, $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;
-		$this->setSeo($seo, $page, $canonical);
-
-		if($seo_type == 'listing' and count($params_filter) > 0){
+		$this->setSeo($seo, $page, $canonical, $items->items);
+		
+		if ($seo_type == 'listing' and count($params_filter) > 0){
 			$seo['text_top'] = '';
 			$seo['text_bottom'] = '';
 		}
+
+		// echo '<pre>';
+		// print_r($seo);
+		// exit;
 
 		$totalCount = $items->total
 			. ' заведени'
@@ -252,15 +253,20 @@ class ListingController extends Controller
 		return $seo->seo;
 	}
 
-	private function setSeo($seo, $page, $canonical){
+	private function setSeo($seo, $page, $canonical, $items){
 		$this->view->title = $seo['title'];
 		$this->view->params['desc'] = $seo['description'];
 		$this->view->params['kw'] = $seo['keywords'];
 		$this->view->params['robots'] = false;
+		$this->view->params['robots_2'] = false;
 		
 		if ($page != 1){
 			$this->view->params['canonical'] = $canonical;
 			$this->view->params['robots'] = true;
+		}
+
+		if (count($items) === 0){
+			$this->view->params['robots_2'] = true;
 		}
 	}
 

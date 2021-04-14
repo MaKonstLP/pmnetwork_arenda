@@ -84,7 +84,7 @@
 
                 <div class="object_meta_item">
 
-                    <p class="object_meta_title">Банкетное меню:</p>
+                    <p class="object_meta_title">Средний чек:</p>
                     <p class="object_meta_value">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span></p>
 
                 </div>
@@ -130,22 +130,15 @@
 
             </div>
 
-            <div class="item_description">
+            <div class="item_description" data-seo-description>
 
                 {% if item.description != "" %}
 
-                    <p>{{ item.description }}</p>
+                    <p class="_seo_text" id="mobile_but_all">{{ item.description }}</p>
                     
-                    <button>Подробнее о площадке</button>
+                    <button class="collapse_button _hidden">Подробнее о площадке</button>
 
                 {% endif %}
-
-                <p class="_seo_text _collapse" id="mobile_but_all">
-                    Понтон на воде 400 м² с белым шатром 260 м². Вмещает до 180 постояльцев банкетной рассадкой. На территории понтона размещаются 2 маленькие веранды, которые уже входят в стоимость аренды, а на свободных от шатра углах устроилась мягкая мебель. Шатер оборудован барной стойкой со светодиодной подсветкой, необходимым для вечернего освещения количеством люстр, а на каждой стальной дуге вывешены световые 
-                    а на свободных от шатра углах устроилась мягкая мебель. Шатер оборудован барной стойкой со светодиодной подсветкой, необходимым для вечернего освещения количеством люстр, а на каждой стальной дуге вывешены световые «Пары фоновом режиме.
-                </p>
-
-                <button class="collapse_button">Подробнее о площадке</button>
 
             </div>
 

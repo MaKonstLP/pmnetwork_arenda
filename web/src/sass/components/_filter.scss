@@ -641,6 +641,10 @@
             &._active ~ .clean_this_filter{
                 display: block;
             }
+
+            &._invalid{
+                color: red;
+            }
         }
 
         .filter_select_current{

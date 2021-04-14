@@ -3,7 +3,7 @@
 	{% if type != 'item' %}	
 		<div class="callback _first_form" id="firstWindow">
 			<div class="arrow_open"></div>
-			<h1>Помочь с выбором зала?</h1>
+			<p class="pseudo_h1">Помочь с выбором зала?</p>
 			<p>бесплатно подберем оптимальный для вас вариант</p>
 			<div class="phone_number">+7 (846) 205-78-45</div>
 			<button type="button" class="_button callMe">Заказать звонок</button>
@@ -15,7 +15,7 @@
 				<p>Забронировать это место</p>
 				<div class="object_book_hidden">
                     <p class="object_book_phone">
-                        <span class="object_fake_phone" id="callback_object_phone">+7 (925) xxx-xx-xx</span>
+                        <span class="object_fake_phone" id="callback_object_phone">+7 (xxx) xxx-xx-xx</span>
                         <a href="tel:{{item.restaurant_phone}}" class="object_real_phone"></a>
                     </p>
                     <div class="object_book_hidden_button _callback">Показать телефон</div>
@@ -25,7 +25,7 @@
 		{% endif %}
 		<div class="callback _second_form" id="secondWindow">
 			<div class="arrow_open _right"></div>
-			<h1>Заказать обратный звонок</h1>
+			<p class="pseudo_h1">Заказать обратный звонок</p>
 			<p>Наш менеджер перезвонит в ближайшее время.</p>
 			<form action="/ajax/form/" data-type={% if type != 'item' %}"main"{% else %}"item"{% endif %}>
 				<div class="form_inputs">
@@ -53,7 +53,7 @@
 			<div data-success>
 
 			<div>
-				<h1>Заявка отправлена</h1>
+				<p class="pseudo_h1">Заявка отправлена</p>
 			</div>
 
 			<div>

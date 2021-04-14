@@ -238,12 +238,16 @@ export default class Filter{
 		if (self.state['prazdnik'] !== undefined || self.state['rest_type'] !== undefined) {
 			$('[data-type="prazdnik"] [data-filter-select-current]').removeClass('_invalid');		
 			$('[data-type="rest_type"] [data-filter-select-current]').removeClass('_invalid');		
+			$('[data-type="prazdnik"] [data-filter-label]').removeClass('_invalid');		
+			$('[data-type="rest_type"] [data-filter-label]').removeClass('_invalid');			
 	
 			return true;
 		}
 
 		$('[data-type="prazdnik"] [data-filter-select-current]').addClass('_invalid');		
 		$('[data-type="rest_type"] [data-filter-select-current]').addClass('_invalid');		
+		$('[data-type="prazdnik"] [data-filter-label]').addClass('_invalid');		
+		$('[data-type="rest_type"] [data-filter-label]').addClass('_invalid');		
 
 		return false;
 	}

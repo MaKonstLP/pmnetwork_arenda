@@ -4,6 +4,7 @@ namespace app\modules\arenda\controllers;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -31,6 +32,10 @@ class ItemController extends Controller
 			]
 		])->one();
 
+		if (empty($item)) {
+			throw new NotFoundHttpException();
+		}
+
 		$seo = new Seo('item', 1, 0, $item);
 		$seo = $seo->seo;
 		$this->setSeo($seo);
@@ -44,7 +49,13 @@ class ItemController extends Controller
 		
 		$special_obj = new ItemSpecials($item->restaurant_special);
 		$item->restaurant_special = $special_obj->special_arr;
-		$parking = $item->restaurant_parking . ' ' . Declension::get_num_ending($item->restaurant_parking, array('машина', 'машины', 'машин'));
+
+		if (is_int($item->restaurant_parking)){
+			$parking = $item->restaurant_parking . ' ' . Declension::get_num_ending($item->restaurant_parking, array('машина', 'машины', 'машин'));
+		}	else {
+			$parking = 0;
+		}
+
 		
 		$itemsWidget = new ItemsWidgetElastic;
 		$other_rooms = $itemsWidget->getOther($item->restaurant_id, $item->id, $elastic_model);

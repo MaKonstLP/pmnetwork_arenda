@@ -73,15 +73,21 @@ export default class Item{
             }
         });
 
-        $('.collapse_button').on('click', function(){
-            var $seoText = $(this).siblings('._seo_text');
-            if ($seoText.hasClass('_collapse')) {
-                $seoText.removeClass('_collapse');
-                $(this).text('Скрыть текст')
-            } else {
-                $seoText.addClass('_collapse');
-                $(this).text('Подробнее о площадке')
-            }
-        });
+        if ($('[data-seo-description] p').length > 0 && $('[data-seo-description] p')[0].offsetHeight > 68){
+            var $seoText = $('[data-seo-description] ._seo_text');
+            $seoText.addClass('_collapse');
+            $seoText.siblings('.collapse_button').removeClass('_hidden');
+
+            $('.collapse_button').on('click', function(){
+                if ($seoText.hasClass('_collapse')) {
+                    $seoText.removeClass('_collapse');
+                    $(this).text('Скрыть текст')
+                } else {
+                    $seoText.addClass('_collapse');
+                    $(this).text('Подробнее о площадке')
+                }
+            });
+        }
+
 	}
 }

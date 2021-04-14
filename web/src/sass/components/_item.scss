@@ -875,6 +875,10 @@ $fontFamilyLato: Lato;
       height: 320px;
       margin: 43px 0 0;
     }
+    @include for-mobile {
+      height: 285px;
+      // margin: 43px 0 0;
+    }
   }
 }
 .object_block {

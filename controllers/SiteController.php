@@ -69,23 +69,21 @@ class SiteController extends Controller
             ->where(['alias' => [
                                 'banketnyy-zal', 
                                 'konferenc-zal', 
-                                'tancevalnyy-zal', 
+                                'restorany', 
                                 'den-rojdeniya', 
                                 'vypusknoy', 
-                                'aktovye-zaly', 
+                                'kafe', 
                                 'svadba', 
-                                'veranda'
+                                'korporativ'
                                 ]
-            ])->all();
+            ])->all();    
 
         // echo '<pre>';
-        // print_r(Yii::$app->params['subdomen_id']);
+        // print_r($aggs);
         // exit;
 
         return $this->render('index.twig', [
             'filter' => $filter,
-            //'widgets' => $apiMain['widgets'],
-            //'count' => $apiMain['total'],
             'seo' => $seo,
             'slices_for_tag' => $slicesForTag,
             'slices_for_listing' => $slicesForListing,
@@ -98,12 +96,12 @@ class SiteController extends Controller
             ->where(['alias' => [
                                 'banketnyy-zal', 
                                 'konferenc-zal', 
-                                'tancevalnyy-zal', 
+                                'restorany', 
                                 'den-rojdeniya', 
                                 'vypusknoy', 
-                                'aktovye-zaly', 
+                                'kafe', 
                                 'svadba', 
-                                'veranda'
+                                'korporativ'
                                 ]
             ])->all();
 
@@ -111,6 +109,22 @@ class SiteController extends Controller
             'slices_for_listing' => $slicesForListing,
         ]);
     }
+
+    public function actionRobots()
+    {
+        header('Content-type: text/plain');
+        if(Yii::$app->params['subdomen_alias']){
+            $subdomen_alias = Yii::$app->params['subdomen_alias'].'.';
+        }
+        else{
+            $subdomen_alias = '';
+        }
+        echo 'User-agent: *
+Disallow: /';
+// Sitemap: http://' . $subdomen_alias . 'arenda_prod.ru/sitemap/';
+        exit;
+    }
+
 
     private function setSeo($seo){
         $this->view->title = $seo['title'];

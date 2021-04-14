@@ -21,7 +21,7 @@
         padding: 0;
     }
 
-    h1{
+    .pseudo_h1{
             font-family: Lato;
             font-style: normal;
             font-weight: bold;
@@ -109,7 +109,7 @@
             padding: 12px 10px 12px 10px;
         }
         
-        h1{
+        .pseudo_h1{
             margin-top: 0px;
             margin-bottom: 0px;
         }
@@ -137,6 +137,10 @@
             }
             .object_book_hidden{
                 margin-bottom: 9px;
+
+                &._new_height{
+                    margin-bottom: 24px;
+                }
             }
 
             ._button{
@@ -224,7 +228,7 @@
                 margin-bottom: 5px;
             }
         }
-        h1{
+        .pseudo_h1{
             margin-bottom: 0px;
             margin-top: 0px;
         }
@@ -380,6 +384,10 @@
                 cursor: pointer;
             }
         }
+    }
+
+    .object_real_phone{
+        padding: 0 0 15px 0;
     }
 }
 /*Стили для формы обратного звонка-конец*/

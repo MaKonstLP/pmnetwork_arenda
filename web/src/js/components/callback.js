@@ -16,6 +16,8 @@ export default class Callback{
 
 		$('.object_book_hidden_button._callback').on('click', () => {
 			this.openPhone();
+			$('.object_book_hidden_button._callback').addClass('_hidden');
+			$('.object_book_hidden_button._callback').closest('.object_book_hidden').addClass('_new_height');
 		})
 
 		$('.go').on('click', () => {

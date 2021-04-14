@@ -134,9 +134,9 @@
   justify-content: center;
 
   @include for-pad {
-		flex-flow: row wrap;
-		justify-content: flex-start;
-	}
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
 
   @include for-mobile {
     flex-flow: row wrap;
@@ -160,7 +160,7 @@
     }
 
     p {
-			white-space: nowrap;
+      white-space: nowrap;
       font-family: Lato;
       font-style: normal;
       font-weight: normal;
@@ -255,7 +255,7 @@
         }
       }
 
-      h3 {
+      .pseudo_h3 {
         position: absolute;
         font-family: Lato;
         font-style: normal;
@@ -320,7 +320,7 @@
       }
     }
 
-    h3 {
+    .pseudo_h3 {
       position: absolute;
       font-family: Lato;
       font-style: normal;
@@ -682,179 +682,11 @@
     padding: 0;
   }
 }
-/*Стили для страницы 404*/
-[data-page-type="error"] {
-  .content_block {
-    margin-bottom: 32px;
 
-    @include for-pad {
-      margin-bottom: 25px;
-    }
-    @include for-mobile {
-      width: calc(93% - 30px);
-      margin-bottom: 26px;
-    }
-  }
+.pseudo_h2{
+  padding: 0 0 24px 0;
 
-  h1 {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 36px;
-    line-height: 48px;
-    text-align: center;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #141417;
-    margin: auto;
-    margin-top: 71px;
-    margin-bottom: 34px;
-
-    @include for-pad {
-      margin-top: 30px;
-      margin-bottom: 17px;
-    }
-    @include for-mobile {
-      font-size: 28px;
-      line-height: 36px;
-      font-weight: 500;
-      margin-top: 21px;
-      margin-bottom: 16px;
-    }
-  }
-  p {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-    color: #2c3044;
-
-    @include for-mobile {
-      font-size: 16px;
-      line-height: 24px;
-    }
-  }
-
-  a {
-    color: blue;
-    text-decoration: underline;
-  }
-  .forPad {
-    display: none;
-
-    @include for-pad {
-      display: block;
-    }
-  }
-  .forMobile {
-    display: none;
-
-    @include for-mobile {
-      display: block;
-    }
-  }
-
-  .forMobileP {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 32px;
-    color: #ffffff;
-    position: absolute;
-    bottom: 28px;
-    left: 24px;
-    display: none;
-
-    @include for-mobile {
-      font-size: 16px;
-      line-height: 24px;
-      bottom: 8px;
-      left: 8px;
-      display: block;
-    }
-  }
-  .all_blocks {
-    display: flex;
-    flex-flow: row wrap;
-    width: 59.2%;
-    margin: auto;
-    justify-content: space-between;
-    margin-bottom: 47px;
-
-    @include for-pad {
-      width: 100%;
-      padding: 0 12px;
-      margin-bottom: 30px;
-    }
-    @include for-mobile {
-      flex-flow: column wrap;
-      width: 100%;
-      margin-bottom: 47px;
-      padding: 0 16px;
-      margin-bottom: 22px;
-    }
-
-    .block {
-      width: 49.295%;
-      max-height: 160%;
-      margin-bottom: 12px;
-
-      @include for-pad {
-        width: 49%;
-      }
-      @include for-mobile {
-        width: 100%;
-        position: relative;
-        margin-bottom: 16px;
-      }
-      .forMobile {
-        display: none;
-
-        @include for-mobile {
-          display: block !important;
-          width: 100%;
-        }
-      }
-      img {
-        width: 100%;
-
-        @include for-mobile {
-          display: none;
-        }
-      }
-
-      a {
-        position: relative;
-
-        p {
-          font-family: Lato;
-          font-style: normal;
-          font-weight: bold;
-          font-size: 24px;
-          line-height: 32px;
-          color: #ffffff;
-          position: absolute;
-          bottom: 28px;
-          left: 24px;
-
-          @include for-pad {
-            font-size: 20px;
-            line-height: 24px;
-            bottom: 20px;
-            left: 16px;
-          }
-          @include for-mobile {
-            font-size: 16px;
-            line-height: 24px;
-            bottom: 8px;
-            left: 8px;
-            display: none;
-          }
-        }
-      }
-    }
+  @include for-mobile{
+    padding: 0 0 16px 0;
   }
 }
