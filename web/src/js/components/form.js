@@ -231,11 +231,13 @@ export default class Form {
 		  case 'main':
 		    //ym(64598434,'reachGoal','form_main');
 		    //gtag('event', 'form');
+				console.log(data)
 		    break;
 
 		  case 'item':
 		    //ym(64598434,'reachGoal','form_room');
 		    //gtag('event', 'form');
+				console.log(data)
 		    break;
 		}
 
@@ -266,7 +268,7 @@ export default class Form {
 	    formData.append('url', formUrl);
 
 	    for (var pair of formData.entries()) {
-		    console.log(pair[0]+ ', ' + pair[1]); 
+		    // console.log(pair[0]+ ', ' + pair[1]); 
 		}
 
 	    $.ajax({

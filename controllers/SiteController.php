@@ -120,8 +120,11 @@ class SiteController extends Controller
             $subdomen_alias = '';
         }
         echo 'User-agent: *
-Disallow: /';
-// Sitemap: http://' . $subdomen_alias . 'arenda_prod.ru/sitemap/';
+Disallow: *?*
+Allow: /catalog/?page=
+Disallow: *rest_type=
+Disallow: *prazdnik=
+Sitemap: http://' . $subdomen_alias . 'arendazala.net/sitemap/';
         exit;
     }
 

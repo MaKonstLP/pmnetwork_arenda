@@ -40,37 +40,37 @@ class FormController extends Controller
         
         $msg  = "";
 
-        $post_string_array = [
-            'name'  => 'Имя',
-            'phone' => 'Телефон',
-            'date'  => 'Дата',
-            'count' => 'Количество гостей',
-            'url'   => 'Страница отправки' 
-        ];
+        // $post_string_array = [
+        //     'name'  => 'Имя',
+            // 'phone' => 'Телефон',
+            // 'date'  => 'Дата',
+            // 'count' => 'Количество гостей',
+            // 'url'   => 'Страница отправки' 
+        // ];
 
-        $post_checkbox_array = [
-            'water'  => 'у воды',
-            'tent' => 'с шатром',
-            'country'  => 'за городом',
-            'incity' => 'в черте города',
-        ];
+        // $post_checkbox_array = [
+        //     'water'  => 'у воды',
+        //     'tent' => 'с шатром',
+        //     'country'  => 'за городом',
+        //     'incity' => 'в черте города',
+        // ];
 
-        foreach ($post_string_array as $key => $value) {
-            if(isset($_POST[$key]) && $_POST[$key] != ''){
-                $msg .= $value.': '.$_POST[$key].'<br/>';
-            }
-        }   
+        // foreach ($post_string_array as $key => $value) {
+        //     if(isset($_POST[$key]) && $_POST[$key] != ''){
+        //         $msg .= $value.': '.$_POST[$key].'<br/>';
+        //     }
+        // }   
         
-        if($_POST['type'] == 'main'){
-            $checkbox_msg = '';
-            foreach ($post_checkbox_array as $key => $value) {
-                if(isset($_POST[$key]) && $_POST[$key] != ''){
-                    $checkbox_msg .= $value.', ';
-                }
-            }
-            if($checkbox_msg != '')
-                $msg .= 'Зал должен быть: <br/>'.$checkbox_msg;
-        }
+        // if($_POST['type'] == 'main'){
+        //     $checkbox_msg = '';
+            // foreach ($post_checkbox_array as $key => $value) {
+            //     if(isset($_POST[$key]) && $_POST[$key] != ''){
+            //         $checkbox_msg .= $value.', ';
+            //     }
+            // }
+            // if($checkbox_msg != '')
+            //     $msg .= 'Зал должен быть: <br/>'.$checkbox_msg;
+        // }
         
 
         $message = $this->sendMail($to,$subj,$msg);
@@ -93,8 +93,8 @@ class FormController extends Controller
     {
         return true;
         $message = Yii::$app->mailer->compose()
-            ->setFrom(['post@smilerooms.ru' => 'Свадьба на природе.'])
-            ->setTo($to)
+            ->setFrom(['impl-stom@yandex.ru' => 'Аренда зала'])
+            ->setTo('artm@liderpoiska.ru')
             ->setSubject($subj)
             ->setCharset('utf-8')
             //->setTextBody('Plain text content')

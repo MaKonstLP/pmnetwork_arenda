@@ -143,7 +143,7 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </nav>
         <div class="right_block">
-        <a href="tel: 8(846)205-78-45" class="head_tel">8 (846) 205-78-45</a>
+        <a href="" class="head_tel"></a>
         <div class="link_form" data-open-popup-form>
         <img src="/images/confetti.svg" class="confetti">
         <p class="for_form _link">Подберите мне зал</p>
@@ -182,7 +182,7 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="footer_block _right">
                         <div class="footer_phone">
-                            <a href="tel:+79252382671"><p>8 (846) 205-78-45</p></a>
+                            <a href=""><p></p></a>
                         </div>
                         <div class="footer_phone_button" data-open-popup-form>
                             <img src="/images/confetti.svg" class="confetti">
