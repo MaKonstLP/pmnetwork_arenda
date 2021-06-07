@@ -13,6 +13,7 @@ import Callback from './components/callback';
 import Article from './components/article';
 import datepicker from 'js-datepicker';
 import Popular from './components/popular';
+import Post from './components/post';
 
 window.$ = $;
 
@@ -53,6 +54,10 @@ window.$ = $;
 
 		if ($('[data-page-type="article"]').length > 0) {
 			var article = new Article($('[data-page-type="article"]'));
+		}
+
+		if ($('[data-page-type="post"]').length > 0) {
+			var post = new Post();
 		}
 			
 		var main = new Main();

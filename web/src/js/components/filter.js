@@ -285,6 +285,7 @@ export default class Filter{
 				data: data,
 				success: function(response) {
 					response = $.parseJSON(response);
+					ym(74721805,'reachGoal','filter');
 					// console.log(response.params_filter);
 					self.resolve(response);
 				},
@@ -314,6 +315,7 @@ export default class Filter{
 				data: data,
 				success: function(response) {
 					if(response){
+						ym(74721805,'reachGoal','filter');
 						self.resolve('/catalog/'+response);
 					}
 					else{

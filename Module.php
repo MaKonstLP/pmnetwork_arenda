@@ -46,6 +46,8 @@ class Module extends \yii\base\Module
             Yii::$app->params['subdomen_name'] = $subdomen_model->name;
             Yii::$app->params['subdomen_dec'] = $subdomen_model->name_dec;
             Yii::$app->params['subdomen_rod'] = $subdomen_model->name_rod;
+            Yii::$app->params['subdomen_phone'] = $subdomen_model->phone;
+            Yii::$app->params['uploadFolder'] = 'upload';
         }
             
         //Yii::$app->setLayoutPath('@app/modules/svadbanaprirode/layouts');

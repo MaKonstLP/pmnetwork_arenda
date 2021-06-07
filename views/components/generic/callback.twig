@@ -1,33 +1,45 @@
 <div class="callback" data-side-callback-form>
-		<div class="form_wrapper">
+	<div class="form_wrapper">
+
 	{% if type != 'item' %}	
+
 		<div class="callback _first_form" id="firstWindow">
 			<div class="arrow_open"></div>
 			<p class="pseudo_h1">Помочь с выбором зала?</p>
 			<p>бесплатно подберем оптимальный для вас вариант</p>
-			<div class="phone_number"></div>
-			<button type="button" class="_button callMe">Заказать звонок</button>
+			<a href="tel:{{phone}}" class="phone_number">{{prettyPhone}}</a>
+			<button type="button" class="_button callMe" data-call-me>Заказать звонок</button>
 		</div>
 	
-		{% else %}
+	{% else %}
+
 		<div class="callback _first_form _item"  id="firstWindow">
+
 				<div class="arrow_open"></div>
 				<p>Забронировать это место</p>
+
 				<div class="object_book_hidden">
-                    <p class="object_book_phone">
-                        <span class="object_fake_phone" id="callback_object_phone">+7 (xxx) xxx-xx-xx</span>
-                        <a href="" class="object_real_phone"></a>
-                    </p>
-                    <div class="object_book_hidden_button _callback">Показать телефон</div>
-                </div>
-				<button type="button" class="_button callMe">Заказать звонок</button>
+
+						<p class="object_book_phone">
+							<span class="object_fake_phone" id="callback_object_phone">+7 (xxx) xxx-xx-xx</span>
+							<a href=":" class="object_real_phone"></a>
+						</p>
+
+						<div class="object_book_hidden_button _callback">Показать телефон</div>
+
+				</div>
+
+				<button type="button" class="_button callMe" data-call-me>Заказать звонок</button>
+				
 		</div>
-		{% endif %}
+
+	{% endif %}
+
 		<div class="callback _second_form" id="secondWindow">
 			<div class="arrow_open _right"></div>
 			<p class="pseudo_h1">Заказать обратный звонок</p>
 			<p>Наш менеджер перезвонит в ближайшее время.</p>
-			<form action="/ajax/form/" data-type={% if type != 'item' %}"main"{% else %}"item"{% endif %}>
+			<form action="/ajax/form/" data-type={% if type != 'item' %}"sideListingForm"{% else %}"sideItemForm"{% endif %}>
 				<div class="form_inputs">
 					<div class="input_wrapper _big">
 					<div class="input_label">Как вас зовут?</div>
@@ -42,7 +54,7 @@
 				<button type="submit" class="_button go">Отправить</button>
 				<div class="form_policy checkbox_item _active" data-form-privacy>
 					<input type="checkbox" name="policy" class="personalData" checked="">
-					<p class="checkbox_pseudo">Cогласен с <span> <a class="_link" href="/privacy/" target="_blank"> политикой обработки персональных данных</a></span></p>
+					<p class="checkbox_pseudo">Cогласен с <span> <a class="_link" href="https://arendazala.net/privacy/" target="_blank"> политикой обработки персональных данных</a></span></p>
 				</div>
 			</div>
 			<input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />

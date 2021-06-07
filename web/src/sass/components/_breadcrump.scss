@@ -12,6 +12,10 @@
     display: flex;
     justify-content: center;
     // margin-left: 34px;
+
+    li:before{
+        content: none;
+    }
 }
 
 .breadcrumbs_listing .breadcrumb_ul li:after {

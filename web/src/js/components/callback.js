@@ -6,8 +6,11 @@ export default class Callback{
 			this.callbackOpenForm();
 		})
 
-		$('.callMe').on('click', () => {
+		$('.callMe').on('click', (e) => {
 			this.callbackOpenForm();
+			if ($(e.target).is('[data-call-me]')){
+				ym(74721805,'reachGoal','click_zakazat_zvonok');
+			}
 		})
 
 		$('.arrow_open._right').on('click', () => {
@@ -31,6 +34,12 @@ export default class Callback{
 		$('.form_success_close._link').on('click', () => {
 			this.closePhone();
 		})
+
+		if ($('[data-page-type="listing"]').length > 0){
+			$('.callback._first_form .phone_number').on('click', function(){
+				ym(74721805,'reachGoal','click_phone_call_centra');
+			});
+		}
 	}
 
 	callbackOpenForm() {
@@ -51,6 +60,13 @@ export default class Callback{
 	openPhone() {
 		var phone = document.getElementsByClassName('object_real_phone')[0].outerHTML;
 		document.getElementById('callback_object_phone').innerHTML = phone;
+		ym(74721805,'reachGoal','show_phone_zala_sboky');
+
+		if ($('[data-page-type="item"]').length > 0){
+			$('.callback._first_form .object_real_phone').on('click', function(){
+				ym(74721805,'reachGoal','click_phone_zala');
+			});
+		}
 	}
 
 }

@@ -22,8 +22,13 @@ class StaticController extends Controller
 		$seo = new Seo('privacy', 1);
         $this->setSeo($seo->seo);
 
+		// echo '<pre>';
+		// print_r($seo);
+		// exit;
+
 		return $this->render('privacy.twig', [
 			'page' => $page,
+			'seo' => $seo->seo,
 		]);
 	}
 

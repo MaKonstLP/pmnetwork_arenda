@@ -80,28 +80,28 @@
 					<div class="ball">
 						<p>1</p>
 					</div>
-					<div class="ball_text">Подпись к иконке в две строки</div>
+					<div class="ball_text">Отберите площадки с&nbsp;помощью фильтров на сайте</div>
 				</div>
 				<div class="arrow_ball"></div>
 				<div class="ball_step">
 					<div class="ball">
 						<p>2</p>
 					</div>
-					<div class="ball_text">Подпись к иконке в две строки</div>
+					<div class="ball_text">Ознакомьтесь с&nbsp;предложенными вариантами</div>
 				</div>
 				<div class="arrow_ball two"></div>
 				<div class="ball_step">
 					<div class="ball">
 						<p>3</p>
 					</div>
-					<div class="ball_text">Подпись к иконке в две строки</div>
+					<div class="ball_text">Забронируйте подходящее место через звонок или&nbsp;форму обратной связи</div>
 				</div>
 
 			</div>
 
 		</div>
 
-		<div class="bottom_text_index" id="mobile_but_all">
+		<div class="bottom_text_index" id="mobile_but_all" data-seo-text>
 			{{ seo['text_1'] | raw}}
 		</div>
 		<div class="mobile_button_text" id="butt_on"><span>Показать полностью</span></div>
@@ -110,7 +110,7 @@
 	</div>
 
 	<div class="content_block index_form">
-		{{ this.render('//components/generic/form.twig') | raw }}
+		{{ this.render('//components/generic/form.twig', {'type': 'index'}) | raw }}
 	</div>
 
 </div>

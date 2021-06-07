@@ -122,9 +122,11 @@ class SiteController extends Controller
         echo 'User-agent: *
 Disallow: *?*
 Allow: /catalog/?page=
+Allow: */css/
+Allow: */js/
 Disallow: *rest_type=
 Disallow: *prazdnik=
-Sitemap: http://' . $subdomen_alias . 'arendazala.net/sitemap/';
+Sitemap: https://' . $subdomen_alias . 'arendazala.net/sitemap/';
         exit;
     }
 

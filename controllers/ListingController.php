@@ -141,6 +141,22 @@ class ListingController extends Controller
 			$seo['text_bottom'] = '';
 		}
 
+		$prettyPhone = Yii::$app->params['subdomen_phone'];
+
+		if ($prettyPhone !== ''){
+			$prettyPhone = substr($prettyPhone, 0, 2) 
+				. ' (' 
+				. substr($prettyPhone, 2, 3) 
+				. ') ' 
+				. substr($prettyPhone, 5, 3) 
+				. '-' 
+				. substr($prettyPhone, 8, 2) 
+				. '-' 
+				. substr($prettyPhone, 10, 2);
+		} else {
+			$prettyPhone = '';
+		}
+
 		// echo '<pre>';
 		// print_r($seo);
 		// exit;
@@ -156,6 +172,8 @@ class ListingController extends Controller
 			'seo' => $seo,
 			'count' => $items->total,
 			'totalCount' => $totalCount,
+			'phone' => Yii::$app->params['subdomen_phone'],
+			'prettyPhone' => $prettyPhone,
 		));	
 	}
 

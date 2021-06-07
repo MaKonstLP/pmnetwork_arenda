@@ -1,0 +1,196 @@
+[data-page-type="post"]{
+  margin: 32px 0 0 0;
+  color: #2C3044;
+
+  .post_wrapper{
+    width: 944px;
+    margin: 0 auto 0 auto;
+  
+    & > figure{
+      margin: 32px 0 32px 0;
+    }
+  }
+
+  h1{
+    text-align: center;
+    color: #141417;
+  }
+
+  h2,
+  h4{
+    margin: 32px 0 8px 0;
+    text-align: start;
+  }
+
+  h2{
+    font-size: 32px;
+    line-height: 40px;
+  }
+  
+  h3{
+    margin: 24px 0 8px 0;
+    text-align: start;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  h4{
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  p{
+    margin: 0 0 24px 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  li{
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  ul,
+  ol{
+    margin: 0 0 24px 0;
+  }
+
+  ul li{
+    position: relative;
+    list-style: none;
+    margin: 0 0 12px 35px;
+
+    &:before{
+      content: '\00B7';
+      position: absolute;
+      top: 0;
+      left: -15px;
+      font-size: 34px;
+      color: #2C689B;
+    }
+  }
+
+  ol li{
+    margin: 0 0 12px 35px;
+  }
+  
+  .post_date{
+    display: block;
+    margin: 8px 0 0 0;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  img{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .blog_text{
+    font-size: 16px;
+    line-height: 24px;
+
+    &._big{
+      font-size: 20px;
+      line-height: 32px;
+    }
+  }
+
+  .text_with_borders{
+    margin: 24px 0 24px 0;
+    padding: 24px 40px 8px 32px;
+    border: 2px solid #FFC839;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+
+  .post-gallery-thumbs{
+    margin-bottom: 32px;
+    margin-top: 5px;
+  }
+
+  .post_subtitle_whith_img{
+    text-align: center;
+
+    &:before{
+      content: '';
+    }
+  }
+
+  .post_subtitle_img{
+    width: 370px;
+    height: 12px;
+    margin: 0 auto 16px auto;
+    background: url(/images/quote_img.svg);
+  }
+
+  .post_subtitle_text{
+
+    p{
+      font-family: Lora;
+      font-style: italic;
+      font-size: 24px;
+      line-height: 36px;
+    }
+  }
+
+  @include for-notdesc{
+    margin: 24px 0 0 0;
+
+    ul li,
+    ol li{
+      margin: 0 0 12px 24px;
+    }
+
+    .text_with_borders{
+      padding: 16px 32px 0 24px;
+    }
+
+  }
+
+  @include for-pad{
+  
+    .post_wrapper{
+      width: 768px;
+      padding: 0 12px 0 12px;
+
+      & > figure{
+        margin: 24px 0 24px 0;
+      }
+    }
+
+    .post_date{
+      margin: 4px 0 0 0;
+    }  
+  }
+
+  @include for-mobile{
+
+    h2{
+      font-size: 28px;
+      line-height: 32px;
+    }
+  
+    .breadcrumbs,
+    .post_date{
+      display: none;
+    }
+
+    .post_wrapper{
+      width: 100%;
+      padding: 0 16px 0 16px;
+
+      & > figure{
+        margin: 16px 0 16px 0;
+      }
+    }
+
+    .post_subtitle_img{
+      width: 284px;
+      height: 12px;
+      background-position-x: center;
+    }  
+  }
+}

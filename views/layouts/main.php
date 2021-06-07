@@ -17,8 +17,9 @@ frontend\modules\arenda\assets\AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="483683dd3d41a86f" />
+    <meta name="yandex-verification" content="a13f5006e1a7895b" />
     <link rel="icon" type="image/png" href="/images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="http://fonts.fontstorage.com/import/firasans.css">
+    <!-- <link rel="stylesheet" type="text/css" href="http://fonts.fontstorage.com/import/firasans.css"> -->
     <title><?php echo $this->title ?></title>
     <?php $this->head() ?>
     <?php if (isset($this->params['desc']) and !empty($this->params['desc'])) echo "<meta name='description' content='".$this->params['desc']."'>";?>
@@ -58,7 +59,7 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
            
         </div>
          </a>
-            <div class="city">
+            <div class="city" data-city-id="<?= Yii::$app->params['subdomen_id'] ?>">
                 <img src="/images/map.svg" class="map_inc">
                 <p class="city_name"><?=Yii::$app->params['subdomen_name']?></p>
                 <img src="/images/dropdown_icon.svg" class="dropdown" data-city-dropdown>
@@ -143,7 +144,17 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </nav>
         <div class="right_block">
-        <a href="" class="head_tel"></a>
+        <?php
+
+            if (isset(Yii::$app->params['subdomen_phone']) && Yii::$app->params['subdomen_phone'] !== ''){
+
+                echo '<a href="tel:' . Yii::$app->params['subdomen_phone'] . '" class="head_tel" data-layout-phone>';
+                        $phone = Yii::$app->params['subdomen_phone'];
+                        echo substr($phone, 0, 2) . ' (' . substr($phone, 2, 3) . ') ' . substr($phone, 5, 3) . '-' . substr($phone, 8, 2) . '-' . substr($phone, 10, 2);
+                echo '</a>';
+            }
+
+        ?>
         <div class="link_form" data-open-popup-form>
         <img src="/images/confetti.svg" class="confetti">
         <p class="for_form _link">Подберите мне зал</p>
@@ -177,13 +188,25 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </a>
                         <div class="footer_info">
                             <p class="footer_copy">© <?php echo date("Y");?> Аренда залов</p>
-                            <a href="/privacy/" target="_blank" class="footer_pc _link">Политика конфиденциальности</a>
+                            <a href="https://arendazala.net/privacy/" target="_blank" class="footer_pc _link">Политика конфиденциальности</a>
                         </div>                        
                     </div>
                     <div class="footer_block _right">
+
                         <div class="footer_phone">
-                            <a href=""><p></p></a>
+
+                            <?php
+                                if (isset(Yii::$app->params['subdomen_phone']) && Yii::$app->params['subdomen_phone'] !== ''){
+
+                                    echo '<a href="tel:' . Yii::$app->params['subdomen_phone'] . '" data-layout-phone><p>';
+                                            $phone = Yii::$app->params['subdomen_phone'];
+                                            echo substr($phone, 0, 2) . ' (' . substr($phone, 2, 3) . ') ' . substr($phone, 5, 3) . '-' . substr($phone, 8, 2) . '-' . substr($phone, 10, 2);
+                                    echo '</p></a>';
+                                }
+                            ?>
+
                         </div>
+
                         <div class="footer_phone_button" data-open-popup-form>
                             <img src="/images/confetti.svg" class="confetti">
                             <p class="_link">Подберите мне зал</p>
@@ -200,7 +223,7 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="popup_layout" data-close-popup></div>
 
         <div class="popup_form">
-            <?=$this->render('//components/generic/form.twig')?>
+            <?= $this->render('//components/generic/form.twig', array('type' => 'popup')) ?>
         </div>
 
         <div class="popup_filter_container _hidden">

@@ -228,20 +228,29 @@ export default class Form {
 		//modal.append(data);
 		//modal.show();
 		switch(formType) {
-		  case 'main':
-		    //ym(64598434,'reachGoal','form_main');
-		    //gtag('event', 'form');
-				console.log(data)
+		  case 'index':
+		    ym(74721805,'reachGoal','trudnosti_s_vyborom_zala');
+				// console.log(data);
 		    break;
-
 		  case 'item':
-		    //ym(64598434,'reachGoal','form_room');
-		    //gtag('event', 'form');
-				console.log(data)
+		    ym(74721805,'reachGoal','zabronirovat_eto_mesto');
+				// console.log(data);
+		    break;
+		  case 'sideListingForm':
+				ym(74721805,'reachGoal','click_otpravit_zvonok');
+				// console.log(data);
+		    break;
+		  case 'sideItemForm':
+				ym(74721805,'reachGoal','click_otpravit_zvonok');
+				// console.log(data);
+		    break;
+		  case 'popup':
+				ym(74721805,'reachGoal','click_otpravit_podberite_mne_zal');
+				// console.log(data);
 		    break;
 		}
 
-		this.$formWrap.find('[data-success] [data-success-name]').text(data.name);
+		this.$formWrap.find('[data-success] [data-success-name]').text(data.payload.name);
 		this.$formWrap.find('[data-success] [data-success-phone]').text(data.phone);
 		this.$formWrap.find('[data-success]').addClass('_active');
 
@@ -266,9 +275,11 @@ export default class Form {
 	    formData.append('type', formType);
 	    var formUrl = window.location.href;
 	    formData.append('url', formUrl);
+	    var cityID = $('[data-city-id]').data('city-id');
+	    formData.append('cityID', cityID);
 
 	    for (var pair of formData.entries()) {
-		    // console.log(pair[0]+ ', ' + pair[1]); 
+		    console.log(pair[0]+ ', ' + pair[1]); 
 		}
 
 	    $.ajax({

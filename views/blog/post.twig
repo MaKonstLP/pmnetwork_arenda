@@ -1,0 +1,23 @@
+<div data-page-type="post">
+
+  <div class="breadcrumbs">
+    <div class="breadcrumbs_listing">
+      <ul class="breadcrumb_ul">
+
+      <li>
+          <a href="/blog/">Статьи блога</a>
+      </li>
+        {# {% for link,name in seo.breadcrumbs %}
+          <li>
+            <a href="{{link}}">{{name}}</a>
+          </li>
+        {% endfor %} #}
+      </ul>
+    </div>
+  </div>
+
+  <div class="post_wrapper">
+    {{ post.getHtml()|raw}}
+  </div>
+
+</div>

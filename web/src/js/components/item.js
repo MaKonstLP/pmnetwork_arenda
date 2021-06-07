@@ -10,12 +10,12 @@ export default class Item{
 		
 		$('[data-action="show_phone"]').on('click', function(){
 			$('.object_book_hidden').addClass('_active');
-            ym(64598434,'reachGoal','show_phone');
-            gtag('event', 'show_phone');
-            if($(this).data('commission')){
-                ym(64598434,'reachGoal','show_phone_comm');
-                gtag('event', 'show_phone_comm');
-            }
+            ym(74721805,'reachGoal','show_phone_zala');
+            // gtag('event', 'show_phone');
+            // if($(this).data('commission')){
+            //     ym(64598434,'reachGoal','show_phone_comm');
+            //     gtag('event', 'show_phone_comm');
+            // }
 
 		});
 
@@ -89,5 +89,8 @@ export default class Item{
             });
         }
 
+        $('.object_real_phone').on('click', function(){
+            ym(74721805,'reachGoal','click_phone_zala');
+        });
 	}
 }

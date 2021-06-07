@@ -9,7 +9,7 @@ export default class Main{
 
 		$('body').on('click', '[data-open-popup-form]', function(){
 			$('.popup_wrap').addClass('_active');
-			//ym(64598434,'reachGoal','header_button');
+			ym(74721805,'reachGoal','click_podberite_mne_zal');
 			//gtag('event', 'header_button');
 		});
 
@@ -49,13 +49,16 @@ export default class Main{
 
 		});
 
-	$(document).on('click', function(e) {
-  if (!$(e.target).closest(".city_select_wrapper").length && !$(e.target).closest(".city").length) {
-    $('.city_select_search_wrapper').addClass('_hide'); // скрываем его
-	$('[data-city-dropdown]').removeClass('_active');
-  }
-  e.stopPropagation();
-});
+		$(document).on('click', function(e) {
+			if (!$(e.target).closest(".city_select_wrapper").length && !$(e.target).closest(".city").length) {
+				$('.city_select_search_wrapper').addClass('_hide'); // скрываем его
+				$('[data-city-dropdown]').removeClass('_active');
+			}
+			e.stopPropagation();
+		});
 
+		$('[data-layout-phone]').on('click', function(){
+			ym(74721805,'reachGoal','click_phone_call_centra');
+		});
 	}
 }

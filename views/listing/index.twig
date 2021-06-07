@@ -73,7 +73,7 @@
 
 	<div class="content_block _listing_form">
 		
-		{{ this.render('//components/generic/form.twig') | raw }}
+		{{ this.render('//components/generic/form.twig', {'type' : 'index'}) | raw }}
 
 	</div>
 
@@ -83,7 +83,7 @@
 
 		<input type="checkbox" id="button_see_all">
 
-		<div class="bottom_text">
+		<div class="bottom_text" data-seo-text>
 
 			{% if seo.text_1 != "" %}
 
@@ -97,6 +97,6 @@
 
 	<div class="content_loading"></div>
 
-	{{ this.render('//components/generic/callback.twig') | raw }}
+	{{ this.render('//components/generic/callback.twig', {'phone': phone, 'prettyPhone': prettyPhone}) | raw }}
 
 </div>

@@ -84,7 +84,7 @@ class ItemController extends Controller
 			'changedStrings' => $changedStrings,
 			'parking' => $parking,
 			'other_rooms' => $other_rooms,
-			'similar_rooms' => $similar_rooms
+			'similar_rooms' => $similar_rooms,
 		));
 	}
 

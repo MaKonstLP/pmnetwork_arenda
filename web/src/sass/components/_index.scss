@@ -511,7 +511,7 @@
         flex-flow: row;
         align-items: flex-start;
         width: 288px;
-        margin: auto;
+        margin: 12px auto 12px auto;
       }
     }
 
@@ -532,7 +532,7 @@
       @include for-mobile {
         width: 48px;
         height: 48px;
-        margin-bottom: 24px;
+        margin: auto 0 auto 0;
       }
 
       p {
@@ -568,8 +568,10 @@
 
     .arrow_ball {
       background-image: url(/images/index/steps_arrow.svg);
+      background-size: contain;
+      background-repeat: no-repeat;
       width: 249px;
-      height: 12px;
+      height: 10px;
       margin-top: calc(4.5% - 6px);
 
       @include for-pad {
@@ -606,8 +608,7 @@
         line-height: 18px;
       }
       @include for-mobile {
-        margin-left: 8px;
-        margin-top: 15px;
+        margin: auto 0 auto 8px;
         width: 80%;
       }
     }

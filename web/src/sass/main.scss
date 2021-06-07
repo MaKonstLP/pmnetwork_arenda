@@ -25,6 +25,16 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Fira Sans Bold';
+  src: url('/fonts/arendazala/FiraSans-Bold.eot');
+  src: url('/fonts/arendazala/FiraSans-Bold.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/arendazala/FiraSans-Bold.woff') format('woff'),
+       url('/fonts/arendazala/FiraSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  }
+
 body {
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -657,5 +667,37 @@ h4,
   &:hover {
     border-bottom: 1px solid #69f5ff;
     color: #69f5ff;
+  }
+}
+
+[data-seo-text]{
+
+  h2{
+    padding: 25px 0 10px 0;
+  }
+
+  p{
+    padding: 0 0 5px 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  ul,ol{
+    padding: 0 0 5px 30px;
+  }
+
+  li{
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  a{
+    color: #4472e6;
+    border-bottom: 1px solid rgba(68, 113, 230, 0.8);
+    
+    &:hover{
+      color: #608dff;
+      border-bottom: 1px solid #608dff;
+    }
   }
 }

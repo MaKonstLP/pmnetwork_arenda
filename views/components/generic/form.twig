@@ -7,17 +7,24 @@
 
 		<div class="form_title">
 
-			<p class="form_title_main">Бесплатно забронировать <br class="mobile_only"/> это место</p>
-			{# <p class="form_title_text">Наши менеджеры <span class="form_title_desc">бесплатно</span> подберут оптимальный вариант. Заполните форму, и мы свяжемся с вами.</p> #}
-			<p class="form_title_text">Заполните форму и мы свяжемся с вами в ближайшее время.</p>
-
+			{% if type == 'index' %}
+				<p class="form_title_main">Трудности с выбором зала?</p>
+				<p class="form_title_text">Наши менеджеры бесплатно подберут оптимальный вариант. Заполните форму, и мы свяжемся с вами.</p>
+			{% elseif type == 'popup' %}
+				<p class="form_title_main">Помочь с выбором зала?</p>
+				{# <p class="form_title_text">Заполните форму и мы свяжемся с вами в ближайшее время.</p> #}
+			{% elseif type == 'item' %}
+				<p class="form_title_main">Бесплатно забронировать <br class="mobile_only"/> это место</p>
+				<p class="form_title_text">Заполните форму и мы свяжемся с вами в ближайшее время.</p>
+			{% endif %}
+			
 		</div>
 
 		<!-- <div class="form_title">
 			<p class="form_title_main">Трудности с выбором зала?</p>
 		</div> -->
 
-		<form class="form_block" action="/ajax/form/" data-type={% if type != 'item' %}"main"{% else %}"item"{% endif %}>
+		<form class="form_block" action="/ajax/form/" data-type={{ type }}>
 
 			<div class="form_inputs">
 
@@ -76,7 +83,7 @@
 				<div class="form_policy checkbox_item _active" data-form-privacy>
 
 					<input type="checkbox" name="policy" class="personalData" checked="">
-					<p class="checkbox_pseudo">Я согласен с <span> <a class="_link" href="/privacy/" target="_blank"> политикой обработки персональных данных</a></span></p>
+					<p class="checkbox_pseudo">Я согласен с <span> <a class="_link" href="https://arendazala.net/privacy/" target="_blank"> политикой обработки персональных данных</a></span></p>
 
 				</div>
 
