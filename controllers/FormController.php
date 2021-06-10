@@ -6,6 +6,7 @@ use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\helpers\Html;
+use common\models\elastic\LeadLogElastic;
 
 class FormController extends Controller
 {
@@ -47,27 +48,29 @@ class FormController extends Controller
     }
 
     public function sendApi($payload) {
-        //return [ 'payload' => $payload];
-
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, 'https://v.gorko.ru/api/arendazala/inquiry/put');
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
         curl_setopt($curl, CURLOPT_ENCODING, '');
-        $response = curl_exec($curl);
+        $response = json_decode(curl_exec($curl), true);
         $info = curl_getinfo($curl);
         curl_close($curl);
 
-        $log = file_get_contents('/var/www/pmnetwork/log/arendazala.log');
-        $log = json_decode($log, true);
-        $log[time()] = [
-            'response' => $response,
-            'info' => $info,
-            'payload' => $payload,
-        ];
-        $log = json_encode($log);
-        file_put_contents('/var/www/pmnetwork/log/arendazala.log', $log);
+        $log_arr = [];
+        $log_arr['source']      = 'arendazala';
+        $log_arr['payload']     = isset($response['payload']) ? json_encode($response['payload']) : 'Нет $response[payload]';
+        $log_arr['raw_payload'] = json_encode($payload);
+        $log_arr['response']    = json_encode($response);
+        $log_arr['timestamp']   = time();
+        $log_arr['code']        = isset($response['result']) ? json_encode($response['result']) : 'Нет $response[result]';
+        $log_arr['name']        = isset($payload['name']) ? $payload['name'] : 'Нет имени';
+        $log_arr['phone']       = isset($payload['phone']) ? json_encode($payload['phone']) : 'Нет телефона';
+        $log_arr['city_id']     = isset($payload['city_id']) ? json_encode($payload['city_id']) : 'Нет city_id';
+
+        $leadLog = new LeadLogElastic();
+        $leadLog::addRecord($log_arr);
         
         return [
             'response' => $response,

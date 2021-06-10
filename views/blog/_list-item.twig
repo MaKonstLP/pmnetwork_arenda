@@ -1,0 +1,52 @@
+<div class="blog_item_wrapper">
+
+  <div class="blog_item">
+
+    <a href="{{ model.getUrl() }}">
+      <img class="blog_item_img" src="{{ model.getFileData('image').src }}" alt="{{ model.getFileData('image').alt }}">
+    </a>
+
+    <div class="blog_item_text_wrapper">
+
+      <div class="blog_item_title">
+
+        <a href="{{ model.getUrl() }}">
+          {{ model.name }}
+        </a>
+
+      </div>
+
+      <div class="blog_item_text">
+
+        {{ model.short_intro }}
+        
+      </div>
+
+      <div class="blog_item_date">
+
+        {% set month = {
+          "Jan": "января",
+          "Feb": "февраля",
+          "Mar": "марта",
+          "Apr": "апреля",
+          "May": "мая",
+          "Jun": "июня",
+          "Jul": "июля",
+          "Aug": "августа",
+          "Sept": "сентября",
+          "Oct": "октября",
+          "Nov": "ноября",
+          "Dec": "декабря",
+         } %}
+
+        {% set monthKey = model.published_at | date('M') %}
+
+        {{ model.published_at | date('d') }} {{ month[monthKey] }} {{ model.published_at | date('Y') }}
+
+      </div>
+
+    </div>
+
+  </div>
+    
+</div>

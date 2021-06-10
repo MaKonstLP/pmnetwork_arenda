@@ -2,6 +2,10 @@
   margin: 32px 0 0 0;
   color: #2C3044;
 
+  .breadcrumb_ul li{
+    margin: 0 0 12px 0;
+  }
+
   .post_wrapper{
     width: 944px;
     margin: 0 auto 0 auto;
@@ -136,6 +140,184 @@
     }
   }
 
+  .double-image-wrapper{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 0 0 24px 0;
+  }
+
+  .double-image-item{
+    display: block;
+    max-width: calc(50% - 12px);
+  }
+
+  .restaurant_adv_wrapper{
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0 0 32px 0;
+    font-size: 14px;
+    line-height: 20px;
+
+    table{
+      border-spacing: 15px 0;
+      margin: 0 0 0 -15px;
+    }
+  }
+
+  .items_list_listing.swiper-container .items_list{
+    margin: 0 0 0 0;
+  }
+
+  .object_gallery{
+    max-width: 560px;
+  }
+
+  .items_list_listing .items_list{
+    display: flex;
+  }
+
+  .listing_slider img{
+    width: 100%;
+    max-width: 560px;
+    height: 320px;
+  }
+  
+  .items_list_listing.swiper-container{
+    padding: 0 0 0 0;
+  }
+  
+  .adv_main_block{
+    width: 100%;
+    padding: 0 0 0 16px;
+
+    h4{
+      margin: 0 0 12px 0;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 24px;
+
+      span:last-of-type {
+        font-weight: 300;
+      }
+    }
+
+    td p{
+      margin: 0 0 8px 0;
+    }
+
+    td:first-of-type p{
+      font-weight: 700;
+    }
+  }
+
+  .address {
+    display: flex;
+    margin: auto;
+    margin-bottom: 8px;
+
+    &:before {
+      content: url(/images/map_content.png);
+      margin-top: 4px;
+    }
+
+    p {
+      font-family: $fontFamilyLato;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #4471e6;
+      margin: 0 16px 0 5px;
+      cursor: pointer;
+      text-align: center;
+
+      span {
+        border-bottom: 1px dashed #4471e6;
+      }
+    }
+  }
+
+  .listing_widget_controll {
+    display: flex;
+    position: absolute;
+    top: calc(48.5% - 16px);
+    width: 99.5%;
+    justify-content: space-between;
+    z-index: 1;
+    padding: 0 14px;
+
+    .listing_widget_arrow {
+      width: 32px;
+      height: 32px;
+    }
+
+    ._listing_prev {
+      background-image: url(/images/Slider_arrow_prev.png);
+    }
+    ._listing_next {
+      background-image: url(/images/Slider_arrow_next.png);
+    }
+  }
+
+  .object_more_info {
+    text-align: center;
+    
+    ._button{
+      padding: 12px 20px 12px 20px;
+    }
+  }
+
+  .object_main_info{
+    margin: 0 0 4px 0;
+  }
+
+  .mobile_main_info{
+    display: none;
+  }
+
+  .price-position{
+    position: absolute;
+    top: 259px;
+    right: -5px;
+    z-index: 10;
+  }
+
+  .price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 166px;
+    height: 53px;
+    background-image: url(/images/price_back.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    .item_meta_item {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+      display: flex;
+      align-items: center;
+      text-align: right;
+      color: #ffffff;
+      justify-content: center;
+    }
+
+    .rur:after {
+      font-family: Lato, sans-serif;
+      font-weight: 600;
+    }
+
+    .item_meta_text{
+      font-size: 16px;
+      line-height: 24px;
+      padding: 0 0 5px 0;
+    }
+  }
+
   @include for-notdesc{
     margin: 24px 0 0 0;
 
@@ -147,7 +329,6 @@
     .text_with_borders{
       padding: 16px 32px 0 24px;
     }
-
   }
 
   @include for-pad{
@@ -164,6 +345,62 @@
     .post_date{
       margin: 4px 0 0 0;
     }  
+
+    .listing_widget_controll{
+      top: calc(53% - 16px);
+
+      .listing_widget_arrow{
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+      }
+    }
+
+    .adv_main_block{
+  
+      td p{
+        margin: 0 0 4px 0;
+      }
+    }
+
+    .object_gallery{
+      max-width: 364px;
+      margin: 0 0 0 0;
+      padding: 0 0 0 0;
+    }  
+
+    .listing_slider img{
+      max-width: 364px;
+      height: 208px;
+    }
+
+    .address{
+      margin-bottom: 12px;
+    }
+
+    .price-position{
+      top: 147px;
+      right: -4px;
+    }
+  
+
+    .price{
+      margin-bottom: 23px;
+      margin-right: -1%;
+      width: 125px;
+      height: 40px;
+      display: flex;
+      flex-flow: column;
+      padding: 0;
+
+      .item_meta_item {
+        margin: auto;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+    }
+
   }
 
   @include for-mobile{
@@ -192,5 +429,109 @@
       height: 12px;
       background-position-x: center;
     }  
+
+    .listing_widget_controll{
+      top: calc(50% - 12px);
+
+      .listing_widget_arrow{
+        display: flex;
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+      }
+    }
+
+    .adv_main_block{
+      padding: 12px 0 0 0;
+
+      h4{
+        margin: 0 0 8px 0;
+      }
+    }
+
+    .address{
+      margin: 0 0 20px 0;
+
+      &:before{
+        margin: 2px 5px 0 0;
+      }
+
+      p{
+        margin: 0 0 0 0;
+        font-size: 14px;
+        line-height: 20px;
+        margin-left: 0px;
+      }
+    }
+
+    .price{
+      margin-bottom: 12px;
+      margin-right: -1%;
+      width: 125px;
+      height: 40px;
+      display: flex;
+      flex-flow: column;
+      padding: 0;
+
+      .item_meta_item{
+        margin: auto;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+
+    .restaurant_adv_wrapper{
+      flex-flow: column nowrap;
+    }
+
+    .object_gallery{
+      width: 100%;
+      height: 165px;
+      max-width: none;
+      margin: 0 0 0 0;
+      padding: 0 0 0 0;
+    }  
+
+    .listing_slider img{
+      max-width: none;
+      height: auto;
+    }
+
+    .price-position{
+      top: 117px;
+      right: -4px;
+    }
+
+    .object_main_info table{
+      display: none;
+    }
+
+    .mobile_main_info{
+      display: block;
+
+      p,
+      span{
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      p{
+        margin: 0 0 0 0;
+        font-weight: 700;
+      }
+
+      span{
+        display: inline-block;
+        margin: 0 0 8px 0;
+      }
+    }
+
+    .object_more_info ._button{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
   }
 }

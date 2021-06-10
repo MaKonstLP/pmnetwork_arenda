@@ -16,6 +16,31 @@
     </div>
   </div>
 
+  <h1>{{seo['heading']}}</h1>
+
+  <span class="post_date">
+  
+    {% set month = {
+    "Jan": "января",
+    "Feb": "февраля",
+    "Mar": "марта",
+    "Apr": "апреля",
+    "May": "мая",
+    "Jun": "июня",
+    "Jul": "июля",
+    "Aug": "августа",
+    "Sept": "сентября",
+    "Oct": "октября",
+    "Nov": "ноября",
+    "Dec": "декабря",
+    } %}
+
+    {% set monthKey = model.published_at | date('M') %}
+
+    {{ model.published_at | date('d') }} {{ month[monthKey] }} {{ model.published_at | date('Y') }}
+
+  </span>
+
   <div class="post_wrapper">
     {{ post.getHtml()|raw}}
   </div>

@@ -126,6 +126,7 @@ Allow: */css/
 Allow: */js/
 Disallow: *rest_type=
 Disallow: *prazdnik=
+Disallow: /blog
 Sitemap: https://' . $subdomen_alias . 'arendazala.net/sitemap/';
         exit;
     }

@@ -81,39 +81,7 @@ window.$ = $;
 			id: 2,         
 		});
 
-		// const end = datepicker('.popup_form .form_wrapper .hidden_input_two', {
-		// 	startDay : 1 ,    
-		// 	customDays : [ 'ВС' , 'ПН' , 'ВТ' , 'СР' , 'ЧТ' , 'ПТ' , 'СБ' ],
-		// 	customMonths : [ ' Январь ' , ' Февраль ' , ' Март ' , ' Апрель ' , ' Май ' , ' Июнь ' , ' Июль ' , ' Август ' , ' Сентябрь ' , ' Октябрь ' , ' Ноябрь ' , ' Декабрь ' ],
-		// 	formatter: (input, date, instance) => {
-		// 		const value = date.toLocaleDateString()
-		// 		input.value = value // => '1/1/2099'
-		// 	},
-		// 	showAllDates: true,
-		// 	disableYearOverlay : true,
-		// 	position : 'br',
-		// 	id: 2,         
-		// });
-
-		// start.getRange(); // { start: <JS date object>, end: <JS date object> }
-		// end.getRange(); // Gives you the same as above!
-
-
-		const datapicker = datepicker('.content_block .form_wrapper .hidden_input', {
-			startDay : 1 ,    
-			customDays : [ 'ВС' , 'ПН' , 'ВТ' , 'СР' , 'ЧТ' , 'ПТ' , 'СБ' ],
-			customMonths : [ ' Январь ' , ' Февраль ' , ' Март ' , ' Апрель ' , ' Май ' , ' Июнь ' , ' Июль ' , ' Август ' , ' Сентябрь ' , ' Октябрь ' , ' Ноябрь ' , ' Декабрь ' ],
-			formatter: (input, date, instance) => {
-				const value = date.toLocaleDateString()
-				input.value = value // => '1/1/2099'
-			},
-			showAllDates: true,
-			disableYearOverlay : true,
-			position : 'br',
-			id: 1,         
-		});
-
-		// const dataend = datepicker('.content_block .form_wrapper .hidden_input_two', {
+		// const datapicker = datepicker('.content_block .form_wrapper .hidden_input', {
 		// 	startDay : 1 ,    
 		// 	customDays : [ 'ВС' , 'ПН' , 'ВТ' , 'СР' , 'ЧТ' , 'ПТ' , 'СБ' ],
 		// 	customMonths : [ ' Январь ' , ' Февраль ' , ' Март ' , ' Апрель ' , ' Май ' , ' Июнь ' , ' Июль ' , ' Август ' , ' Сентябрь ' , ' Октябрь ' , ' Ноябрь ' , ' Декабрь ' ],
@@ -126,12 +94,6 @@ window.$ = $;
 		// 	position : 'br',
 		// 	id: 1,         
 		// });
-
-		// // const start = datepicker('#date', { id: 1 });
-		// // const end = datepicker('.open_calendar_button', { id: 1 });
-
-		// datapicker.getRange(); // { start: <JS date object>, end: <JS date object> }
-		// dataend.getRange(); // Gives you the same as above!
 
 	});
 })($);
