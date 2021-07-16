@@ -9,19 +9,24 @@ export default class Main{
 
 		$('body').on('click', '[data-open-popup-form]', function(){
 			$('.popup_wrap').addClass('_active');
+			$('body').addClass('_popup_mode');
+			$('.header_menu').removeClass('_active');
+			$('.header_burger').removeClass('_active');
 			ym(74721805,'reachGoal','click_podberite_mne_zal');
 			//gtag('event', 'header_button');
 		});
 
 		$('body').on('click', '[data-close-popup]', function(){
 			$('.popup_wrap').removeClass('_active');
+			$('body').removeClass('_popup_mode');
 		});
 
 		$('.header_burger').on('click', function(){
 			$('.header_menu').toggleClass('_active');
 			$('.header_burger').toggleClass('_active');
-			// $('.city_mobile').toggleClass('_active');
-		});
+			$('.city_select_search_wrapper').addClass('_hide');
+			$('[data-city-dropdown]').removeClass('_active');
+	});
 
 		$('body').on('click', '.city', function(){
 			
@@ -31,8 +36,8 @@ export default class Main{
 				
 				$('.city_select_search_wrapper').removeClass('_hide');
 				$('[data-city-dropdown]').addClass('_active');
-				$('.header_menu').toggleClass('_active');
-				$('.header_burger').toggleClass('_active');
+				// $('.header_menu').toggleClass('_active');
+				// $('.header_burger').toggleClass('_active');
 			}
 			else {
 				
@@ -44,8 +49,8 @@ export default class Main{
 		$('.back_to_header_menu').on('click', function(){
 			$('.city_select_search_wrapper').addClass('_hide');
 			$('[data-city-dropdown]').removeClass('_active');
-			$('.header_menu').toggleClass('_active');
-			$('.header_burger').toggleClass('_active');
+			// $('.header_menu').toggleClass('_active');
+			// $('.header_burger').toggleClass('_active');
 
 		});
 
@@ -53,7 +58,13 @@ export default class Main{
 			if (!$(e.target).closest(".city_select_wrapper").length && !$(e.target).closest(".city").length) {
 				$('.city_select_search_wrapper').addClass('_hide'); // скрываем его
 				$('[data-city-dropdown]').removeClass('_active');
+
+				if (!$(e.target).closest(".header_menu._active").length && !$(e.target).closest(".header_burger._active").length) {
+				$('.header_menu').removeClass('_active');
+				$('.header_burger').removeClass('_active');
+				}
 			}
+
 			e.stopPropagation();
 		});
 

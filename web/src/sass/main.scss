@@ -701,3 +701,22 @@ h4,
     }
   }
 }
+
+body._popup_mode{
+  overflow: hidden !important;
+  padding: 0 17px 0 0;
+
+  header .right_block{
+    margin-right: 57px;
+  }
+
+  @include for-notdesc{
+    padding: 0 0 0 0;
+  }
+
+  @include for-pad {
+    header .right_block{
+      margin-right: 68px;
+    }
+  }
+}

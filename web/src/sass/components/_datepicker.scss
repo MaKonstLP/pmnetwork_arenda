@@ -15,7 +15,7 @@ $lightblue: lightblue;
   color: black;
   position: absolute;
   width: 373px;
-  height: 350px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   z-index: 9001;
@@ -30,6 +30,7 @@ $lightblue: lightblue;
   @include for-mobile{
     margin-left: 12px;
     width: 280px;
+    height: 287px;
   }
 
   &::before{
@@ -297,7 +298,10 @@ $lightblue: lightblue;
   border-radius: 50%;
 
   @include for-mobile{
-    width: 19px;
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+    margin-right: 3px;
   }
 
   &:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active) {
@@ -317,7 +321,7 @@ $lightblue: lightblue;
     color: #2C3044;
 
     @include for-mobile{
-      font-size: 10px;
+      font-size: 16px;
     }
   }
 }
@@ -423,7 +427,9 @@ $lightblue: lightblue;
   margin-right: 8px;
 
   @include for-mobile{
-    font-size: 8px;
+    margin-left: 3px;
+    margin-right: 3px;
+    font-size: 10px;
   }
 }
 

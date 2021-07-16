@@ -43,6 +43,16 @@
     line-height: 24px;
   }
 
+  a{
+    color: #4471e6;
+    border-bottom: 1px solid rgba(68,113,230,.8);
+  }
+
+  a:hover{
+    color: #608dff;
+    border-bottom: 1px solid #608dff;
+  }
+
   p{
     margin: 0 0 24px 0;
     font-size: 16px;
@@ -221,7 +231,7 @@
       margin-top: 4px;
     }
 
-    p {
+    a {
       font-family: $fontFamilyLato;
       font-style: normal;
       font-weight: 400;
@@ -230,7 +240,8 @@
       color: #4471e6;
       margin: 0 16px 0 5px;
       cursor: pointer;
-      text-align: center;
+      border: none;
+      // text-align: center;
 
       span {
         border-bottom: 1px dashed #4471e6;

@@ -2,12 +2,13 @@
 use frontend\modules\arenda\models\ElasticItems;
 
 $elastic_model = new ElasticItems;
-$item = $elastic_model::get($text_id);
+// $item = $elastic_model::get($text_id);
 
+$slug = str_replace('hall-', '', $text_id);
 $item = ElasticItems::find()->query([
   'bool' => [
     'must' => [
-      ['match' => ['id' => $text_id]],
+      ['match' => ['slug' => $slug]],
     ],
   ]
 ])->one();

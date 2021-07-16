@@ -45,10 +45,10 @@ export default class Form {
 		// 	});
 		// });
 
-		this.$form.find('[data-calendar-input-wrapper]').on('click' , function(){
-			console.log('open calendar');
+		// this.$form.find('[data-calendar-input-wrapper]').on('click' , function(){
+		// 	console.log('open calendar');
 
-		});
+		// });
 
 		// this.$form.find('[data-form-hidden-input]').on('click' , function(){
 		// 	let parent = $(this).closest('.input_wrapper');

@@ -11,7 +11,7 @@
 				<p class="form_title_main">Трудности с выбором зала?</p>
 				<p class="form_title_text">Наши менеджеры бесплатно подберут оптимальный вариант. Заполните форму, и мы свяжемся с вами.</p>
 			{% elseif type == 'popup' %}
-				<p class="form_title_main">Помочь с выбором зала?</p>
+				<p class="form_title_main">Помочь с&nbsp;выбором&nbsp;зала?</p>
 				{# <p class="form_title_text">Заполните форму и мы свяжемся с вами в ближайшее время.</p> #}
 			{% elseif type == 'item' %}
 				<p class="form_title_main">Бесплатно забронировать <br class="mobile_only"/> это место</p>
@@ -54,7 +54,7 @@
 
 					<div class="input_label">Желаемая дата <span class="not-necessery_mobile"> (необязательно)</span></div>
 					<input type="text" name="date" class="addCalendar" autocomplete="off" />
-					<input type="text" name="date_hidden" class="hidden_input _active" autocomplete="off" data-form-hidden-input />
+					<input type="text" name="date_hidden" class="hidden_input _active" autocomplete="off" data-form-hidden-input readonly/>
 
 					<div class="calendar_wrapper">
 						<div class="open_calendar_button"></div>

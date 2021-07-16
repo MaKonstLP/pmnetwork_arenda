@@ -81,19 +81,19 @@ window.$ = $;
 			id: 2,         
 		});
 
-		// const datapicker = datepicker('.content_block .form_wrapper .hidden_input', {
-		// 	startDay : 1 ,    
-		// 	customDays : [ 'ВС' , 'ПН' , 'ВТ' , 'СР' , 'ЧТ' , 'ПТ' , 'СБ' ],
-		// 	customMonths : [ ' Январь ' , ' Февраль ' , ' Март ' , ' Апрель ' , ' Май ' , ' Июнь ' , ' Июль ' , ' Август ' , ' Сентябрь ' , ' Октябрь ' , ' Ноябрь ' , ' Декабрь ' ],
-		// 	formatter: (input, date, instance) => {
-		// 		const value = date.toLocaleDateString()
-		// 		input.value = value // => '1/1/2099'
-		// 	},
-		// 	showAllDates: true,
-		// 	disableYearOverlay : true,
-		// 	position : 'br',
-		// 	id: 1,         
-		// });
+		const datapicker = datepicker('.content_block .form_wrapper .hidden_input', {
+			startDay : 1 ,    
+			customDays : [ 'ВС' , 'ПН' , 'ВТ' , 'СР' , 'ЧТ' , 'ПТ' , 'СБ' ],
+			customMonths : [ ' Январь ' , ' Февраль ' , ' Март ' , ' Апрель ' , ' Май ' , ' Июнь ' , ' Июль ' , ' Август ' , ' Сентябрь ' , ' Октябрь ' , ' Ноябрь ' , ' Декабрь ' ],
+			formatter: (input, date, instance) => {
+				const value = date.toLocaleDateString()
+				input.value = value // => '1/1/2099'
+			},
+			showAllDates: true,
+			disableYearOverlay : true,
+			position : 'br',
+			id: 1,         
+		});
 
 	});
 })($);

@@ -24,16 +24,16 @@ class CustomController extends Controller
   public function actionCustom()
   {
 
-    $elastic_model = new ElasticItems;
-    // $item = $elastic_model::get($text_id);
+    // $elastic_model = new ElasticItems;
+    // // $item = $elastic_model::get($text_id);
 
-    $item = ElasticItems::find()->query([
-      'bool' => [
-        'must' => [
-          ['match' => ['id' => 256]],
-        ],
-      ]
-    ])->one();
+    // $item = ElasticItems::find()->query([
+    //   'bool' => [
+    //     'must' => [
+    //       ['match' => ['id' => 256]],
+    //     ],
+    //   ]
+    // ])->one();
 
     // foreach (Slices::find()->where(['type' => 'rest_type'])->all() as $slice){
     //   if (RestaurantsTypes::find()->where(['text' => $slice->h1])->exists()){
@@ -43,7 +43,7 @@ class CustomController extends Controller
     //   }
     // }
     echo '<pre>';
-    print_r($item);
+    print_r(Yii::$app->params['uploadSystemPath']);
     exit;
   }
 

@@ -88,6 +88,13 @@
 
 	@include for-notdesc{
 
+		.blog_item{
+
+			a{
+				align-self: center;
+			}
+		}
+
 		.blog_item_wrapper{
 			margin: 0 0 24px 0;
 		}

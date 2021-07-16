@@ -25,7 +25,7 @@ class MapAll extends BaseObject{
 			switch ($type) {
 				case 'restaurants':
 					foreach ($item->restaurant_images as $key => $image) {
-						$map_preview = $image['subpath'];
+						$map_preview = isset($image['subpath']) ? $image['subpath'] : '';
 						break;
 					}
 					array_push($this->coords['features'], [
@@ -47,7 +47,7 @@ class MapAll extends BaseObject{
 					break;
 				case 'rooms':
 					foreach ($item->images as $key => $image) {
-						$map_preview = $image['subpath'];
+						$map_preview = isset($image['subpath']) ? $image['subpath'] : '';
 						break;
 					}
 					array_push($this->coords['features'], [

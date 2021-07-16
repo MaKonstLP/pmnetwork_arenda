@@ -61,7 +61,7 @@ class BlogController extends Controller
 	{
 		$post = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'alias' => $alias])->one();
 
-		if (empty($post)) {
+		if (Yii::$app->params['subdomen_alias'] != '' || empty($post)) {
 			throw new \yii\web\NotFoundHttpException();
 		}
 

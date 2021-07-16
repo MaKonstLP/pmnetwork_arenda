@@ -659,6 +659,11 @@ $fontFamilyLato: Lato;
       }
     }
   }
+
+  #map_anchor{
+    position: absolute;
+    margin: -100px 0 0 0;
+  }
 }
 
 .item_description {
