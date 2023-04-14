@@ -1,0 +1,75 @@
+<div data-page-type="advertisement">
+	<div class="content_block" data-listing-text-top="">
+
+		<div class="title">
+			<h1>{{ seo.h1 | raw}}</h1>
+		</div>
+
+		<div class="seo_text _nowrap" data-seo-text="">
+			{{ seo.text_1 | raw}}
+		</div>
+
+		<div class="form_wrapper">
+			<div class="form_close" data-close-popup></div>
+
+			<div class="form_main">
+				<div class="form_title">
+					<p class="form_title_main">Заполните форму и мы свяжемся с вами в ближайшее время.</p>
+				</div>
+				<form class="form_block" action="/ajax/advertisement/" data-type="advertisement">
+					<div class="form_inputs">
+						<div class="input_wrapper">
+							{# <div class="input_label">Как вас зовут?</div> #}
+							<input type="text" name="name" placeholder="Ваши имя и фамилия" data-required/>
+						</div>
+
+						<div class="input_wrapper">
+							{# <div class="input_label">Как вас зовут?</div> #}
+							<input type="text" name="position" placeholder="Должность" data-required/>
+						</div>
+
+						<div class="input_wrapper">
+							{# <div class="input_label">Телефон</div> #}
+							<input type="text" name="phone" placeholder="Ваш телефон" data-required data-dynamic-placeholder/>
+						</div>
+
+						<div class="input_wrapper">
+							{# <div class="input_label">Как вас зовут?</div> #}
+							<input type="text" name="rest_name" placeholder="Название площадки" data-required/>
+						</div>
+						<div class="input_wrapper">
+							{# <div class="input_label">Как вас зовут?</div> #}
+							<input type="text" name="city" placeholder="Город" data-required/>
+						</div>
+					</div>
+
+					<div class="form_submit">
+						<input type="submit" class="_button" value="Отправить"/>
+
+						<div class="form_policy checkbox_item _active" data-form-privacy>
+							<input type="checkbox" name="policy" class="personalData" checked="">
+							<p class="checkbox_pseudo">
+								Я согласен с <span> <a class="_link" href="https://arendazala.net/privacy/" target="_blank"> политикой обработки персональных данных</a></span>
+							</p>
+						</div>
+					</div>
+
+					<input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />
+				</form>
+			</div>
+
+			<div class="form_success" data-success>
+				<div class="form_success_title">
+					<p class="form_success_title_main">Заявка отправлена</p>
+				</div>
+
+				<div class="form_success_text">
+					<p class="form_success_text_main"><span data-success-name></span>, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами в течение дня.</p>
+				</div>
+
+				<div class="form_success_close _link" data-success-close>Заполнить еще раз</div>
+			</div>
+		</div>
+
+	</div>
+</div>

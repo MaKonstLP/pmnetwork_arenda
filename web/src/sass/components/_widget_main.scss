@@ -129,20 +129,22 @@
 		}
 
 		.listing_widget_arrow{
+			cursor: pointer;
 			width: 24px;
-		    height: 24px;
+			height: 24px;
+			background-image: url(/images/item/arrow_wiget_next.svg);
 
-		    @include for-mobile{
-		    	display: none;
-		    }
+			@include for-mobile{
+				display: none;
+			}
 
-		    &._prev{
-		    	background-image: url(/images/item/arrow_wiget_prev.svg);
-		    }
+			&._prev{
+				transform: rotate(180deg);
+			}
 
-		    &._next{
-		    	background-image: url(/images/item/arrow_wiget_next.svg);
-		    }
+			&:hover{
+				background-image: url(/images/item/arrow_wiget_next_hover.svg);
+			}
 		}
 
 		.listing_widget_pagination{

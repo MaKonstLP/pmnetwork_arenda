@@ -1,5 +1,4 @@
 <div data-page-type="listing">
-
 	<div class="head_block">
 
 		<div class="breadcrumbs_listing" data-listing-breadcrumbs>
@@ -7,96 +6,116 @@
 		</div>
 
 		<div data-listing-title>
-
 			{{ this.render('//components/generic/title.twig', {'count':totalCount, 'seo':seo}) | raw }}
-			
 		</div>
 
-		<div class="content_block forFilter">
-
+		<div class="content_block forFilter {{ (sliceOnMapFlag) ? '_hidden' : '' }}">
 			{{filter | raw }}
-
 		</div>
 
 		<div class="for_mobile_filter_butt">
-
 			<div class="filter_mobile_wrapper index_form">
-
 				<div class="filter_mobile_button _button" data-filter-open><span class="filter_before">Фильтр заведений</span></div>
-
 			</div>
-
-		</div>	
+		</div>
 
 	</div>
 
-	<div class="items_list_listing" data-listing-wrapper>
+	<div class="items_list_listing" data-listing-wrapper data-seo="{{feature}}">
 
-		<div class="view_position">	
-
-			<div class="view" data-listing-switcher>
-
-				<div class="btn_list _left active" id="left">
-					<p class="list_btn left">Списком</p>
-				</div>
-
-				<div class="btn_list _right " id="right">
-					<p class="list_btn right">На карте</p>
-				</div>
-
-			</div>
-
+		<div data-tags>
+			{% if tags_list %}
+				{{ this.render('//components/generic/slices_top.twig', {'tags_top':tags_list}) | raw }}
+			{% endif %}
 		</div>
-
-    
-
-		<div class="items_list active" id="listing_on" data-listing-list>
-				
-			{{ this.render('//components/generic/listing.twig', {'items':items, 'img_alt':seo.img_alt}) | raw }}
 		
+
+		<div class="view_position">
+			<div class="view" data-listing-switcher>
+				{% if sliceOnMapFlag %}
+					<a href="/catalog/{{sliceAlias}}/" class="btn_list _left" id="left">
+						<p class="list_btn left">Списком</p>
+					</a>
+				{% else %}
+					<div class="btn_list _left active" id="left">
+						<p class="list_btn left">Списком</p>
+					</div>
+				{% endif %}
+
+				{% if mapPageExistFlag %}
+					<a href="/catalog/{{sliceAlias}}/map/" class="btn_list _right {{ (sliceOnMapFlag) ? 'active' : '' }}" id="right">
+						<p class="list_btn right">На карте</p>
+					</a>
+				{% else %}
+					<div class="btn_list _right {{ (sliceOnMapFlag) ? 'active' : '' }}" id="right">
+						<p class="list_btn right">На карте</p>
+					</div>
+				{% endif %}
+			</div>
 		</div>
 
-		<div class="content_block _listing_pag" id="pag"> 
+		{% if sliceOnMapFlag %}
+		{% else %}
 
-			<div data-pagination-wrapper>
-
-				{{pagination | raw }}
-
+			<div class="items_list active" id="listing_on" data-listing-list>
+				{{ this.render('//components/generic/listing.twig', {
+					'items':items, 
+					'img_alt':seo.img_alt, 
+					'feature':feature, 
+					'itemsHaveSpecPrice':itemsHaveSpecPrice, 
+					'prazdnik_type':prazdnik_type,
+					'page':'listing',
+					'slice_id':slice_id,
+					'prazdnik_option_id':prazdnik_option_id,
+					'rest_type_option_id':rest_type_option_id,
+					})|raw }}
 			</div>
 
-		</div>	
+			{# <div class="content_block _listing_pag" id="pag"> #}
+			<div class="_listing_pag" id="pag">
+				<div data-pagination-wrapper>
+					{{pagination | raw }}
+				</div>
+			</div>
+
+			{# <div style="display:none;" class="content_block loadmore" id="loadmore">  #}
+			<div class="loadmore" id="loadmore"> 
+				<div class="loadmore__wrap" data-loadmore>
+					{{loadMore | raw }}
+				</div>
+			</div>
+
+		{% endif %}
 
 		<!--Карта не та! Вставленна для примера, необходимо заменить! -->
-		<div class="map" id="map_on" data-map-api-subid="2" data-map></div>
-		 
+		<div class="map {{ (sliceOnMapFlag) ? 'active' : '' }}" id="map_on" data-map-api-subid="2" data-map></div>
 	</div>
 
-	<div class="content_block _listing_form">
-		
+	<div id="listing_form" class="content_block _listing_form">
 		{{ this.render('//components/generic/form.twig', {'type' : 'index'}) | raw }}
-
 	</div>
 
-	<div class="listing_text">
+	{% if seo.text_1 != '' %}
+		<div class="listing_text">
+			<label for="button_see_all"><span>Показать полностью</span></label>
+			<input type="checkbox" id="button_see_all">
 
-		<label for="button_see_all"><span>Показать полностью</span></label>
-
-		<input type="checkbox" id="button_see_all">
-
-		<div class="bottom_text" data-seo-text>
-
-			{% if seo.text_1 != "" %}
-
+			<div class="bottom_text" data-seo-text>
 				{{seo.text_1 | raw}}
-
-			{% endif %}
-
+			</div>
 		</div>
+	{% endif %}
 
-	</div>
+	<a href="#listing_form" class="help_btn _button scroll-to">
+		Помогите с выбором
+	</a>
 
 	<div class="content_loading"></div>
 
 	{{ this.render('//components/generic/callback.twig', {'phone': phone, 'prettyPhone': prettyPhone}) | raw }}
 
+	<div class="listing_feedback_form">
+		<div class="popup_layout" data-close-popup=""></div>
+		{{ this.render('//components/generic/form_help.twig', {'type': 'feedback',}) | raw }}
+	</div>
 </div>

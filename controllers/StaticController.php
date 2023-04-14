@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\arenda\controllers;
 
 use Yii;
@@ -20,13 +21,64 @@ class StaticController extends Controller
 			->one();
 
 		$seo = new Seo('privacy', 1);
-        $this->setSeo($seo->seo);
-
-		// echo '<pre>';
-		// print_r($seo);
-		// exit;
+		$this->setSeo($seo->seo);
 
 		return $this->render('privacy.twig', [
+			'page' => $page,
+			'seo' => $seo->seo,
+		]);
+	}
+
+	public function actionRequisites()
+	{
+		$page = Pages::find()
+			->where([
+				'type' => 'requisites',
+			])
+			->one();
+
+		$seo = new Seo('requisites', 1);
+		$this->setSeo($seo->seo);
+
+		return $this->render('requisites.twig', [
+			'page' => $page,
+			'seo' => $seo->seo,
+		]);
+	}
+
+	public function actionAdvertisement()
+	{
+		$page = Pages::find()
+			->where([
+				'type' => 'advertisement',
+			])
+			->one();
+
+		$seo = new Seo('advertisement', 1);
+		$this->setSeo($seo->seo);
+
+		return $this->render('advertisement.twig', [
+			'page' => $page,
+			'seo' => $seo->seo,
+		]);
+	}
+
+	public function actionAbout()
+	{
+		if (Yii::$app->params['subdomen_alias'] != '') {
+			return $this->redirect('https://' . Yii::$app->params['subdomen_alias'] . '.arendazala.net/', 301);
+		}
+
+		$page = Pages::find()
+			->where([
+				'type' => 'about',
+			])
+			->one();
+
+		$seo = new Seo('about', 1);
+		$this->setSeo($seo->seo);
+
+		return $this->render('about.twig', [
 			'page' => $page,
 			'seo' => $seo->seo,
 		]);
@@ -38,7 +90,8 @@ class StaticController extends Controller
 		Sitemap:  https://arenda.com/sitemap/  ';
 	}
 
-	private function setSeo($seo){
+	private function setSeo($seo)
+	{
 		$this->view->title = $seo['title'];
 		$this->view->params['desc'] = $seo['description'];
 		$this->view->params['kw'] = $seo['keywords'];

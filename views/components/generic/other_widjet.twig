@@ -1,31 +1,34 @@
 {% if items|length > 0 %}
 
-<div class="other" data-widget-wrapper>
+    <div class="other" data-widget-wrapper>
 
-    <div class="listing_widget_header">
-        <p class="listing_widget_title">Другие залы</p>
-        <p class="listing_widget_title _subtitle">{{restaurant_name}}</p>
-    </div>
-    <div class="items_list_listing swiper-container for_controllers" data-listing-wrapper>
-    <div class="listing_widget_controll">
-                <div class="listing_widget_arrow _prev"></div>
-                <div class="listing_widget_arrow _next"></div>
-    </div>
-</div>
-    <div class="items_list_listing swiper-container item_other_slider" data-listing-wrapper>
-  {#   <div class="listing_widget_controll">
-                <div class="listing_widget_arrow _prev"></div>
-                <div class="listing_widget_arrow _next"></div>
-    </div> #}
-        <div class="items_list swiper-wrapper" data-listing-list>
-            
-            {{ this.render('//components/generic/listing.twig', {'items':items, 'type':'other'}) | raw }}
+        <div class="listing_widget_header">
+            <p class="listing_widget_title">Другие залы</p>
+            <p class="listing_widget_title _subtitle">{{restaurant_name}}</p>
         </div>
+
+        <div class="items_list_listing swiper-container for_controllers" data-listing-wrapper>
+
+            <div class="listing_widget_controll">
+                <div class="listing_widget_arrow _prev"></div>
+                <div class="listing_widget_arrow _next"></div>
+            </div>
+
+        </div>
+
+        <div class="items_list_listing swiper-container item_other_slider" data-listing-wrapper>
+
+            <div class="items_list swiper-wrapper" data-listing-list>
+                
+                {{ this.render('//components/generic/listing.twig', {'items':items, 'type':'other'}) | raw }}
+            </div>
+
             <div class="listing_widget_controll _for_bullets">
                 <div class="listing_widget_pagination"></div>
             </div>
+
+        </div>
+                
     </div>
-            
-</div>
 
 {% endif %}

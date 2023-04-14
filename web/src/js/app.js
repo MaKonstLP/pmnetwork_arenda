@@ -9,16 +9,21 @@ import Form from './components/form';
 import YaMap from './components/map';
 import Errorpage from './components/error';
 // import CalendarCustom from './components/calendarCustom';
-import Callback from './components/callback';
+// import Callback from './components/callback';
 import Article from './components/article';
 import datepicker from 'js-datepicker';
 import Popular from './components/popular';
 import Post from './components/post';
+import Premium from './components/premium';
 
 window.$ = $;
 
-(function($) {
-  	$(function() {
+(function ($) {
+	$(function () {
+
+		if ($('[data-premium-rest]').length > 0) {
+			var premium = new Premium();
+		}
 
 		if ($('[data-page-type="listing"]').length > 0) {
 			var listing = new Listing($('[data-page-type="listing"]'));
@@ -47,10 +52,6 @@ window.$ = $;
 		if ($('[data-page-type="error"]').length > 0) {
 			var error = new Errorpage();
 		}
-		
-		if ($('[data-side-callback-form]').length > 0) {
-			var callbackk = new Callback();
-		}
 
 		if ($('[data-page-type="article"]').length > 0) {
 			var article = new Article($('[data-page-type="article"]'));
@@ -59,41 +60,43 @@ window.$ = $;
 		if ($('[data-page-type="post"]').length > 0) {
 			var post = new Post();
 		}
-			
+
 		var main = new Main();
 		var form = [];
 
-		$('form').each(function(){
+		$('form').each(function () {
 			form.push(new Form($(this)))
 		});
 
 		const start = datepicker('.popup_form .form_wrapper .hidden_input', {
-			startDay : 1,    
-			customDays : [ 'ВС' , 'ПН' , 'ВТ' , 'СР' , 'ЧТ' , 'ПТ' , 'СБ' ],
-			customMonths : [ ' Январь ' , ' Февраль ' , ' Март ' , ' Апрель ' , ' Май ' , ' Июнь ' , ' Июль ' , ' Август ' , ' Сентябрь ' , ' Октябрь ' , ' Ноябрь ' , ' Декабрь ' ],
+			startDay: 1,
+			customDays: ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
+			customMonths: [' Январь ', ' Февраль ', ' Март ', ' Апрель ', ' Май ', ' Июнь ', ' Июль ', ' Август ', ' Сентябрь ', ' Октябрь ', ' Ноябрь ', ' Декабрь '],
 			formatter: (input, date, instance) => {
 				const value = date.toLocaleDateString()
 				input.value = value // => '1/1/2099'
 			},
 			showAllDates: true,
-			disableYearOverlay : true,
-			position : 'br',
-			id: 2,         
+			disableYearOverlay: true,
+			position: 'br',
+			id: 2,
 		});
 
-		const datapicker = datepicker('.content_block .form_wrapper .hidden_input', {
-			startDay : 1 ,    
-			customDays : [ 'ВС' , 'ПН' , 'ВТ' , 'СР' , 'ЧТ' , 'ПТ' , 'СБ' ],
-			customMonths : [ ' Январь ' , ' Февраль ' , ' Март ' , ' Апрель ' , ' Май ' , ' Июнь ' , ' Июль ' , ' Август ' , ' Сентябрь ' , ' Октябрь ' , ' Ноябрь ' , ' Декабрь ' ],
-			formatter: (input, date, instance) => {
-				const value = date.toLocaleDateString()
-				input.value = value // => '1/1/2099'
-			},
-			showAllDates: true,
-			disableYearOverlay : true,
-			position : 'br',
-			id: 1,         
-		});
+		if ($('.content_block .form_wrapper .hidden_input').length) {
+			const datapicker = datepicker('.content_block .form_wrapper .hidden_input', {
+				startDay: 1,
+				customDays: ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
+				customMonths: [' Январь ', ' Февраль ', ' Март ', ' Апрель ', ' Май ', ' Июнь ', ' Июль ', ' Август ', ' Сентябрь ', ' Октябрь ', ' Ноябрь ', ' Декабрь '],
+				formatter: (input, date, instance) => {
+					const value = date.toLocaleDateString()
+					input.value = value // => '1/1/2099'
+				},
+				showAllDates: true,
+				disableYearOverlay: true,
+				position: 'br',
+				id: 1,
+			});
+		}
 
 	});
 })($);

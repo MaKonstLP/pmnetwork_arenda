@@ -24,8 +24,8 @@
 	border-radius: 4px;
 
 	@include for-mobile{
-		left: -116px;
-		width: 288px;
+		// left: -116px;
+		width: 153px;
 		height: auto;
 	}
 
@@ -93,6 +93,7 @@
 		}
 
 		@include for-mobile{
+			display: none;
 			left: 260px;
 		}
 	}
@@ -113,6 +114,13 @@
 	width: 374px;
 	padding: 16px 38px 24px 0;
 	box-shadow: none;
+
+	@include for-mobile{
+		width: 100%;
+		min-width: 153px;
+		padding: 0 0 0 0;
+
+	}
 }
 
 .ymaps-2-1-77-b-cluster-content{

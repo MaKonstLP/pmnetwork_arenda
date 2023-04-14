@@ -49,6 +49,14 @@ class Module extends \yii\base\Module
             Yii::$app->params['subdomen_phone'] = $subdomen_model->phone;
             Yii::$app->params['uploadFolder'] = 'upload';
         }
+
+        $noindex_global = false;
+        foreach ($_GET as $key => $value) {
+            if ($key != 'page' && $key != 'q') {
+                $noindex_global = true;
+            }
+        }
+        Yii::$app->params['noindex_global'] = $noindex_global;
             
         //Yii::$app->setLayoutPath('@app/modules/svadbanaprirode/layouts');
         //Yii::$app->layout = 'svadbanaprirode';

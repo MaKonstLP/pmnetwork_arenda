@@ -1,69 +1,64 @@
-<div class="filter_select">
-	
+{# {% if label != 'features' %} #}
+
+
+<div class="filter_select" >
 	<div class="filter_select_block" data-type="{{label}}" data-filter-select-block>
+		<div class="filter_select_current" data-filter-select-current>
+				<div class="close_x" data-filter-select-current-clean></div>
 
-        <div class="filter_select_current" data-filter-select-current>
+				{% if filter_item.active is not null %}
+					{% if filter_item.active|length > 1 %}
+						<p class="filter_p"></p>
+						<div class="quantity" data-quantity>
+							<span></span>
+						</div>
+					{% else %}
+						<p class="filter_p">{{filter_item.items[filter_item.active|keys|first]}}</p>
+						<div class="quantity _none" data-quantity>
+							<span></span>
+						</div>
+					{% endif %}
+				{% else %}
+					<p class="filter_p"></p>
+					<div class="quantity _none" data-quantity>
+						<span></span>
+					</div>
+				{% endif %}
+		</div>
 
-            <div class="close_x" data-filter-select-current-clean></div>
+		<div class="filter_select_list">
+			{% set categoryKey = '' %}
+			{% for key,value in filter_item.items %}
+				{% if filter_item.name == 'Площадка' and (key == 1 or key == 4 or key == 11 or key == 12 or key == 17) %}
 
-            {% if filter_item.active is not null %}
+					{% if key == 11 %}
+						<div class="filter_select_item _like_a_category {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item>
+							<p>{{value}}</p>
+						</div>
+					{% else %}
+						{% set categoryKey = key %}
+						<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{label ~ key}}" data-filter-select-category>
+							<p>{{value}}</p>
+						</div>
+					{% endif %}
 
-                {% if filter_item.active|length > 1 %}
+				{% elseif filter_item.name == 'Особенности' and (key == 1 or key == 21 or key == 32 or key == 36) %}
+				
+					{% set categoryKey = key %}
+					<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{label ~ key}}" data-filter-select-category>
+						<p>{{value|raw}}</p>
+					</div>
 
-                    <p class="filter_p"></p>
-                    <div class="quantity" data-quantity>
-                        <span></span>
-                    </div>
+				{% else %}
+					<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item data-category={{label ~ categoryKey}}>
+						<p>{{value}}</p>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
 
-                {% else %}
-
-                    <p class="filter_p">{{filter_item.items[filter_item.active|keys|first]}}</p>
-
-                {% endif %}
-
-            {% else %}
-
-                <p class="filter_p"></p>
-                <div class="quantity _none" data-quantity>
-                    <span></span>
-                </div>
-
-            {% endif %}
-
-        </div>
-
-        <div class="filter_select_list">
-
-            {% set categoryKey = '' %}
-
-        	{% for key,value in filter_item.items %}
-
-                {% if filter_item.name == 'Площадка' and (key == 1 or key == 4 or key == 10 or key == 11 or key == 16) %}
-
-                    {% if key == 10 %}
-
-        		    <div class="filter_select_item _like_a_category {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
-
-                    {% else %}
-
-                    {% set categoryKey = key %}
-
-                        <div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-category><p>{{value}}</p></div>
-
-                    {% endif %}
-
-                {% else %}
-
-        		    <div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item data-category={{categoryKey}}><p>{{value}}</p></div>
-
-                {% endif %}
-
-        	{% endfor %}
-
-        </div>
-
-        <p class="filter_label" data-filter-label>{{filter_item.name}}</p>
-
-    </div>
-
+		<p class="filter_label" data-filter-label>{{filter_item.name}}</p>
+	</div>
 </div>
+
+{# {% endif %} #}

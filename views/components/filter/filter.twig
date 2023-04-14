@@ -1,126 +1,177 @@
 <div class="filter" data-filter-wrapper>
-
 	<div class="filter_wrapper">
 
 		{% for label,filter_item in filters %}
-
 			{% if filter_item.type == 'select' %}
-
 				{{ this.render('filter_select.twig', {
 					'filter_item':filter_item,
 					'label':label,
 					'filter_active': filter_active
 				}) | raw }}
-
 			{% endif %}
-
 		{% endfor %}
 
-		<div class="filter_select">
-	
+		{# <div class="filter_select">
 			<div class="filter_select_block" data-filter-checkbox-block>
 
 				<div class="filter_select_current" data-filter-checkbox-wrapper>
-
 					<div class="close_x" data-filter-select-current-clean></div>
 					<p class="filter_p"></p>
 					<div class="quantity _none" data-quantity>
 						<span></span>
 					</div>
-
 				</div>
 
-				<div class="filter_select_list">
+				<div class="filter_select_list"> #}
 
-					<div class="filter_select_item _checkbox_item">
-
+					{# свой алкоголь #}
+					{# <div class="filter_select_item _checkbox_item">
 						<div class="checkbox_item custom_item {{filters['alko']['active'][1] is defined ? '_checked':''}}" data-type="alko" data-filter-checkbox-item>
 							<input type="checkbox" name="alko">
 							<p class="checkbox_pseudo custom_pseudo">{{ filters['alko']['items'][1] }}</p>
 						</div>
+					</div> #}
 
-					</div>
+					{# алкоголь в наличии #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['alko_stock']['active'][1] is defined ? '_checked':''}}" data-type="alko_stock" data-filter-checkbox-item>
+							<input type="checkbox" name="alko_stock">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['alko_stock']['items'][1] }}</p>
+						</div>
+					</div> #}
 
-					<div class="filter_select_item _checkbox_item">
+					{# у воды #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['near_water']['active'][1] is defined ? '_checked':''}}" data-type="near_water" data-filter-checkbox-item>
+							<input type="checkbox" name="near_water">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['near_water']['items'][1] }}</p>
+						</div>
+					</div> #}
+					
+					{# фуршет #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['furshet']['active'][1] is defined ? '_checked':''}}" data-type="furshet" data-filter-checkbox-item>
+							<input type="checkbox" name="furshet">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['furshet']['items'][1] }}</p>
+						</div>
+					</div> #}
+					
+					{# Велком зона #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['welcome_zone']['active'][1] is defined ? '_checked':''}}" data-type="welcome_zone" data-filter-checkbox-item>
+							<input type="checkbox" name="welcome_zone">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['welcome_zone']['items'][1] }}</p>
+						</div>
+					</div> #}
 
+					{# Сцена #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['scene']['active'][1] is defined ? '_checked':''}}" data-type="scene" data-filter-checkbox-item>
+							<input type="checkbox" name="scene">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['scene']['items'][1] }}</p>
+						</div>
+					</div> #}
+
+					{# караоке #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['karaoke']['active'][1] is defined ? '_checked':''}}" data-type="karaoke" data-filter-checkbox-item>
+							<input type="checkbox" name="karaoke">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['karaoke']['items'][1] }}</p>
+						</div>
+					</div> #}
+
+					{# Выездная регистрация #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['outside_registration']['active'][1] is defined ? '_checked':''}}" data-type="outside_registration" data-filter-checkbox-item>
+							<input type="checkbox" name="outside_registration">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['outside_registration']['items'][1] }}</p>
+						</div>
+					</div> #}
+
+					{# Wi-Fi / интернет #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['wi_fi']['active'][1] is defined ? '_checked':''}}" data-type="wi_fi" data-filter-checkbox-item>
+							<input type="checkbox" name="wi_fi">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['wi_fi']['items'][1] }}</p>
+						</div>
+					</div> #}
+
+					{# с подарком #}
+					{# <div class="filter_select_item _checkbox_item">
 						<div class="checkbox_item custom_item {{filters['gift']['active'][1] is defined ? '_checked':''}}" data-type="gift" data-filter-checkbox-item>
 							<input type="checkbox" name="alko">
 							<p class="checkbox_pseudo custom_pseudo">{{ filters['gift']['items'][1] }}</p>
 						</div>
+					</div> #}
 
-					</div>
+					{# Музыкальное оборудование #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['music_equipment']['active'][1] is defined ? '_checked':''}}" data-type="music_equipment" data-filter-checkbox-item>
+							<input type="checkbox" name="music_equipment">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['music_equipment']['items'][1] }}</p>
+						</div>
+					</div> #}
 
-				</div>
+					{# Проектор #}
+					{# <div class="filter_select_item _checkbox_item">
+						<div class="checkbox_item custom_item {{filters['projector']['active'][1] is defined ? '_checked':''}}" data-type="projector" data-filter-checkbox-item>
+							<input type="checkbox" name="projector">
+							<p class="checkbox_pseudo custom_pseudo">{{ filters['projector']['items'][1] }}</p>
+						</div>
+					</div> #}
+
+				{# </div>
 
 				<p class="filter_label">Особенности</p>
 
 			</div>
-
-		</div>
+		</div> #}
 
 
 		<div class="filter_submit">
-
 			<div class="filter_submit_button _button" data-filter-button>Применить</div>
-			<div class="clean_filter" data-clean >Сбросить</div>
-
+			<p class="clean_filter" data-clean >Сбросить</p>
 		</div>
 
 		<div class="form_close" data-filter-close></div>
-
 	</div>
-
 </div>
 
 <script type="text/javascript">
 </script>
 
 <div class="filter_mobile" data-filter-wrapper>
-
 	<div class="filter_wrapper_mobile">
 
-		<p class="pseudo_h4">Фильтр мероприятий</p>
-
+		<p class="pseudo_h4">Фильтр заведений</p>
 		{% for label,filter_item in filters %}
-
-
-			{% if filter_item.type == 'select' %}	
-
+			{% if filter_item.type == 'select' %}
 				{{ this.render('filter_select_mobile.twig', {
 					'filter_item':filter_item,
 					'label':label,
 					'filter_active': filter_active
 				}) | raw }}
-
 			{% endif %}
-
-
 		{% endfor %}
 
-		<div class="filter_select">
-	
+		{# <div class="filter_select">
 			<div class="filter_select_block" data-filter-checkbox-block>
-
 				<p class="filter_label">Особенности</p>
 
 				<div class="filter_select_list">
 
 					<div class="filter_select_item _checkbox_item">
-
 						<div class="checkbox_item custom_item {{filters['alko']['active'][0] is defined ? '_checked':''}}" data-type="alko" data-filter-checkbox-item>
 							<input type="checkbox" name="alko">
 							<p class="checkbox_pseudo custom_pseudo">{{ filters['alko']['items'][1] }}</p>
 						</div>
-
 					</div>
 
 					<div class="filter_select_item _checkbox_item">
-
 						<div class="checkbox_item custom_item {{filters['gift']['active'][1] is defined ? '_checked':''}}" data-type="gift" data-filter-checkbox-item>
 							<input type="checkbox" name="alko">
 							<p class="checkbox_pseudo custom_pseudo">{{ filters['gift']['items'][1] }}</p>
 						</div>
-
 					</div>
 
 				</div>
@@ -128,20 +179,14 @@
 				<div class="clean_this_filter" data-clean-mobile>
 					<span>Сбросить</span>
 				</div>
-
 			</div>
-
-		</div>
+		</div> #}
 
 		<div class="filter_submit">
-
-		    <div class="filter_submit_button _button" data-filter-button>Показать {{count}}</div>
-		    <div class="clean_filter" data-clean ><span>Сбросить фильтр</span></div>
-
+			<div class="filter_submit_button _button" data-filter-button>Показать {{count}}</div>
+			<div class="clean_filter" data-clean ><span>Сбросить фильтр</span></div>
 		</div>
 
 		<div class="form_close" data-filter-close></div>
-
 	</div>
-
 </div>

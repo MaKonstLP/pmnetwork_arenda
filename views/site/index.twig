@@ -14,13 +14,21 @@
 		<div class="tags">
 
 			{% for slice in slices_for_tag %}
-
 				<a href="/catalog/{{slice.alias}}/" class="tag">
 					<p>{{slice.text}}</p>
 					<p class="num">{{slice.count}}</p>
 				</a>
-
 			{% endfor %}
+
+			<a href="/catalog/gde-otmetit-8-marta/" class="tag">
+				<p>Отметить 🌼8 марта</p>
+			</a>
+			<a href="/catalog/gde-otmetit-den-svyatogo-valentina/" class="tag">
+				<p>Отметить ❤️14 февраля</p>
+			</a>
+			<a href="/catalog/gde-otmetit-23-fevralya/" class="tag">
+				<p>Отметить 🧦23 февраля</p>
+			</a>
 
 		</div>
 
@@ -99,6 +107,10 @@
 
 			</div>
 
+		</div>
+
+		<div class="items_list active" id="listing_on" data-listing-list>
+			{{ this.render('//components/generic/listing.twig', {'items':items, 'img_alt':seo.img_alt, 'feature':feature}) | raw }}
 		</div>
 
 		<div class="bottom_text_index" id="mobile_but_all" data-seo-text>

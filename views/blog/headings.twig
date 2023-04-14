@@ -1,0 +1,13 @@
+<p><strong>Содержание статьи:</strong></p>
+
+<ul>
+
+  {% for heading in headings %}
+
+    <li class="chapter_link_wrapper">
+      <a class="chapter_link _menu_link_dashed_black" href="#{{heading.alias}}">{{heading.heading}}</a>
+    </li>
+
+  {% endfor %}
+
+</ul>

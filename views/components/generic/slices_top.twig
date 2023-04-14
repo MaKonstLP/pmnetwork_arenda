@@ -1,0 +1,8 @@
+<div class="tags" data-tags>
+	{% for tag in tags_top %}
+		<a href="/catalog/{% if tag.alias %}{{tag.alias}}/{% else %}{{tag.url}}{% endif %}" class="tag">
+			<p>{{tag.h1}}</p>
+			<p class="num">{{tag.count}}</p>
+		</a>
+	{% endfor %}
+</div>

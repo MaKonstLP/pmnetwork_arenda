@@ -1,271 +1,337 @@
-footer{
-    font-size: 14px;
-    border-top: 1px solid rgba(176,176,176, .25);
-    position: relative;
-    z-index: 10;
+footer {
+	font-size: 14px;
+	border-top: 1px solid rgba(176, 176, 176, 0.25);
+	position: relative;
+	z-index: 10;
 
-    @include for-pad{
-        
-    }
+	.footer_wrap {
+		padding: 30px 0px;
+		padding-top: 19px;
+		background: radial-gradient(110.28% 287.99% at -3.85% 0%, #3d9cc5 0%, #192a68 100%),
+			linear-gradient(101.68deg, #ff372f -6.81%, #883186 101.8%), #29edb2;
 
-    @include for-mobile{
-        
-    }
+		@include for-pad {
+			// height: 85px;
+			// padding-top: 2px;
+		}
+		@include for-mobile {
+			padding-top: 10px;
+			padding-bottom: 25px;
+		}
 
-    .footer_wrap{
-        padding: 30px 0px;
-        padding-top: 19px;
-        background: radial-gradient(110.28% 287.99% at -3.85% 0%, #3D9CC5 0%, #192A68 100%), linear-gradient(101.68deg, #FF372F -6.81%, #883186 101.8%), #29EDB2;
+		.footer_row {
+			display: flex;
+			justify-content: space-between;
+			// align-items: center;
 
-        @include for-pad{
-            height: 85px;
-            padding-top: 2px;
-        }
-        @include for-mobile{
-            padding-top: 10px;
-            padding-bottom: 25px;
-        }
+			@include for-notdesc {
+				flex-wrap: wrap;
+			}
 
-        .footer_row{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            @include for-mobile{
-                flex-direction: column-reverse;
-            }
+			@include for-mobile {
+				flex-direction: column-reverse;
+			}
 
-            .footer_block{
+			.footer_block {
+				.for_form_footer {
+					&:before {
+						content: url("/images/confetti.svg");
+					}
+				}
 
+				&._left {
+					display: flex;
+					align-items: center;
+					flex: 0 0 520px;
+					height: fit-content;
 
+					@include for-mobile {
+						flex: 0 0 auto;
+					}
+				}
 
-                .for_form_footer{
+				&._right {
+					display: flex;
+					flex-direction: column;
+					align-items: flex-end;
+					flex: 0 0 280px;
+					margin-right: 39px;
+					margin-top: 6px;
 
-                    &:before{
-                        content: url("/images/confetti.svg")
-                    }
-                }
-
-                &._left{
-                    display: flex;
-                    align-items: center;
-
-                    @include for-mobile{
-                        padding-right: 7px;
-                    }                  
-                }
-
-                &._right{
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    margin-right: 39px;
-                    margin-top: 6px;
-
-                    @include for-pad{
-                    margin-right: 13px;
-                    margin-top: 14px;
-                    }
-
-                    @include for-mobile{
-                        align-items: center;
-                        margin-bottom: 10px;
-                    }
-                }
-
-                .footer_logo{
-                    margin-right: 36px;
-                    display: flex;
-
-                    @include for-pad{
-                            margin-right: 19px;
-                    }
-
-                    .logo_text{
-                    font-size: 29px;
-                    line-height: 21px;
-
-                    @include for-pad{
-                        line-height: 22px;
-                    }
-                    }
-
-
-
-                    @include for-mobile{
-                        display: none;
-                    }
-
-                    .footer_logo_img{
-                        width: 50px;
-                        height: 50px;
-                        background-image: url(/images/logo_img.svg);
-                        background-size: contain;
-                        filter: hue-rotate(0deg);
-                        transition: filter 0.2s ease;
-                        margin-left: 31px;
-                        margin-right: 2px;
-
-                        @include for-pad{
-                            margin-left: 8px;
-                        }
-                    }
-                    &:hover .footer_logo_img{
-                        filter: hue-rotate(25deg);
-                    }
-                }
-
-                .footer_info{
-                    padding-top: 4px;
-
-                    @include for-pad{
-                    }
-
-                	.footer_copy{
-                    font-family: Lato;
-					font-style: normal;
-					font-weight: normal;
-					font-size: 12px;
-					line-height: 14px;
-					color: #D2FCFF;
-
-                    @include for-mobile{
-                        line-height: 14px;
-                    }
+					@include for-lowdesc {
+						flex: 0 0 210px;
 					}
 
-					.footer_pc{
-
-						
-							font-family: Lato;
-							font-style: normal;
-							font-weight: normal;
-							font-size: 12px;
-							line-height: 20px;
-							color: #FFFFFF;
-							border-bottom: 1px solid #FFFFFF30;
-						
+					@include for-pad {
+						margin-right: 13px;
+						margin-top: 14px;
 					}
 
-                    @include for-mobile{
-                        text-align: center;
-                    }
-                }
+					@include for-mobile {
+						flex: 0 0 auto;
+						align-items: center;
+						margin-bottom: 10px;
+						margin-right: 0;
+					}
+				}
 
-                .footer_phone{                       
-                    padding: 0px 0px 0px 25px;
-                    background-position: 0px 50%;
-                    background-repeat: no-repeat;
-                    margin-bottom: 3px;
+				.footer_logo {
+					display: flex;
+					margin-right: 36px;
 
-                    @include for-pad{
-                  
-                    padding-left: 10px;
-                    }
+					@include for-pad {
+						margin-right: 19px;
+					}
 
-                    @include for-mobile{
-                    padding: 1px 0 0 38px;
-                    margin-bottom: 4px;
-                    }
+					.logo_text {
+						font-size: 29px;
+						line-height: 21px;
 
-                    p{
-                        font-family: Lato;
+						@include for-pad {
+							line-height: 22px;
+						}
+					}
+
+					@include for-mobile {
+						display: none;
+					}
+
+					.footer_logo_img {
+						width: 50px;
+						height: 50px;
+						background-image: url(/images/logo_img.svg);
+						background-size: contain;
+						filter: hue-rotate(0deg);
+						transition: filter 0.2s ease;
+						margin-left: 31px;
+						margin-right: 2px;
+
+						@include for-pad {
+							margin-left: 8px;
+						}
+					}
+					&:hover .footer_logo_img {
+						filter: hue-rotate(25deg);
+					}
+				}
+
+				.footer_info {
+					padding-top: 4px;
+
+					@include for-mobile {
+						text-align: center;
+						margin: 0 auto;
+					}
+
+					.footer_copy {
+						font-family: Lato;
+						font-style: normal;
+						font-weight: normal;
+						font-size: 12px;
+						line-height: 14px;
+						color: #d2fcff;
+
+						@include for-mobile {
+							line-height: 14px;
+						}
+					}
+
+					.footer_pc {
+						display: block;
+						width: fit-content;
+						font-family: Lato;
+						font-style: normal;
+						font-weight: normal;
+						font-size: 12px;
+						line-height: 14px;
+						color: #ffffff;
+						border-bottom: 1px solid #ffffff30;
+						margin: 4px 0;
+
+						@include for-mobile {
+							margin: 4px auto;
+						}
+
+						&:hover {
+							color: #69f5ff;
+							border-bottom: 1px solid #69f5ff75;
+						}
+					}
+
+					
+				}
+
+				.footer_phone {
+					position: relative;
+					// padding: 0px 0px 0px 25px;
+					background-position: 0px 50%;
+					background-repeat: no-repeat;
+					margin-bottom: 3px;
+
+					@include for-pad {
+						padding-left: 10px;
+					}
+
+					@include for-mobile {
+						// padding: 1px 0 0 38px;
+						padding: 0;
+						margin-bottom: 4px;
+					}
+
+					p {
+						font-family: Lato;
 						font-style: normal;
 						font-weight: bold;
 						font-size: 24px;
 						line-height: 32px;
 						text-align: right;
-						color: #D2FCFF;
+						color: #d2fcff;
 
-                        @include for-pad{
+						@include for-pad {
+							font-size: 20px;
+							line-height: 24px;
+						}
 
-                        font-size: 20px;
-                        line-height: 24px;
-                        }
+						@include for-mobile {
+							font-size: 20px;
+							line-height: 24px;
+						}
+					}
+					.phone-bufer {
+						bottom: calc(100% + 10px);
+						left: 25px;
+					}
+				}
 
-                        @include for-mobile{
-                            font-size: 20px;
-                            line-height: 24px;
-                        }
-                    }
-                }
-
-                .footer_phone_button{
-                    font-family: Lato;
+				.footer_phone_button {
+					position: relative;
+					font-family: Lato;
 					font-style: normal;
 					font-weight: normal;
 					font-size: 16px;
 					line-height: 24px;
-					color: #FFFFFF;
-                    margin-left: 44px;
-                    display: flex;
+					color: #ffffff;
+					margin-left: 44px;
+					display: flex;
 
-                    @include for-pad{
-                        margin: 0;
-                    }
-                    @include for-mobile{
-                        margin-left: 42px;
-                    }
+					@include for-pad {
+						margin: 0;
+					}
+					@include for-mobile {
+						margin-left: 0;
+					}
 
-                    .confetti{
-                    width: 24px;
-                    height: 24px;
-                    margin-top: 0px;
-                    margin-right: 7px;
+					.confetti {
+						position: absolute;
+						top: -3px;
+						left: 0;
+						width: 24px;
+						height: 24px;
 
-                    @include for-pad{
-                        margin-right: 4px;  
-                    }
-                    @include for-mobile{
-                        margin-right: 3px;
-                    }
-                    }
+						@include for-pad {
+							margin-right: 4px;
+						}
+						@include for-mobile {
+							margin-right: 3px;
+						}
+					}
 
-                    
-                    // &:before{
-                    //     content: url("/images/confetti.svg");
-                    //     top: 4px;
-                    //     left: 0px;
-                    //     width: 24px;
-                    //     height: 24px;
-                    //     margin-right: 4px;
-                    // }
+					._link {
+						margin: 0 0 0 29px;
+						white-space: nowrap;
+						font-family: Lato;
+						font-style: normal;
+						font-weight: normal;
+						font-size: 16px;
+						line-height: 18px;
+						color: #ffffff;
+						border-bottom: 1px dashed #ffffff75;
 
-                    // &:before{
-                    //     left: 9px;
-                    // }
-                    ._link{
-                        border-bottom: 1px dashed #ffffff50;
+						&:hover {
+							color: #69f5ff;
+							border-bottom: 1px dashed #69f5ff75;
+						}
 
-                        @include for-mobile{
-                        border: none;
-                        }
-                    }
-                    & > p{
-                        display: inline;
-                        text-align: right;
-                        line-height: 23px;
-                        font-size: 16px;
-                        font-weight: 500;
+						// @include for-mobile{
+						// border: none;
+						// }
+					}
 
-                        @include for-mobile{
-                        line-height: 20px;
-                        font-size: 14px;
+					& > p {
+						display: inline;
+						text-align: right;
+						line-height: 23px;
+						font-size: 16px;
+						font-weight: 500;
 
-                            &::after {
-                              content: '';
-                              position: absolute;
-                              bottom: 77px;
-                              left: 29px;
-                              right: 0;
-                              height: 1px;
-                              border-bottom: 1px dashed #ffffff50;
-                              width: 125px;
-                              margin: auto;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+						@include for-mobile {
+							line-height: 20px;
+							font-size: 14px;
+
+							&::after {
+								// content: "";
+								// position: absolute;
+								// bottom: 77px;
+								// left: 29px;
+								// right: 0;
+								// height: 1px;
+								// border-bottom: 1px dashed #ffffff50;
+								// width: 125px;
+								// margin: auto;
+							}
+						}
+					}
+				}
+			}
+
+			.footer__menu {
+				display: flex;
+				flex-wrap: wrap;
+				width: 100%;
+
+				@include for-notdesc {
+					order: 3;
+					flex: 0 1 100%;
+					max-width: 100%;
+					// max-width: 630px;
+					margin: 25px 12px 0 12px;
+				}
+
+				@include for-mobile {
+					order: 0;
+					padding: 0 16px;
+					margin: 16px 0;
+				}
+
+				.footer__menu-link {
+					flex: 0 0 20%;
+					color: #fff;
+					font-size: 16px;
+					line-height: 24px;
+					transition: color 0.3s ease;
+					padding: 4px 5px;
+
+					@include for-lowdesc {
+						flex: 0 0 25%;
+					}
+
+					@include for-notdesc {
+						flex: 0 0 20%;
+					}
+
+					@media (max-width: 1100px) {
+						flex: 0 1 25%;
+					}
+
+					@include for-mobile {
+						flex: 0 1 50%;
+					}
+
+					&:hover {
+						color: #69f5ff;
+					}
+				}
+			}
+		}
+	}
 }

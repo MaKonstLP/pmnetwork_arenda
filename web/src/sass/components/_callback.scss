@@ -1,393 +1,424 @@
 /*Стили для формы обратного звонка-начало*/
-.callback{
-    position: fixed;
-    right: 0;
-    top: calc(25%);
-    background: #E7F3FF;
-    border-radius: 4px 0px 0px 4px;
-    z-index: 1;
+.callback {
+	position: fixed;
+	right: 0;
+	top: calc(25%);
+	background: #e7f3ff;
+	border-radius: 4px 0px 0px 4px;
+	z-index: 1;
 
-    @include for-pad{
-        display: none;
-    }
-    
-    @include for-mobile{
-        display: none;
-    }
+	@include for-pad {
+		display: none;
+	}
 
-    .form_wrapper{
-        background: none;
-        width: 100%;
-        padding: 0;
-    }
+	@include for-mobile {
+		display: none;
+	}
 
-    .pseudo_h1{
-            font-family: Lato;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 24px;
-            text-align: center;
-            color: #141417;
-            margin: auto;
+	.form_wrapper {
+		background: none;
+		width: 100%;
+		padding: 0;
+	}
 
-            @include for-pad{
-            font-size: 12px;
-            line-height: 20px;
-            }
-        }
-    p{
-            font-family: Lato;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 20px;
-            text-align: center;
-            color: #141417;
-            margin: auto;
+	.pseudo_h1 {
+		font-family: Lato;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 24px;
+		text-align: center;
+		color: #141417;
+		margin: auto;
 
-            @include for-pad{
-            font-size: 12px;
-            line-height: 18px;
-            }
-        }
+		@include for-pad {
+			font-size: 12px;
+			line-height: 20px;
+		}
+	}
+	p {
+		font-family: Lato;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 20px;
+		text-align: center;
+		color: #141417;
+		margin: auto;
 
-    ._button{
-            width: 140px;
-            height: 40px;
-            margin: auto;
-            font-family: Lato;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 20px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: #141417;
-            padding: 9px 16px 11px 18px;
+		@include for-pad {
+			font-size: 12px;
+			line-height: 18px;
+		}
+	}
 
-            &:hover{
-                background: linear-gradient(97.18deg, #FCEC3F -25.77%, #FBF339 104.42%), #29EDB2;
-            }
+	._button {
+		width: 140px;
+		height: 40px;
+		margin: 0 auto 0 auto;
+		font-family: Lato;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 20px;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		color: #141417;
+		padding: 9px 16px 11px 18px;
 
-            @include for-pad{
-            font-size: 12px;
-            line-height: 20px;
-            height: 32px;
-            padding: 9px 22px 11px 22px;
-            }
-        }
+		&:hover {
+			background: linear-gradient(97.18deg, #fcec3f -25.77%, #fbf339 104.42%), #29edb2;
+		}
 
-    .arrow_open{
-        width: 20px;
-        height: 20px;
-        background-image: url(/images/callback_arrow_left.svg);
-        position: absolute;
-        top: calc(60% - 12px);
-        right: 95%;
+		@include for-pad {
+			font-size: 12px;
+			line-height: 20px;
+			height: 32px;
+			padding: 9px 22px 11px 22px;
+		}
+	}
 
-        &._right{
-            background-image: url(/images/callback_arrow_right.svg);
-            top: calc(50.5% - 12px);
-            right: 97%;
+	.arrow_open {
+		cursor: pointer;
+		width: 20px;
+		height: 20px;
+		background-image: url(/images/callback_arrow_left.svg);
+		position: absolute;
+		top: calc(60% - 12px);
+		right: 95%;
 
-        }
-    }
+		&._right {
+			background-image: url(/images/callback_arrow_right.svg);
+			top: calc(50.5% - 12px);
+			right: 97%;
+		}
+	}
 
-    ._first_form{
-        display: flex;
-        flex-flow:column;
-        width: 240px;
-        height: 215px;
-        padding: 24px 23px 24px 27px;
-        filter: drop-shadow(0px 5px 20px rgba(15, 4, 61, 0.1));
+	._first_form {
+		position: relative;
+		display: flex;
+		flex-flow: column;
+		width: 240px;
+		height: 215px;
+		padding: 24px 24px 0 24px;
+		filter: drop-shadow(0px 5px 20px rgba(15, 4, 61, 0.1));
 
-        @include for-pad{
-            width: 164px;
-            height: 146px;
-            padding: 12px 10px 12px 10px;
-        }
-        
-        .pseudo_h1{
-            margin-top: 0px;
-            margin-bottom: 0px;
-        }
+		@include for-pad {
+			width: 164px;
+			height: 146px;
+			padding: 12px 10px 12px 10px;
+		}
 
-        p{
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
+		.pseudo_h1 {
+			margin-top: 0px;
+			margin-bottom: 0px;
+			letter-spacing: normal;
+		}
 
-        &._item{
-            width: 240px;
-            height: 146px;
-            right: 30px;
-            padding: 16px 24px 24px 21px;
+		p {
+			margin-top: 0;
+			margin-bottom: 8px;
+		}
 
-            @include for-pad{
-                display: none;
-            }
-            @include for-mobile{
-                display: none;
-            }
+		.phone-bufer {
+			top: 55px;
+			left: 30px;
+		}
 
-            p{
-                margin-bottom: 7px;
-            }
-            .object_book_hidden{
-                margin-bottom: 9px;
+		&._item {
+			width: 240px;
+			height: 146px;
+			right: 30px;
+			padding: 16px 24px 24px 21px;
 
-                &._new_height{
-                    margin-bottom: 24px;
-                }
-            }
+			@include for-pad {
+				display: none;
+			}
+			@include for-mobile {
+				display: none;
+			}
 
-            ._button{
-                padding: 7px 0 10px 21px;   
-            }
-            .object_book_phone{
-                margin-bottom: 6px;
-            }
-            .arrow_open{
-                top: calc(79.5% - 12px);
+			p {
+				margin-bottom: 7px;
+			}
+			.object_book_hidden {
+				margin-bottom: 9px;
 
-            }
+				&._new_height {
+					margin-bottom: 24px;
+				}
+			}
 
+			._button {
+				padding: 7px 0 10px 21px;
+			}
+			.object_book_phone {
+				margin-bottom: 6px;
+			}
+			.arrow_open {
+				top: auto;
+				right: auto;
+				bottom: 24px;
+				left: -10px;
+			}
+		}
 
-        }
+		.object_fake_phone {
+			position: relative;
+			font-family: Lato;
+			font-style: normal;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 24px;
+			text-align: center;
+			color: #141417;
 
-        .object_fake_phone{
-            font-family: Lato;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 20px;
-            line-height: 24px;
-            text-align: center;
-            color: #141417;
-        }
-        .object_book_hidden_button{
-            font-family: Lato;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 14px;
-            color: #4471E6;
-            border-bottom: 1px dashed #4471E6;
-            width: 61%;
-            margin: auto;
-            cursor: pointer;
+			.phone-bufer {
+				top: -60px;
+				left: 0px;
+				font-weight: 400;
+			}
+		}
+		.object_book_hidden_button {
+			font-family: Lato;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 14px;
+			line-height: 14px;
+			color: #4471e6;
+			border-bottom: 1px dashed #4471e6;
+			width: 61%;
+			margin: auto;
+			cursor: pointer;
 
-            &._callback{
-                margin-left: calc(50% - 58px);
-            }
-        }
+			&._callback {
+				margin-left: calc(50% - 58px);
+			}
+		}
 
-        .phone_number{
-            font-family: Lato;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 20px;
-            line-height: 24px;
-            text-align: center;
-            color: #141417;
-            margin-right: 5px;
-            margin-top: 0px;
-            margin-bottom: 14px;
+		.phone_number {
+			font-family: Lato;
+			font-style: normal;
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 24px;
+			text-align: center;
+			color: #141417;
+			margin-right: 5px;
+			margin-top: 0px;
+			margin-bottom: 14px;
 
-            @include for-pad{
-                display: none;
-            }
-        }
+			@include for-pad {
+				display: none;
+			}
+		}
+	}
 
-        
+	._second_form {
+		display: none;
+		flex-flow: column;
+		width: 288px;
+		height: 513px;
+		padding: 24px;
+		filter: drop-shadow(0px 5px 20px rgba(15, 4, 61, 0.1));
 
+		@include for-pad {
+			padding: 12px;
+			width: 257px;
+			height: 282px;
+		}
 
-    }
+		p {
+			margin-bottom: 7px;
 
+			@include for-pad {
+				margin-bottom: 5px;
+			}
+		}
+		.pseudo_h1 {
+			margin-bottom: 0px;
+			margin-top: 0px;
+		}
 
-    ._second_form{
-        display: none;
-        flex-flow: column;
-        width:288px;
-        height:357px;
-        padding:24px;
-        filter: drop-shadow(0px 5px 20px rgba(15, 4, 61, 0.1));
+		form {
+			.form_inputs {
+				.input_label {
+					font-family: Lato;
+					font-style: normal;
+					font-weight: normal;
+					font-size: 14px;
+					line-height: 20px;
+					color: #2c3044;
+					margin-bottom: 2px;
 
-        @include for-pad{
-            padding: 12px;
-            width: 257px;
-            height: 282px;
-        }
+					@include for-pad {
+						font-size: 12px;
+						line-height: 20px;
+					}
+				}
 
+				.select_label {
+					cursor: pointer;
+				}
 
-        p{
-            margin-bottom: 7px;
+				[data-form-select-current]:after {
+					top: 17px;
+				}
 
-            @include for-pad{
-                margin-bottom: 5px;
-            }
-        }
-        .pseudo_h1{
-            margin-bottom: 0px;
-            margin-top: 0px;
-        }
+				[data-form-select-block]._active [data-form-select-current]:after {
+					top: 20px;
+				}
 
-        form{
+				.select_label,
+				input {
+					background: #ffffff;
+					border: 1px solid #dadee1;
+					box-sizing: border-box;
+					box-shadow: inset 0px 2px 2px rgba(118, 125, 134, 0.1);
+					border-radius: 4px;
+					width: 240px;
+					height: 43px;
+					margin-bottom: 11px;
+					padding-left: 8px;
 
-            .form_inputs{
+					@include for-pad {
+						width: 229px;
+						height: 32px;
+						margin-bottom: 8px;
+					}
 
-            .input_label{
-                font-family: Lato;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 14px;
-                line-height: 20px;
-                color: #2C3044;
-                margin-bottom: 2px;
+					&._invalid {
+						border-color: #ea3e3e;
+					}
+				}
 
-                @include for-pad{
-                font-size: 12px;
-                line-height: 20px;
-                }
-                            }
+				p {
+					padding: 11px 16px 6px;
+					text-align: start;
+				}
 
-            input{
-                background: #FFFFFF;
-                border: 1px solid #DADEE1;
-                box-sizing: border-box;
-                box-shadow: inset 0px 2px 2px rgba(118, 125, 134, 0.1);
-                border-radius: 4px;
-                width: 240px;
-                height: 43px;
-                margin-bottom: 11px;
-                padding-left: 8px;
+				[name="phone"] {
+					margin-bottom: 17px;
+				}
 
-                @include for-pad{
-                    width: 229px;
-                    height: 32px;
-                    margin-bottom: 8px;
-                    }                
-                }
-                [name="phone"]{
-                    margin-bottom: 17px;
-                }
-                }
+				[data-form-select-item] {
+					justify-content: flex-start;
 
-            ._button{
-            padding: 9px 0 11px 34px;
-            margin-bottom: 8px;
-            }
+					p {
+						width: 100%;
+					}
+				}
+			}
 
-            .checkbox_pseudo{
-                display: inline;
-                font-family: Lato;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 12px;
-                line-height: 18px;
-                color: #2C3044;
+			._button {
+				padding: 9px 0 11px 34px;
+				margin-bottom: 8px;
+			}
 
-                &::before{
-                    top: 0px;
-                }
+			.checkbox_pseudo {
+				display: inline;
+				font-family: Lato;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 12px;
+				line-height: 18px;
+				color: #2c3044;
 
-                &::after{
-                    content: "";
-                    background-image: url(/images/checked_callback.svg);
-                    top: 4px;
-                }
+				&::before {
+					top: 0px;
+				}
 
-                ._link{
-                    color:#1267f1;
-                    border-bottom: 1px solid #1267f1;
+				&::after {
+					content: "";
+					background-image: url(/images/checked_callback.svg);
+					top: 4px;
+				}
 
-                    &:hover{
-            color: #0D91F0;
-            border-bottom: 1px solid #0D91F0;
-                    }
-                    &:visited{
-                        color: #6E69A7;
-                        border-bottom: 1px solid #6E69A7;
-                    }
-                }
+				._link {
+					color: #4472e6;
+					border-bottom: 1px solid rgba(68, 113, 230, 0.8);
 
-                span{
-                    margin-left: 0px;
-                }
-            }
+					&:hover {
+						color: #608dff;
+						border-bottom: 1px solid #608dff;
+					}
+				}
 
-            }
+				span {
+					margin-left: 0px;
+				}
+			}
+		}
+	}
 
-    }
+	._third_form {
+		width: 288px;
+		height: 169px;
+		padding: 24px;
+		display: none;
+		filter: drop-shadow(0px 5px 20px rgba(15, 4, 61, 0.1));
 
-    ._third_form{
-        width:288px;
-        height:169px;
-        padding: 24px;
-        display: none;
-        filter: drop-shadow(0px 5px 20px rgba(15, 4, 61, 0.1));
+		@include for-pad {
+			width: 257px;
+			height: 129px;
+			padding: 12px;
+		}
 
-        @include for-pad{
-            width: 257px;
-            height: 129px;
-            padding: 12px;
-        }
+		&._active {
+			display: flex;
+		}
 
-        &._active{
-        	display: flex;
-        }
+		p {
+			margin-bottom: 16px;
 
-        p{
-            margin-bottom: 16px;
+			@include for-pad {
+				margin-bottom: 8px;
+			}
+		}
 
-            @include for-pad{
-                margin-bottom: 8px;
-            }
-        }
+		._link {
+			font-family: Lato;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 14px;
+			line-height: 20px;
+			color: #4471e6;
+			cursor: pointer;
+			border-bottom: 1px solid #4471e6;
+			width: 62%;
 
-        ._link{
-        font-family: Lato;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 20px;
-        color: #4471E6;
-        cursor: pointer;
-        border-bottom: 1px solid #4471E6;
-        width: 62%;
+			&:hover {
+				color: #0d91f0;
+				border-bottom: 1px solid #0d91f0;
+			}
+			&:visited {
+				color: #6e69a7;
+				border-bottom: 1px solid #6e69a7;
+			}
 
-        &:hover{
-            color: #0D91F0;
-            border-bottom: 1px solid #0D91F0;
-        }
-        &:visited{
-            color: #6E69A7;
-            border-bottom: 1px solid #6E69A7;
-        }
+			@include for-pad {
+				font-size: 12px;
+				line-height: 20px;
+			}
+		}
 
-        @include for-pad{
-        font-size: 12px;
-        line-height: 20px;
-        }
-        }
+		.reload_callback {
+			display: flex;
+			margin: auto;
+			width: 70%;
+			position: absolute;
+			left: calc(25%);
 
-        .reload_callback{
-                display: flex;
-                margin: auto;
-                width: 70%;
-                position: absolute;
-                left: calc(25%);
+			.call_reload_img {
+				margin-right: 7px;
+				cursor: pointer;
+			}
+		}
+	}
 
-            .call_reload_img{
-                margin-right: 7px;
-                cursor: pointer;
-            }
-        }
-    }
-
-    .object_real_phone{
-        padding: 0 0 15px 0;
-    }
+	.object_real_phone {
+		padding: 0 0 15px 0;
+	}
 }
 /*Стили для формы обратного звонка-конец*/

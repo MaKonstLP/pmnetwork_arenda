@@ -1,4 +1,4 @@
-.popup_wrap{
+.popup_wrap {
 	position: fixed;
 	z-index: 9999999;
 	width: 100%;
@@ -7,12 +7,12 @@
 	justify-content: center;
 	align-items: center;
 
-	&._active{
+	&._active {
 		display: flex;
 	}
 }
 
-.popup_layout{
+.popup_layout {
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -22,20 +22,20 @@
 	opacity: 0.3;
 }
 
-.popup_form{
+.popup_form {
 	// width: 1200px;
 	position: relative;
 	z-index: 1;
 
-	@include for-mobile{
+	@include for-mobile {
 		width: 100%;
 		height: 100%;
 		margin: 30px 15px 0 15px;
+		border-radius: 6px;
 		overflow: scroll;
 	}
 
-	.form_close{
+	.form_close {
 		display: block;
 	}
 }
-

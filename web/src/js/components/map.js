@@ -49,7 +49,7 @@ export default class YaMap{
             var hint_content = $('#map').data('hint'),
             baloon_content = $('#map').data('balloon');
             if(window.location.pathname.length > 9 && window.location.pathname.indexOf('catalog') > -1){
-                var balloon_img = document.getElementById('first_img')['src'];
+                var balloon_img = document.getElementById('first_img');
             }
 
             ymaps.ready(function () {
@@ -62,7 +62,7 @@ export default class YaMap{
             }),
 
             MyBalloonLayout = ymaps.templateLayoutFactory.createClass(
-                '<div class="popover top">' +
+                '<div class="popover top 111">' +
                     '<a class="close" href="#"><img src="/images/Close_icon_map.svg"></a>' +
                     '<div class="arrow"></div>' +
                     '<div class="popover-inner">' +

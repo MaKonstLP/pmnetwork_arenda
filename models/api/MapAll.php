@@ -7,6 +7,7 @@ use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 use common\models\Restaurants;
 use common\models\elastic\ItemsFilterElastic;
+use frontend\components\PremiumMixer;
 
 class MapAll extends BaseObject{
 
@@ -14,7 +15,9 @@ class MapAll extends BaseObject{
 
 	public function __construct($elastic_model, $subdomain_id, $filter = [], $type = 'restaurants', $url = '/ploshhadki/', $link_type = 'id') {
 
-		$items = new ItemsFilterElastic($filter, 9000, 1, false, $type, $elastic_model, false, false, $subdomain_id);
+		// $items = new ItemsFilterElastic($filter, 9000, 1, false, $type, $elastic_model, false, false, $subdomain_id);
+		$items = PremiumMixer::getItemsWithPremium($filter, 9000, 1, false, $type, $elastic_model, false, false, false, false, false, true);
+
 		$this->coords = [
 			'type' => 'FeatureCollection',
 			'features' => [],

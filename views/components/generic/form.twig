@@ -3,17 +3,17 @@
 	<div class="form_close" data-close-popup>
 	</div>
 
-	<div class="form_main">		
+	<div class="form_main">
 
 		<div class="form_title">
 
 			{% if type == 'index' %}
 				<p class="form_title_main">Трудности с выбором зала?</p>
-				<p class="form_title_text">Наши менеджеры бесплатно подберут оптимальный вариант. Заполните форму, и мы свяжемся с вами.</p>
+				<p class="form_title_text">Наши менеджеры <span class="_yellow_bold">бесплатно</span> подберут оптимальный вариант. Заполните форму, и мы свяжемся с вами.</p>
 			{% elseif type == 'popup' %}
 				<p class="form_title_main">Помочь с&nbsp;выбором&nbsp;зала?</p>
 				{# <p class="form_title_text">Заполните форму и мы свяжемся с вами в ближайшее время.</p> #}
-			{% elseif type == 'item' %}
+			{% elseif type == 'item' or type == 'listing-book' %}
 				<p class="form_title_main">Бесплатно забронировать <br class="mobile_only"/> это место</p>
 				<p class="form_title_text">Заполните форму и мы свяжемся с вами в ближайшее время.</p>
 			{% endif %}
@@ -24,7 +24,7 @@
 			<p class="form_title_main">Трудности с выбором зала?</p>
 		</div> -->
 
-		<form class="form_block" action="/ajax/form/" data-type={{ type }}>
+		<form class="form_block" action="/ajax/form/" data-type={{ type }} data-rest-name data-rest-url data-premium-listing-form-id>
 
 			<div class="form_inputs">
 
@@ -37,22 +37,54 @@
 
 				<div class="input_wrapper ">
 
-					<div class="input_label">Номер телефона</div>
+					<div class="input_label">Телефон</div>
 					<input type="text" name="phone" data-required data-dynamic-placeholder/>
 
 				</div>
 
-				<div class="input_wrapper">
+				{# <div class="input_wrapper">
 				
-					<div class="input_label">Электронная почта <span class="not-necessery_mobile"> (необязательно)</span></div>
+					<div class="input_label">Эл. почта<span class="not_necessary"> (необязательно)</span></div>
 					<input type="email" name="count" />
-					<p class="not_necessary">необязательно</p>
+
+				</div> #}
+
+				<div class="select_item input_wrapper">
+
+					<div class="input_label">&nbsp;Событие&nbsp;</div>
+
+					<div class="form_select_block" data-type="event_type" data-form-select-block>
+
+						<div class="form_select_current" type="text" name="event_type" data-form-select-current>
+							<input class="_hidden" type="text" name="event_type" value="Corporate" data-required readonly>
+							<p>🤟Корпоратив</p>
+						</div>
+
+						<div class="form_select_list _hidden">
+							<div class="form_select_item _active" data-value="Corporate" data-form-select-item data-prazdnik-spec-id="15"><p>🤟Корпоратив</p></div>
+							<div class="form_select_item " data-value="Wedding" data-form-select-item data-prazdnik-spec-id="1"><p>💍Свадьба</p></div>
+							<div class="form_select_item " data-value="Birthday" data-form-select-item data-prazdnik-spec-id="9"><p>🎂День рождения</p></div>
+							<div class="form_select_item " data-value="High school graduation" data-form-select-item data-prazdnik-spec-id="11"><p>🎓Выпускной</p></div>
+							<div class="form_select_item " data-value="New year" data-form-select-item data-prazdnik-spec-id="17"><p>⛄Новый год</p></div>
+							<div class="form_select_item " data-value="Other" data-form-select-item data-prazdnik-spec-id><p>Другое</p></div>
+						</div>
+
+					</div>
 
 				</div>
 
-				<div class="input_wrapper _small" data-calendar-input-wrapper>
+				<div class="input_wrapper _extra_small">
 
-					<div class="input_label">Желаемая дата <span class="not-necessery_mobile"> (необязательно)</span></div>
+					<div class="input_label">Число гостей</div>
+					{# <input type="number" min="1" name="guests" data-required/> #}
+					<input type="text" name="guests" data-required/>
+
+				</div>
+
+				{# <div class="input_wrapper _small" data-calendar-input-wrapper> #}
+				<div class="input_wrapper _big" data-calendar-input-wrapper>
+
+					<div class="input_label">Желаемая дата<span class="not_necessary"> (необязательно)</span></div>
 					<input type="text" name="date" class="addCalendar" autocomplete="off" />
 					<input type="text" name="date_hidden" class="hidden_input _active" autocomplete="off" data-form-hidden-input readonly/>
 
@@ -63,16 +95,14 @@
 						</div>
 					</div>
 
-					<p class="not_necessary">необязательно</p>
-
 				</div>
 
 			</div>
 
 			<div class="comments_textarea">
 
-				<div class="input_label">Комментарий</div>
-				<textarea name="coment_text" class="comment_form"></textarea>
+				<div class="input_label">Комментарий<span class="not_necessary"> (необязательно)</span></div>
+				<textarea name="coment_text" class="comment_form" placeholder="По желанию укажите доп. информацию: эл. почту, необходимое оборудование или что-то еще"></textarea>
 
 			</div>
 
@@ -90,6 +120,9 @@
 			</div>
 
 			<input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />
+			{% if venue_id is defined %}
+				<input type="hidden" name="venue_id" value="{{venue_id}}" />
+			{% endif %}
 
 		</form>
 

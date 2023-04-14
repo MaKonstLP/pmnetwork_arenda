@@ -1,92 +1,125 @@
-.items_pagination{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0px 60px;
+.items_pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0px;
 
-    @include for-mobile{
-        margin-bottom: 30px;
-    }
+	// @include for-mobile {
+	// 	margin-bottom: 30px;
+	// }
 
-    .items_pagination_item{
-        width: 40px;
-        height: 40px;
-        position: relative;
-        transform: rotate(45deg);
-        border: 2px solid #95B3CD;
-        border-radius: 50%;
-        margin: 0px 13px;
-        cursor: pointer;
+	.items_pagination_item {
+		width: 40px;
+		height: 40px;
+		position: relative;
+		transform: rotate(45deg);
+		border: 2px solid #95b3cd;
+		border-radius: 50%;
+		margin: 0px 13px;
+		cursor: pointer;
 
-        @include for-mobile{
-            width: 32px;
-            height: 32px;
-            margin: 0 11px;
-        }
+		@include for-mobile {
+			width: 32px;
+			height: 32px;
+			margin: 0 11px;
+		}
 
-        &._first{
-            margin-right: 26px;
-            &:before{
-                content: '...';
-                transform: rotate(-45deg);
-                position: absolute;
-                left: calc(100% + 4px);
-                bottom: 34px;
-                color: $clrGreen;
-                font-weight: 500;
-                font-size: 16px;
+		&._first {
+			margin-right: 26px;
+			&:before {
+				content: "...";
+				transform: rotate(-45deg);
+				position: absolute;
+				left: calc(100% + 4px);
+				bottom: 34px;
+				color: $clrGreen;
+				font-weight: 500;
+				font-size: 16px;
 
-                @include for-mobile{
-                    left: calc(100% + 3px);
-                    bottom: 30px;
-                }
+				@include for-mobile {
+					left: calc(100% + 3px);
+					bottom: 30px;
+				}
+			}
+		}
 
-            }
-        }
+		&._last {
+			margin-left: 26px;
+			&:before {
+				content: "...";
+				transform: rotate(-45deg);
+				position: absolute;
+				right: calc(100% + 8px);
+				bottom: -18px;
+				color: $clrGreen;
+				font-weight: 500;
+				font-size: 16px;
+			}
+		}
 
-        &._last{
-            margin-left: 26px;
-            &:before{
-                content: '...';
-                transform: rotate(-45deg);
-                position: absolute;
-                right: calc(100% + 8px);
-                bottom: -18px;
-                color: $clrGreen;
-                font-weight: 500;
-                font-size: 16px;
-            }
-        }
+		&._active {
+			pointer-events: none;
+		}
 
-        &._active{
-            pointer-events: none;
-        }
+		&:hover,
+		&._active {
+			background-color: $clrPagination;
 
-        &:hover,
-        &._active{
-            background-color: $clrPagination;
+			&:after {
+				color: white;
+			}
+		}
 
-            &:after{color: white;}
-        }
+		&:after {
+			content: attr(data-page-id);
+			position: absolute;
+			transform: rotate(-45deg);
+			width: 100%;
+			line-height: 30px;
+			font-family: Lato;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 36px;
+			text-align: center;
+			color: $clrBlack;
 
-        &:after{
-            content: attr(data-page-id);
-            position: absolute;
-            transform: rotate(-45deg);
-            width: 100%;
-            line-height: 30px;
-            font-family: Lato;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 36px;
-            text-align: center;
-            color: $clrBlack;
+			@include for-mobile {
+				line-height: 29px;
+				font-size: 14px;
+			}
+		}
+	}
+}
 
-            @include for-mobile{
-                line-height: 29px;
-                font-size: 14px;
-            }
-        }
-    }
+.loadmore {
+	margin-bottom: 60px;
+
+	@include for-mobile {
+		margin-bottom: 30px;
+	}
+
+	.loadmore__wrap {
+		cursor: pointer;
+		background: linear-gradient(97.18deg,#ffa776 -25.77%,#fbf339 104.42%),#29edb2;
+		border-radius: 6px;
+		width: fit-content;
+		transition: all 0.3s ease;
+		padding: 2px;
+		margin: 0 auto;
+
+		&:hover {
+			background: linear-gradient(97.18deg,#fcec3f -25.77%,#fbf339 104.42%),#29edb2;
+		}
+	}
+	.button_loadmore {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 40px;
+		background: #fcfcf8;
+		font-size: 16px;
+		border-radius: 4px;
+		padding: 5px 25px;
+	}
 }

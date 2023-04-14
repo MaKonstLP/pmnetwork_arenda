@@ -12,11 +12,31 @@
 
 <div class="title _item">
 
+	{% if premium %}
+		<div class="title_premium"></div>
+	{% endif %}
+
 	<h1>
-        {% for name in seo.h1 %}
-            <span>{{name}}</span>
-        {% endfor %}
+		{% for name in seo.h1 %}
+			{# <span itemprop="name">{{name}}</span> #}
+			<span>{{name}}</span>
+		{% endfor %}
 	</h1>
+
+	{% if item.restaurant_rev_ya.id and item.restaurant_rev_ya.rate %}
+		<div class="rate">
+		{# <div class="rate" itemprop="aggregateRating" itemtype="https://schema.org/AggregateRating" itemscope>
+			<meta itemprop="bestRating" content="5" />
+			<meta itemprop="reviewCount" content="{{item.restaurant_rev_ya.count|replace({'отзыва': '', 'отзыв': '', 'отзывов': ''})|trim}}" />
+			<meta itemprop="ratingValue" content="{{item.restaurant_rev_ya.rate}}" /> #}
+			<div class="stars">
+				<div class="stars__empty"></div>
+				<div class="stars__fill" style="width:calc({{item.restaurant_rev_ya.rate}} * 20%)"></div>
+			</div>
+			<p class="rate__count">{{item.restaurant_rev_ya.rate}}</p>
+			<p class="rate__reviews">(<a href="#reviews" class="scroll-to">{{item.restaurant_rev_ya.count}}</a>)</p>
+		</div>
+	{% endif %}
 
 	<div class="address" data-title-address>
 		<p>

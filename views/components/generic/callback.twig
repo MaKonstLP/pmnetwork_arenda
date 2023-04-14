@@ -1,82 +1,129 @@
-<div class="callback" data-side-callback-form>
-	<div class="form_wrapper">
+<noindex>
+	<div class="callback" data-side-callback-form>
+		<div class="form_wrapper">
 
-	{% if type != 'item' %}	
+		{% if type != 'item' %}	
 
-		<div class="callback _first_form" id="firstWindow">
-			<div class="arrow_open"></div>
-			<p class="pseudo_h1">Помочь с выбором зала?</p>
-			<p>бесплатно подберем оптимальный для вас вариант</p>
-			<a href="tel:{{phone}}" class="phone_number">{{prettyPhone}}</a>
-			<button type="button" class="_button callMe" data-call-me>Заказать звонок</button>
-		</div>
-	
-	{% else %}
-
-		<div class="callback _first_form _item"  id="firstWindow">
-
+			<div class="callback _first_form" id="firstWindow">
 				<div class="arrow_open"></div>
-				<p>Забронировать это место</p>
-
-				<div class="object_book_hidden">
-
-						<p class="object_book_phone">
-							<span class="object_fake_phone" id="callback_object_phone">+7 (xxx) xxx-xx-xx</span>
-							<a href=":" class="object_real_phone"></a>
-						</p>
-
-						<div class="object_book_hidden_button _callback">Показать телефон</div>
-
+				<p class="pseudo_h1">Помочь с выбором зала?</p>
+				<p>бесплатно подберем оптимальный для вас вариант</p>
+				<a href="tel:{{phone}}" class="phone_number" data-copy-phone>{{prettyPhone}}</a>
+				<div class="phone-bufer">
+					<div class="phone-bufer__close"></div>
+					Номер скопирован в буфер обмена
 				</div>
-
 				<button type="button" class="_button callMe" data-call-me>Заказать звонок</button>
-				
-		</div>
-
-	{% endif %}
-
-		<div class="callback _second_form" id="secondWindow">
-			<div class="arrow_open _right"></div>
-			<p class="pseudo_h1">Заказать обратный звонок</p>
-			<p>Наш менеджер перезвонит в ближайшее время.</p>
-			<form action="/ajax/form/" data-type={% if type != 'item' %}"sideListingForm"{% else %}"sideItemForm"{% endif %}>
-				<div class="form_inputs">
-					<div class="input_wrapper _big">
-					<div class="input_label">Как вас зовут?</div>
-					<input type="text" name="name" data-required/>
-				</div>
-				<div class="input_wrapper ">
-					<div class="input_label">Номер телефона</div>
-					<input type="text" name="phone" data-required data-dynamic-placeholder/>
-				</div>
-				</div>
-				<div class="form_submit">
-				<button type="submit" class="_button go">Отправить</button>
-				<div class="form_policy checkbox_item _active" data-form-privacy>
-					<input type="checkbox" name="policy" class="personalData" checked="">
-					<p class="checkbox_pseudo">Cогласен с <span> <a class="_link" href="https://arendazala.net/privacy/" target="_blank"> политикой обработки персональных данных</a></span></p>
-				</div>
 			</div>
-			<input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />
-			</form>
-		</div>
-		<div class="callback _third_form" data-success id="theirdWindow">
-			<div class="arrow_open _right"></div>
-			<div data-success>
+		
+		{% else %}
 
-			<div>
-				<p class="pseudo_h1">Заявка отправлена</p>
+			<div class="callback _first_form _item"  id="firstWindow">
+
+					<div class="arrow_open"></div>
+					<p>Забронировать это место</p>
+
+					<div class="object_book_hidden">
+
+							<div class="object_book_phone">
+								<span class="object_fake_phone" id="callback_object_phone">+7 (xxx) xxx-xx-xx</span>
+							</div>
+
+							<div class="object_book_hidden_button _callback">Показать телефон</div>
+
+					</div>
+
+					<button type="button" class="_button callMe" data-call-me>Заказать звонок</button>
+					
 			</div>
 
-			<div>
-				<p class="form_success_text_main"><span data-success-name></span>, спасибо<br> за проявленный интерес. Менеджер<br> перезвонит вам в ближайшее время.</p>
+		{% endif %}
+
+			<div class="callback _second_form" id="secondWindow">
+				<div class="arrow_open _right"></div>
+				<p class="pseudo_h1">Заказать обратный звонок</p>
+				<p>Наш менеджер перезвонит в ближайшее время.</p>
+
+				<form action="/ajax/form/" data-type={% if type != 'item' %}"sideListingForm"{% else %}"sideItemForm"{% endif %}>
+
+					<div class="form_inputs">
+
+						<div class="input_wrapper _big">
+							<div class="input_label">Как вас зовут?</div>
+							<input type="text" name="name" data-required/>
+						</div>
+
+						<div class="input_wrapper ">
+							<div class="input_label">Номер телефона</div>
+							<input type="text" name="phone" data-required data-dynamic-placeholder/>
+						</div>
+
+						<div class="select_item input_wrapper">
+
+							<div class="input_label">&nbsp;Событие&nbsp;</div>
+
+							<div class="form_select_block" data-type="event_type" data-form-select-block>
+
+								<div class="form_select_current" type="text" name="event_type" data-form-select-current>
+									<input class="_hidden" type="text" name="event_type" value="Corporate" data-required readonly>
+									<p class="select_label">🤟Корпоратив</p>
+								</div>
+
+								<div class="form_select_list _hidden">
+									<div class="form_select_item _active" data-value="Corporate" data-form-select-item><p>🤟Корпоратив</p></div>
+									<div class="form_select_item " data-value="Wedding" data-form-select-item><p>💍Свадьба</p></div>
+									<div class="form_select_item " data-value="Birthday" data-form-select-item><p>🎂День рождения</p></div>
+									<div class="form_select_item " data-value="High school graduation" data-form-select-item><p>🎓Выпускной</p></div>
+									<div class="form_select_item " data-value="New year" data-form-select-item><p>⛄Новый год</p></div>
+									<div class="form_select_item " data-value="Other" data-form-select-item><p>Другое</p></div>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="input_wrapper _big">
+							<div class="input_label">Число гостей</div>
+							{# <input  type="number" min="1" name="guests" data-required/> #}
+							<input  type="text" name="guests" data-required/>
+						</div>
+
+					</div>
+
+					<div class="form_submit">
+
+						<button type="submit" class="_button go">Отправить</button>
+
+						<div class="form_policy checkbox_item _active" data-form-privacy>
+							<input type="checkbox" name="policy" class="personalData" checked="">
+							<p class="checkbox_pseudo">Cогласен с <span> <a class="_link" href="https://arendazala.net/privacy/" target="_blank"> политикой обработки персональных данных</a></span></p>
+
+						</div>
+
+					</div>
+
+					<input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />
+
+				</form>
+
 			</div>
-			<div class="reload_callback">
-			<img src="/images/reload_icon_callback.svg" class="call_reload_img">
-			<div class="form_success_close _link" data-success-close>Заполнить еще раз</div>
-			</div>
+			<div class="callback _third_form" data-success id="theirdWindow">
+				<div class="arrow_open _right"></div>
+				<div data-success>
+
+				<div>
+					<p class="pseudo_h1">Заявка отправлена</p>
+				</div>
+
+				<div>
+					<p class="form_success_text_main"><span data-success-name></span>, спасибо<br> за проявленный интерес. Менеджер<br> перезвонит вам в ближайшее время.</p>
+				</div>
+				<div class="reload_callback">
+				<img src="/images/reload_icon_callback.svg" class="call_reload_img">
+				<div class="form_success_close _link" data-success-close>Заполнить еще раз</div>
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	</div>
-
+</noindex>

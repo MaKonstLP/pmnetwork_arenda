@@ -1,5 +1,6 @@
 'use strict';
 import Filter from './filter';
+import Swiper, { Navigation, Pagination } from 'swiper';
 
 export default class Index{
 	constructor($block){
@@ -19,6 +20,72 @@ export default class Index{
 		$('.mobil_but_off').on('click', () => {
 			this.closeText();
 		});
+
+		/* let showAllImages = false;
+		var galleryList = new Swiper('.listing_slider', {
+			modules: [Navigation, Pagination],
+			spaceBetween: 1,
+			slidesPerView: 1,
+			navigation: {
+				nextEl: '._listing_next',
+				prevEl: '._listing_prev',
+			},
+			pagination: {
+				el: '.listing_slider_pagination',
+			},
+			on: {
+				afterInit: () => {
+					this.slideTo(0);//убирает баг с тем, что после инициализации стрелки скрыты и имеют класс "swiper-button-lock"
+				},
+				slideChange: function () {
+					// показать все картинки реста
+					if (!showAllImages) {
+						showAllImages = true;
+						
+						$('.listing_slider').find('.item-img').show();
+						let sliderImages = $('.listing_slider').find('.item-img img');
+						sliderImages.each(function () {
+							let imageSrc = $(this).data('src');
+							$(this).attr('src', imageSrc);
+						})
+					}
+				},
+			},
+		});
+		$('.listing_slider').find('._listing_next').removeClass('swiper-button-disabled'); */
+
+		let showAllImages = false;
+		document.querySelectorAll('.object_gallery').forEach(n => {
+
+			var listinImagesSlider = new Swiper(n.querySelector('.listing_slider'), {
+				modules: [Navigation, Pagination],
+				spaceBetween: 1,
+				slidesPerView: 1,
+				navigation: {
+					nextEl: '._listing_next',
+					prevEl: '._listing_prev',
+				},
+				pagination: {
+					el: '.listing_slider_pagination',
+				},
+				on: {
+					slideChange: function () {
+						// показать все картинки реста
+						if (!showAllImages) {
+							showAllImages = true;
+
+							$('.listing_slider').find('.item-img').show();
+							let sliderImages = $('.listing_slider').find('.item-img img');
+							sliderImages.each(function () {
+								let imageSrc = $(this).data('src');
+								$(this).attr('src', imageSrc);
+							})
+						}
+					},
+				},
+			});
+		});
+		// $('.listing_slider').find('._listing_next').removeClass('swiper-button-disabled');
 	}
 
 	redirectToListing(){

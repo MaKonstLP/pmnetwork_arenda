@@ -5,155 +5,312 @@
 
 <!-- Новая верстка -->
 
-<div class="item-block" id="{{item.id}}"> 
+<div class="item-block" id="{{item.id}}" {% if item.restaurant_premium %} data-premium-listing-id="{{item.restaurant_gorko_id}}" {% endif %}> 
 
-    <div class="carusel">
+	<div class="carusel">
+		<div class="img_conteiner">
+			<div class="img_conteiner__decor-left">
+				<div class="img_conteiner__decor-left-center"></div>
+			</div>
+			<div class="img_conteiner__decor-right">
+				<div class="img_conteiner__decor-right-center"></div>
+			</div>
+			{% if item.restaurant_premium %}
+				<div class="item_additional-premium"></div>
+			{% endif %}
 
-        <div class="img_conteiner">
+			<div class="price-position">
+				<div class="price">
+					<div class="item_meta_item">
+						{% if item.price %}
+							{# <span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span> #}
+							<span class="item_meta_text">от <span class="item_meta_price"><span class="rur">{{item.price}} </span>/чел.</span></span>
+							<div class="item_meta_tooltip">
+								<span>?</span>
+								<noindex>
+									<div class="item_meta_tooltip_text">
+										<p class="tooltip__header">
+											<span>Средний чек</span>
+											{{item.price}} ₽ (без напитков)
+										</p>
+										{% if item.room_prices and itemsHaveSpecPrice[item.id]%}
+											<div class="tooltip__price-list">
+												{% for price in item.room_prices %}
+													<div class="tooltip__price-item">
+														<span>{{price.spec_name}}</span>
+														<span>от {{price.price}} ₽/чел.</span>
+													</div>
+												{% endfor %}
+											</div>
+										{% endif %}
+									</div>
+								</noindex>
+							</div>
+						{% else %}
+							<span class="item_meta_text">цена по запросу</span>
+						{% endif %}
+					</div>
+				</div>
+			</div>
 
-            <div class="price-position">    
+			{% if type != 'other' %}
+				<div class="object_gallery">
+					<div class="items_list_listing swiper-container listing_slider swiper" data-listing-wrapper>
+							<div class="items_list swiper-wrapper listing_slider" data-listing-list>
 
-                <div class="price">
+								{# {% if item.images[0] and item.images[0].subpath %}
+									<div class="swiper-slide">
+											<a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[0].subpath}}=w560-h320-n-l95-rw" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" data-images loading="lazy" /></a>
+									</div>
+								{% endif %}
 
-                    {% if item.price %}
+								{% if item.images[1] and item.images[1].subpath %}
+									<div class="swiper-slide">
+											<a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[1].subpath}}=w560-h320-n-l95-rw" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" loading="lazy"/></a>
+									</div>
+								{% endif %}
 
-                        <div class="item_meta_item">
-                            <span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span>
-                        </div>
+								{% if item.images[2] and item.images[2].subpath %}
+									<div class="swiper-slide">
+											<a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[2].subpath}}=w560-h320-n-l95-rw" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" loading="lazy"/></a>
+									</div>
+								{% endif %} #}
 
-                    {% endif %}
-                </div>
+								{% for image in item.images %}
+										{% if loop.index0 < 2 %}
+											<div class="swiper-slide">
+												<a href="/catalog/hall-{{item.slug}}/" class="item-img">
+													<img src="{{image.subpath}}=w560-h332-n-l95-rw" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" loading="lazy"/>
+												</a>
+											</div>
+										{% else %}
+											<div class="swiper-slide">
+												<a href="/catalog/hall-{{item.slug}}/" style="display:none" class="item-img">
+													<img data-src="{{image.subpath}}=w560-h332-n-l95-rw" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on"/>
+												</a>
+											</div>
+										{% endif %}
+								{% endfor %}
+							</div>
 
-            </div>
+							<div class="swiper-pagination listing_slider_pagination"></div>
 
-            {% if type != 'other' %}
+							{# <div class="listing_widget_controll _listing"> #}
+								<div class="listing_widget_arrow _listing_prev"></div>
+								<div class="listing_widget_arrow _listing_next"></div>
+							{# </div> #}
+					</div>
+				</div>
 
-                <div class="object_gallery">
+			{% else %}
+				<div class="photo_items">
+					<a href="/catalog/hall-{{item.slug}}/" class="item-img"> <img src="{{item.images[0].subpath}}" class="block tab" loading="lazy" alt="{{img_alt | replace({"**room**" : item.name}) | replace({"**restaurant**" : item.restaurant_name}) | replace({"**room_name**" : item.name}) }}" /></a>
+					
+					{% if item.images[1] %}
+							<a href="/catalog/hall-{{item.slug}}/" class="item-img"><img class="item_img_subimg tab" loading="lazy" src="{{item.images[1].subpath}}" alt="{{img_alt | replace({"**room**" : item.name}) | replace({"**restaurant**" : item.restaurant_name | replace({"**room_name**" : item.name}) })}}"/></a>
+					{% endif %}
+					
+					{% if item.images[2] %}
+							<a href="/catalog/hall-{{item.slug}}/" class="item-img"><img class="item_img_subimg tab" loading="lazy" src="{{item.images[2].subpath}}" alt="{{img_alt | replace({"**room**" : item.name}) | replace({"**restaurant**" : item.restaurant_name | replace({"**room_name**" : item.name}) })}}"/></a>
+					{% endif %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
 
-                    <div class="items_list_listing swiper-container listing_slider" data-listing-wrapper>
+	<div class="item-info">
+		<div class="name">
+			<a href="/catalog/hall-{{item.slug}}/"><p class="item_name"><span>{{item.name}} - {{item.restaurant_name}}</span></p></a>
+		</div>
 
-                        <div class="items_list swiper-wrapper listing_slider" data-listing-list>
+		{% if item.restaurant_rev_ya.id and item.restaurant_rev_ya.rate %}
+			<div class="rate">
+				<div class="stars">
+					<div class="stars__empty"></div>
+					<div class="stars__fill" style="width:calc({{item.restaurant_rev_ya.rate}} * 20%)"></div>
+				</div>
+				<p class="rate__count">{{item.restaurant_rev_ya.rate}}</p>
+				<p class="rate__reviews">(<a href="/catalog/hall-{{item.slug}}/#reviews">{{item.restaurant_rev_ya.count}}</a>)</p>
+			</div>
+		{% endif %}
 
-                            {% if item.images[0] %}
-                                <div class="swiper-slide">
-                                    <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[0].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" data-images /></a>
-                                </div>
-                            {% endif %}
+		<div class="address move_to_map">
+			<a data-latitude="{{item.restaurant_latitude}}" data-longitude="{{item.restaurant_longitude}}" data-name="{{item.name}}" data-address="{{item.restaurant_address}}" data-url="/catalog/{{item.id}}/" class="address_map"><p class="item_address"><span>{{item.restaurant_address}}</span></p></a>
+		</div>
 
-                            {% if item.images[1] %}
-                                <div class="swiper-slide">
-                                    <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[1].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on"/></a>
-                                </div>
-                            {% endif %}
+		{% if not item.restaurant_premium
+		or (item.restaurant_firework == 1 and prazdnik_type == '_new-year')
+		or (item.restaurant_alcohol == 1 and prazdnik_type == '_corporate')
+		%}
+			<div class="item__badges_wrap">
+				<div class="item__badges">
+					{% if not item.restaurant_premium %}
+						<div class="item__badge">
+							<img src="/images/item/badges/gift_icon.svg"/>
+							Подарок за бронирование
+						</div>
+					{% endif %}
+					{# <div class="item__badge">
+						<img src="/images/item/badges/bithday_icon.svg"/>
+						Подарок для именинника
+					</div> #}
+					{% if item.restaurant_firework == 1 and prazdnik_type == '_new-year' %}
+						<div class="item__badge">
+							<img src="/images/item/badges/firework_icon.svg"/>
+							Разрешен фейерверк
+						</div>
+					{% endif %}
+					{% if item.restaurant_alcohol == 1 and prazdnik_type == '_corporate' %}
+						<div class="item__badge">
+							<img src="/images/item/badges/alcohol_icon.svg"/>
+							Алкоголь в наличии
+						</div>
+					{% endif %}
+					{# <div class="item__badge">
+						<img src="/images/item/badges/wedding_icon.svg"/>
+						Есть номер для новобрачных
+					</div> #}
+					{# <div class="item__badge">
+						<img src="/images/item/badges/key_icon.svg"/>
+						Есть номера для гостей
+					</div> #}
+				</div>
+			</div>
+		{% endif %}
 
-                            {% if item.images[2] %}
-                                <div class="swiper-slide">
-                                    <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[2].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on"/></a>
-                                </div>
-                            {% endif %}
+		<div class="forMobile_items">
+			<div class="capacity">
+				{% if item.capacity %}
+					<div class="item_meta_item">
+						<span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.capacity}} человек</span>
+					</div>
+				{% endif %}
+			</div>
 
-                        </div>
+			{# <div class="restaurant_payment">
+				{% if item.restaurant_payment %}
+					<div class="item_meta_item">
+						<span class="item_meta_label">Способы оплаты: </span><span class="item_meta_text">{{item.restaurant_payment}}</span>
+					</div>
+				{% endif %}
+			</div> #}
 
-                        <div class="listing_widget_controll _listing">
-                            <div class="listing_widget_arrow  _listing_prev"></div>
-                            <div class="listing_widget_arrow  _listing_next"></div>
-                        </div>           
+			<div class="restaurant_parking">
+				{% if item.restaurant_parking %}
+					<div class="item_meta_item">
+						<span class="item_meta_label">Парковка: </span><span class="item_meta_text">{{item.restaurant_parking}} авто</span>
+					</div>
+				{% endif %}
+			</div>
 
-                    </div>
+			{% if ( rest_type_option_id|length == 0 or rest_type_option_id == 99) %}
+				<div class="restaurant_cuisine">
+					{% if item.restaurant_cuisine %}
+						<div class="item_meta_item">
+							<span class="item_meta_label">Кухня: </span><span class="item_meta_text">{{item.restaurant_cuisine}}</span>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
 
-                </div>
+			{% if (prazdnik_option_id != 2 and (rest_type_option_id|length == 0 or rest_type_option_id == 99)) %}
+				<div class="restaurant_own_alcohol">
+					{% if item.restaurant_own_alcohol %} 
+						<div class="item_meta_item">
+							<span class="item_meta_label">Свой алкоголь: </span><span class="item_meta_text">{{item.restaurant_own_alcohol}}</span>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
 
-            {% else %}
+			{% if (item.prazdnik_options[prazdnik_option_id] or item.rest_type_options[rest_type_option_id]) %}
+				<div class="restaurant_options">
+					<div class="item_meta_item">
+						<span class="item_meta_label">Что есть: </span>
+						<span class="item_meta_text">
+							{% if (item.prazdnik_options[prazdnik_option_id]) %}
+								{{ item.prazdnik_options[prazdnik_option_id].options }}
+							{% endif %}
+							{% if (item.rest_type_options[rest_type_option_id])%}
+								{{ item.rest_type_options[rest_type_option_id].options }}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+			{% endif %}
 
-                <div class="photo_items">
+			{% if (item.prazdnik_extra_options[prazdnik_option_id] or item.rest_type_extra_options[rest_type_option_id]) %}
+				<div class="restaurant_extra_options">
+					<div class="item_meta_item">
+						<span class="item_meta_label">За доп. плату: </span>
+						<span class="item_meta_text">
+							{% if (item.prazdnik_extra_options[prazdnik_option_id]) %}
+								{{ item.prazdnik_extra_options[prazdnik_option_id].options }}
+							{% endif %}
+							{% if (item.rest_type_extra_options[rest_type_option_id])%}
+								{{ item.rest_type_extra_options[rest_type_option_id].options }}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+			{% endif %}
 
-                    <a href="/catalog/hall-{{item.slug}}/" class="item-img"> <img src="{{item.images[0].subpath}}" class="block tab" loading="lazy" alt="{{img_alt | replace({"**room**" : item.name}) | replace({"**restaurant**" : item.restaurant_name}) | replace({"**room_name**" : item.name}) }}" /></a>
-                    
-                    {% if item.images[1] %}
-                        <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img class="item_img_subimg tab" loading="lazy" src="{{item.images[1].subpath}}" alt="{{img_alt | replace({"**room**" : item.name}) | replace({"**restaurant**" : item.restaurant_name | replace({"**room_name**" : item.name}) })}}"/></a>
-                    {% endif %}
-                    
-                    {% if item.images[2] %}
-                        <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img class="item_img_subimg tab" loading="lazy" src="{{item.images[2].subpath}}" alt="{{img_alt | replace({"**room**" : item.name}) | replace({"**restaurant**" : item.restaurant_name | replace({"**room_name**" : item.name}) })}}"/></a>
-                    {% endif %}
-
-                </div>
-
-            {% endif %}
-
-        </div> 
-
-    </div>
-
-    <div class="item-info">
-         <div class="name">
-         <a href="/catalog/hall-{{item.slug}}/"><p class="item_name">{{item.name}} - {{item.restaurant_name}}</p></a>
-        </div>
-
-        <div class="address move_to_map">
-                    
-                    <a data-latitude="{{item.restaurant_latitude}}" data-longitude="{{item.restaurant_longitude}}" data-name="{{item.name}}" data-address="{{item.restaurant_address}}" data-url="/catalog/{{item.id}}/" class="address_map"><p class="item_address"><span>{{item.restaurant_address}}</span></p></a>
-                    
-        </div>
-      <div class="forMobile_items">
-        <div class="capacity">
-         {% if item.capacity %}
-                        <div class="item_meta_item">
-                            <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.capacity}} человек</span>
-                        </div>
-         {% endif %}
-         </div>
-
-         <div class="restaurant_payment">
-
-         {% if item.restaurant_payment %}
-                        <div class="item_meta_item">
-                            <span class="item_meta_label">Способы оплаты: </span><span class="item_meta_text">{{item.restaurant_payment}}</span>
-                        </div>
-         {% endif %}
-         </div> 
-
-         <div class="restaurant_parking">      
-
-         {% if item.restaurant_parking %}            
-                        <div class="item_meta_item">
-                            <span class="item_meta_label">Парковка: </span><span class="item_meta_text">{{item.restaurant_parking}} авто</span>
-                        </div>
-         {% endif %}
-
-         </div>
-
-         <div class="restaurant_own_alcohol">
-
-         {% if item.restaurant_own_alcohol %} 
-
-                        <div class="item_meta_item">
-                            <span class="item_meta_label">Свой алкоголь: </span><span class="item_meta_text">{{item.restaurant_own_alcohol}}</span>
-                        </div>
-         {% endif %}
-         </div>
-
-         <div class="restaurant_cuisine">
-         
-         {% if item.restaurant_cuisine %}                
-
-                        <div class="item_meta_item">
-                            <span class="item_meta_label">Кухня: </span><span class="item_meta_text">{{item.restaurant_cuisine}}</span>
-                        </div>
-         {% endif %}
-         </div>
-      </div> 
-      <div class="price_type_other">
-          {% if item.price %}
-                            <div class="item_meta_item">
-                                <span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span>
-                            </div>
-
-             {% endif %}
-      </div>
-    </div>
+			<div class="restaurant_feature">
+				{% if feature %}
+					<div class="item_meta_item">
+						<span class="item_meta_label">Особенности: </span><span class="item_meta_text">{{feature | raw}}</span>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="price_type_other">
+			{% if item.price %}
+				<div class="item_meta_item">
+					<span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span>
+				</div>
+			{% endif %}
+		</div>
+		<div class="item-info__btns">
+			<div class="item-info__btn-book _button" data-listing-book>
+				Забронировать
+			</div>
+			{# <div class="item-info__btn-call">
+				<span>Позвонить</span>
+				<a href="tel:{{item.restaurant_phone}}" class="item-info__phone" data-copy-phone>{{item.restaurant_phone}}</a>
+				<div class="phone-bufer">
+					<div class="phone-bufer__close"></div>
+					Номер скопирован в буфер обмена
+				</div>
+			</div> #}
+			<div class="item-info__btn-call">
+				<a href="tel:{{item.restaurant_phone}}" class="item-info__phone"><span>Позвонить</span></a>
+			</div>
+		</div>
+	</div>
 </div>
 {% set i = i+1 %}
 </div>
+
+{% if loop.index == 10 and page == 'listing' %}
+	
+	<div class="listing_feedback">
+		<p class="listing_feedback__text">Не нашли, что искали?</p>
+		<div class="listing_feedback__items">
+			<div class="listing_feedback__item" data-feedback-button>
+				<img class="listing_feedback__icon" src="/images/icon_find_nothing.svg" />
+				<p>Не нашел</p>
+			</div>
+			<a href="#listing_form" class="listing_feedback__item" data-need-help>
+				<img class="listing_feedback__icon" src="/images/icon_need_help.svg" />
+				<p>Нужна помощь</p>
+			</a>
+		</div>
+		{# <div class="listing_feedback_form">
+			<div class="popup_layout" data-close-popup=""></div>
+			{{ this.render('//components/generic/form_help.twig', {'type': 'feedback',}) | raw }}
+		</div> #}
+	</div>
+{% endif %}
+
 {% endfor %}
 

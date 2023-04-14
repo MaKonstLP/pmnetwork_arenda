@@ -68,11 +68,15 @@ class BlogController extends Controller
 		$seo = ArrayHelper::toArray($post->seoObject);
 		$this->setSeo($seo);
 
+		$extraData = [
+			'headings' => $post->getTableOfContentsArray(),
+	 ];
+
 		// echo '<pre>';
 		// print_r($seo);
 		// exit;
 
-		return $this->render('post.twig', compact('post', 'seo'));
+		return $this->render('post.twig', compact('post', 'seo', 'extraData'));
 	}
 
 	public function actionPreview($id)

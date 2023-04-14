@@ -1,125 +1,106 @@
 <div class="restaurant_adv_wrapper">
 
-  <div class="object_gallery" data-adv-gallery-wrapper>
+	<div class="object_gallery" data-adv-gallery-wrapper>
+		<div class="items_list_listing swiper-container listing_slider">
+			<div class="items_list swiper-wrapper">
+				{% if item.images[0] %}
+					<div class="swiper-slide">
+						<a href="https://{% if subdomen %}{{subdomen}}.{% endif %}arendazala.net/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[0].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" data-images /></a>
+						{# <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[0].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" data-images /></a> #}
+					</div>
+				{% endif %}
 
-    <div class="items_list_listing swiper-container listing_slider">
+				{% if item.images[1] %}
+					<div class="swiper-slide">
+						<a href="https://{% if subdomen %}{{subdomen}}.{% endif %}arendazala.net/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[1].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on"/></a>
+					</div>
+				{% endif %}
 
-      <div class="items_list swiper-wrapper">
+				{% if item.images[2] %}
+					<div class="swiper-slide">
+						<a href="https://{% if subdomen %}{{subdomen}}.{% endif %}arendazala.net/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[2].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on"/></a>
+					</div>
+				{% endif %}
+			</div>
 
-        {% if item.images[0] %}
-          <div class="swiper-slide">
-            <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[0].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on" data-images /></a>
-          </div>
-        {% endif %}
+			<div class="swiper-pagination listing_slider_pagination"></div>
 
-        {% if item.images[1] %}
-          <div class="swiper-slide">
-            <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[1].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on"/></a>
-          </div>
-        {% endif %}
+			{# <div class="listing_widget_controll _listing"> #}
+			<div class="listing_widget_arrow  _listing_prev"></div>
+			<div class="listing_widget_arrow  _listing_next"></div>
+			{# </div>   #}
+		</div>
 
-        {% if item.images[2] %}
-          <div class="swiper-slide">
-            <a href="/catalog/hall-{{item.slug}}/" class="item-img"><img src="{{item.images[2].subpath}}=w560-h320-n-l95" alt="Фото №{{loop.index}} зала {{item.name}}" class="img_on"/></a>
-          </div>
-        {% endif %}
+		<div class="price-position">
+			<div class="price">
+				<div class="item_meta_item">
+					{% if item.price %}
+						<span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span>
+					{% else %}
+						<span class="item_meta_text">цена по запросу</span>
+					{% endif %}
+				</div>
+			</div>
+		</div>
 
-      </div>
+	</div>
 
-      <div class="listing_widget_controll _listing">
-        <div class="listing_widget_arrow  _listing_prev"></div>
-        <div class="listing_widget_arrow  _listing_next"></div>
-      </div>  
-         
-    </div>
+	<div class="adv_main_block">
 
-    <div class="price-position">    
+		<h4>
+			<span>{{item.name}}</span>
+			</br>
+			<span>{{item.restaurant_name}}</span>
+		</h4>
 
-      <div class="price">
+		<div class="address">
+			<a href="https://{% if subdomen %}{{subdomen}}.{% endif %}arendazala.net/catalog/hall-{{item.slug}}/#map_anchor">
+				<span>{{item.restaurant_address}}</span>
+			</a>
+		</div>
 
-        {% if item.price %}
+		<div class="object_main_info">
 
-          <div class="item_meta_item">
-            <span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span>
-          </div>
+			<div class="mobile_main_info">
+				<p>Вместимость:</p>
+				<span>{{item.restaurant_max_capacity}} человек</span></br>
+				<p>Парковка:</p>
+				<span>на {{item.restaurant_parking}} машин</span></br>
+				<p>Свой алкоголь:</p>
+				{% if item.restaurant_alcohol == 1 %}
+					<span>да</span>
+				{% else %}
+					<span>нет</span>
+				{% endif %}
+			</div>
 
-        {% endif %}
+			<table>
+				<tr>
+					<td><p>Вместимость:</p></td>
+					<td><span>{{item.restaurant_max_capacity}} человек</span></td>
+				</tr>
 
-      </div>
+				<tr>
+					<td><p>Парковка:</p></td>
+					<td>на <span>{{item.restaurant_parking}} машин</span></td>
+				</tr>
 
-    </div>
+				<tr>
+					<td><p>Свой алкоголь:</p></td>
+					<td>
+					{% if item.restaurant_alcohol == 1 %}
+						<span>да</span>
+					{% else %}
+						<span>нет</span>
+					{% endif %}
+					</td>
+				</tr>
+			</table>
 
-  </div>
+		</div>
 
-  <div class="adv_main_block">
-
-    <h4>
-      <span>
-        {{item.name}}
-      </span>
-      </br>
-      <span>
-        {{item.restaurant_name}}
-      </span>
-    </h4>
-
-    <div class="address">
-
-      <a href="/catalog/hall-{{item.slug}}/#map_anchor">
-        <span>{{item.restaurant_address}}</span>
-      </a>
-
-    </div>
-
-    <div class="object_main_info">
-
-      <div class="mobile_main_info">
-        <p>Вместимость:</p>
-        <span>{{item.restaurant_max_capacity}} человек</span></br>
-        <p>Парковка:</p>
-        <span>на {{item.restaurant_parking}} машин</span></br>
-        <p>Свой алкоголь:</p>
-        {% if item.restaurant_alcohol == 1 %}
-          <span>да</span>
-        {% else %}
-          <span>нет</span>
-        {% endif %}
-      </div>
-
-
-      <table>
-        
-          <tr>
-            <td><p>Вместимость:</p></td>
-            <td><span>{{item.restaurant_max_capacity}} человек</span></td>
-          </tr>
-
-          <tr>
-            <td><p>Парковка:</p></td>
-            <td>на <span>{{item.restaurant_parking}} машин</span></td>
-          </tr>
-
-          <tr>
-            <td><p>Свой алкоголь:</p></td>
-            <td>
-              {% if item.restaurant_alcohol == 1 %}
-                <span>да</span>
-              {% else %}
-                <span>нет</span>
-              {% endif %}
-            </td>
-          </tr>
-
-      </table>
-
-    </div>
-
-    <a class="object_more_info" href="/catalog/hall-{{item.slug}}/">
-
-      <button class="_button">Подробнее о месте</button>
-
-    </a>
-
-  </div>
-
+		<a class="object_more_info" href="https://{% if subdomen %}{{subdomen}}.{% endif %}arendazala.net/catalog/hall-{{item.slug}}/">
+			<button class="_button">Подробнее о месте</button>
+		</a>
+	</div>
 </div>

@@ -1,0 +1,55 @@
+<div class="form_wrapper">
+	<div class="form_main listing_feedback_form_main _active">
+		<div class="form_title">
+			<p class="form_title_main">Я ищу</p>
+		</div>
+
+		<form class="form_block" action="/ajax/feedback/" data-type={{ type }}>
+			<input type="text" name="first-name" placeholder="Имя" value="">
+			<div class="form_inputs">
+				<div class="radio_wrapper">
+					<div class="input_wrapper__radio">
+						<label >
+							<input type="radio" name="find" value="Обзор заведений" checked>
+							Обзор заведений
+						</label>
+					</div>
+					<div class="input_wrapper__radio">
+						<label>
+							<input type="radio" name="find" value="Идеи для мероприятия">
+							Идеи для мероприятия
+						</label>
+					</div>
+					<div class="input_wrapper__radio">
+						<label>
+							<input id="find-other-places" type="radio" name="find" value="Другие места" data-textarea="other-place">
+							Другие места
+						</label>
+						<div class="comments_textarea comments_textarea_other_places" data-textarea="other-place">
+							<textarea name="comment_other_places" class="comment_form" placeholder="Напишите какие"></textarea>
+						</div>
+					</div>
+					<div class="input_wrapper__radio">
+						<label>
+							<input type="radio" name="find" value="Другое" data-textarea="other">
+							Другое
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form_submit">
+				<input type="submit" class="_button" value="Отправить"/>
+				<div class="comments_textarea" data-textarea="other">
+					<textarea name="comment_text" class="comment_form" ></textarea>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="form_success" data-success>
+		<div class="form_success_title">
+			<p class="form_success_title_main">Спасибо, мы постараемся учесть ваши пожелания!</p>
+		</div>
+	</div>
+</div>

@@ -15,7 +15,7 @@ $lightblue: lightblue;
   color: black;
   position: absolute;
   width: 373px;
-  height: 300px;
+  height: auto;
   display: flex;
   flex-direction: column;
   z-index: 9001;
@@ -30,7 +30,7 @@ $lightblue: lightblue;
   @include for-mobile{
     margin-left: 12px;
     width: 280px;
-    height: 287px;
+    height: auto;
   }
 
   &::before{
