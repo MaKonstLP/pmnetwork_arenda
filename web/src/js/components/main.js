@@ -50,7 +50,6 @@ export default class Main {
 		}
 		// === записываем в куки данные для отправки Calltracking в БД горько END ===
 
-
 		$('body').on('click', '[data-seo-control]', function () {
 			$(this).closest('[data-seo-text]').addClass('_active');
 		});
@@ -117,7 +116,7 @@ export default class Main {
 			$('[data-city-dropdown]').removeClass('_active');
 		});
 
-		$('.header_menu_burger').on('click', function() {
+		$('.header_menu_burger').on('click', function () {
 			$('.header_menu').toggleClass('_active');
 		});
 
@@ -246,11 +245,6 @@ export default class Main {
 		}
 
 
-		
-
-
-
-
 		var fired = false;
 
 		window.addEventListener('click', () => {
@@ -299,6 +293,28 @@ export default class Main {
 						'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
 			})(window, document, 'script', 'dataLayer', 'GTM-PQ92WXZ');
 		}, 100);
+
+		//клик по кнопке в виджете на поддомене челябинска (https://chelyabinsk.arendazala.net/) (кнопка находится в теневом дереве (#shadow-root))
+		const subdomain = window.location.hostname.split('.')[0];
+		if (subdomain.includes('chelyabinsk')) {
+			const intervalId = setInterval(function () {
+				//отслеживаем что виджет загрузился
+				const element = $('pf-widget');
+
+				if (element.length > 0) {
+					// Элемент загружен, присваиваем его значение переменной
+					const buttonWhatsApp = document.querySelector('body > pf-widget').shadowRoot.querySelector('pf-legacy').shadowRoot.querySelector('.pfModalContinueBtnWhatsapp')
+					const buttonTelegram = document.querySelector('body > pf-widget').shadowRoot.querySelector('pf-legacy').shadowRoot.querySelector('.pfModalContinueBtnTelegram')
+					buttonWhatsApp.addEventListener('click', function () {
+						ym(74721805, 'reachGoal', 'widget_chelyabinsk_wa');
+					});
+					buttonTelegram.addEventListener('click', function () {
+						ym(74721805, 'reachGoal', 'widget_chelyabinsk_tg');
+					});
+					clearInterval(intervalId); // Останавливаем периодическую проверку
+				}
+			}, 1000);
+		}
 	}
 
 	getScrollWidth() {

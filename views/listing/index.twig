@@ -1,6 +1,5 @@
 <div data-page-type="listing">
 	<div class="head_block">
-
 		<div class="breadcrumbs_listing" data-listing-breadcrumbs>
 			{{ this.render('//components/generic/breadcrumbs.twig', {'count':count, 'seo':seo}) | raw }}
 		</div>
@@ -18,17 +17,20 @@
 				<div class="filter_mobile_button _button" data-filter-open><span class="filter_before">Фильтр заведений</span></div>
 			</div>
 		</div>
-
 	</div>
 
 	<div class="items_list_listing" data-listing-wrapper data-seo="{{feature}}">
+		<div data-listing-collections>
+			{% if collection_posts %}
+				{{ this.render('//components/generic/listing_collections.twig', {'collection_posts':collection_posts}) | raw }}
+			{% endif %}
+		</div>
 
-		<div data-tags>
+		{# <div data-tags> #}
 			{% if tags_list %}
 				{{ this.render('//components/generic/slices_top.twig', {'tags_top':tags_list}) | raw }}
 			{% endif %}
-		</div>
-		
+		{# </div> #}
 
 		<div class="view_position">
 			<div class="view" data-listing-switcher>
@@ -56,7 +58,6 @@
 
 		{% if sliceOnMapFlag %}
 		{% else %}
-
 			<div class="items_list active" id="listing_on" data-listing-list>
 				{{ this.render('//components/generic/listing.twig', {
 					'items':items, 
@@ -71,20 +72,17 @@
 					})|raw }}
 			</div>
 
-			{# <div class="content_block _listing_pag" id="pag"> #}
 			<div class="_listing_pag" id="pag">
 				<div data-pagination-wrapper>
 					{{pagination | raw }}
 				</div>
 			</div>
 
-			{# <div style="display:none;" class="content_block loadmore" id="loadmore">  #}
 			<div class="loadmore" id="loadmore"> 
 				<div class="loadmore__wrap" data-loadmore>
 					{{loadMore | raw }}
 				</div>
 			</div>
-
 		{% endif %}
 
 		<!--Карта не та! Вставленна для примера, необходимо заменить! -->

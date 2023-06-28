@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use common\models\Subdomen;
+use frontend\modules\arenda\models\SubdomenHeaderMenu;
 use frontend\modules\arenda\models\SubdomenFooterLinks;
 use frontend\modules\arenda\assets\AppAsset;
 
@@ -155,7 +156,25 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
 							<span style="font-weight: 400;">💍</span>Где отметить свадьбу
 						</a>
 					</div> -->
-					<div class="header_menu__item">
+					<?php
+						$header_menu = SubdomenHeaderMenu::find()
+							->with(['submenus' => function ($query) {
+								$query->andWhere(['active' => 1]);
+								$query->andWhere(['city_id' => Yii::$app->params['subdomen_id']]);
+							}])
+							->all();
+					?>
+					<?php foreach ($header_menu as  $menu_item): ?>
+						<div class="header_menu__item">
+							<span> <?= $menu_item['text'] ?></span>
+							<div class="header__submenu">
+								<?php foreach ($menu_item['submenus'] as $submenu): ?>
+									<a href="/catalog/<?= $submenu['link'] ?>/"><?= $submenu['name'] ?></a>
+								<?php endforeach; ?>
+							</div>
+						</div>
+					<?php endforeach; ?>
+					<!-- <div class="header_menu__item">
 						<span>💍Свадьба</span>
 						<div class="header__submenu">
 							<a href="/catalog/svadba/">Все площадки</a>
@@ -210,7 +229,7 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<div class="header__submenu">
 							<a href="/catalog/novyy-god/">Все площадки</a>
 						</div>
-					</div>
+					</div> -->
 					<!-- <div class="city _mobile">
 						<a href="#"><p class="city_name"><?=Yii::$app->params['subdomen_name']?></p></a>
 						<img src="/images/dropdown_icon_down.svg" class="dropdown" data-city-dropdown>
@@ -352,6 +371,9 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600&display=swap&subset=cyrillic" rel="stylesheet">
 <?php if (Yii::$app->params['subdomen_alias'] == 'nnovgorod'): ?>
 	<!-- <script type="text/javascript" src="https://spikmi.org/Widget?id=16223" async></script> -->
+<?php endif; ?>
+<?php if (Yii::$app->params['subdomen_alias'] == 'chelyabinsk'): ?>
+	<script>(function () { var widget = document.createElement('script'); widget.dataset.pfId = 'ddfd253c-2803-4a5a-a6d3-448f59512f57'; widget.src = 'https://widget.profeat.team/script/widget.js?id=ddfd253c-2803-4a5a-a6d3-448f59512f57&now='+Date.now(); document.head.appendChild(widget); })()</script>
 <?php endif; ?>
 </body>
 </html>

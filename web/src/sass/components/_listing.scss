@@ -158,8 +158,139 @@ $label_margin_bottom: 8px;
 		margin-left: 0;
 	}
 
+	[data-listing-collections] {
+		max-width: 1137px;
+		color: #141417;
+		margin: 0 auto;
+
+		@include for-notdesc {
+			max-width: 744px;
+			width: calc(100% - 32px);
+		}
+
+		.collections-title {
+			display: block;
+			font-size: 24px;
+			line-height: 32px;
+			font-weight: 700;
+			margin-bottom: 16px;
+
+			@include for-mobile {
+				font-size: 20px;
+				line-height: 24px;
+			}
+		}
+
+		.collections {
+			position: relative;
+			margin-bottom: 32px;
+
+			@include for-notdesc {
+				margin-bottom: 24px;
+			}
+		}
+
+		.collections_arrow {
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			z-index: 1;
+			width: 32px;
+			height: 32px;
+			background-image: url(/images/slider_arrow_collection.svg);
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+
+			@include for-notdesc {
+				display: none;
+			}
+
+			&._collections_prev {
+				left: -48px;
+				transform: translateY(-50%) rotate(180deg);
+			}
+			&._collections_next {
+				right: -48px;
+				transform: translateY(-50%);
+			}
+		}
+
+		.collections__slider {
+			@include for-mobile {
+				width: calc(100% + 16px);
+			}
+		}
+
+		.collections__item {
+			position: relative;
+			display: flex;
+			background-color: #e7f3ff;
+			width: 272px;
+			border-radius: 8px;
+			padding: 16px;
+
+			@include for-mobile {
+				padding: 12px;
+			}
+
+			&:nth-child(4n + 1) {
+				background-color: #e7f3ff;
+			}
+			&:nth-child(4n + 2) {
+				background-color: #fff2c3;
+			}
+			&:nth-child(4n + 3) {
+				background-color: #ffe9f4;
+			}
+			&:nth-child(4n + 4) {
+				background-color: #ffdfb7;
+			}
+		}
+
+		.collections__item-link {
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 10;
+			width: 100%;
+			height: 100%;
+		}
+
+		.collections__name {
+			font-size: 16px;
+			line-height: 24px;
+			font-weight: 700;
+			margin-right: 8px;
+			margin-top: auto;
+			margin-bottom: auto;
+
+			@include for-mobile {
+				font-size: 14px;
+				line-height: 20px;
+			}
+		}
+
+		.collections__img {
+			flex: 0 0 80px;
+			width: 80px;
+			height: 80px;
+
+			@include for-mobile {
+				flex: 0 0 64px;
+				width: 64px;
+				height: 64px;
+			}
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+		}
+	}
+
 	.tags {
-		justify-content: flex-start;
 		flex-wrap: wrap;
 		max-width: 1137px;
 		margin: 0 auto 14px;
@@ -170,6 +301,10 @@ $label_margin_bottom: 8px;
 
 		.tag {
 			margin-bottom: 10px;
+
+			@include for-mobile {
+				margin-bottom: 4px;
+			}
 		}
 	}
 
@@ -1210,7 +1345,6 @@ $label_margin_bottom: 8px;
 				}
 			}
 		}
-
 
 		.restaurant_feature {
 			margin-bottom: $label_margin_bottom;

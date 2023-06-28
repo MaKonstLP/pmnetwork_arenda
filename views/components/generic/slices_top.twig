@@ -1,8 +1,41 @@
-<div class="tags" data-tags>
-	{% for tag in tags_top %}
-		<a href="/catalog/{% if tag.alias %}{{tag.alias}}/{% else %}{{tag.url}}{% endif %}" class="tag">
-			<p>{{tag.h1}}</p>
-			<p class="num">{{tag.count}}</p>
-		</a>
-	{% endfor %}
+
+<div class="tags-wrap">
+	<div class="tags" data-tags>
+		{% for tag in tags_top %}
+			<a href="/catalog/{% if tag.alias %}{{tag.alias}}/{% else %}{{tag.url}}{% endif %}" class="tag">
+				<p>{{tag.h1}}</p>
+				<p class="num">{{tag.count}}</p>
+			</a>
+		{% endfor %}
+	</div>
 </div>
+
+{# на мобилах выводим теги в две строки #}
+{% set totalItems = tags_top|length %}
+{% set halfItems = (totalItems / 2)|round(0, 'ceil') %}
+{% set secondRow = true %}
+<div class="tags-wrap _mobile">
+	<div class="tags" data-tags>
+		{% for tag in tags_top %}
+			{% if loop.first %}
+				<div class="tags__row">
+			{% endif %}
+			{% if loop.index > halfItems and secondRow %}
+				</div>
+				<div class="tags__row">
+				{% set secondRow = false %}
+			{% endif %}
+				<a href="/catalog/{% if tag.alias %}{{tag.alias}}/{% else %}{{tag.url}}{% endif %}" class="tag">
+					<p>{{tag.h1}}</p>
+					<p class="num">{{tag.count}}</p>
+				</a>
+			{% if loop.last %}
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+	{% if totalItems > 2 %}
+		<div class="tags__arrow"><img src="/images/tags_arrow.svg"></div>
+	{% endif %}
+</div>
+

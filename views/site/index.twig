@@ -6,36 +6,63 @@
 	<div class="content_block index_page">
 
 		<div class="title index">
-
 			<h1>{{seo.h1}}</h1>
-
 		</div>
 
-		<div class="tags">
+		<div class="tags-wrap">
+			<div class="tags">
+				{% for slice in slices_for_tag %}
+					<a href="/catalog/{{slice.alias}}/" class="tag">
+						<p>{{slice.text}}</p>
+						<p class="num">{{slice.count}}</p>
+					</a>
+				{% endfor %}
 
-			{% for slice in slices_for_tag %}
-				<a href="/catalog/{{slice.alias}}/" class="tag">
-					<p>{{slice.text}}</p>
-					<p class="num">{{slice.count}}</p>
+				{# <a href="/catalog/gde-otmetit-8-marta/" class="tag">
+					<p>Отметить 🌼8 марта</p>
 				</a>
-			{% endfor %}
-
-			<a href="/catalog/gde-otmetit-8-marta/" class="tag">
-				<p>Отметить 🌼8 марта</p>
-			</a>
-			<a href="/catalog/gde-otmetit-den-svyatogo-valentina/" class="tag">
-				<p>Отметить ❤️14 февраля</p>
-			</a>
-			<a href="/catalog/gde-otmetit-23-fevralya/" class="tag">
-				<p>Отметить 🧦23 февраля</p>
-			</a>
-
+				<a href="/catalog/gde-otmetit-den-svyatogo-valentina/" class="tag">
+					<p>Отметить ❤️14 февраля</p>
+				</a>
+				<a href="/catalog/gde-otmetit-23-fevralya/" class="tag">
+					<p>Отметить 🧦23 февраля</p>
+				</a> #}
+			</div>
 		</div>
+
+		{# на мобилах выводим теги в две строки #}
+		{% set totalItems = slices_for_tag|length %}
+		{% set halfItems = (totalItems / 2)|round(0, 'ceil') %}
+		{% set secondRow = true %}
+		<div class="tags-wrap _mobile">
+			<div class="tags">
+				{% for slice in slices_for_tag_for_mobile %}
+					{% if loop.first %}
+						<div class="tags__row">
+					{% endif %}
+					{% if loop.index > halfItems and secondRow %}
+						</div>
+						<div class="tags__row">
+						{% set secondRow = false %}
+					{% endif %}
+						<a href="/catalog/{{slice.alias}}/" class="tag">
+							<p>{{slice.text}}</p>
+							<p class="num">{{slice.count}}</p>
+						</a>
+					{% if loop.last %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% if totalItems > 2 %}
+				<div class="tags__arrow"><img src="/images/tags_arrow.svg"></div>
+			{% endif %}
+		</div>
+		{# </div> #}
+
 
 		<div class="filter_mobile_wrapper index_form">
-
 			<div class="filter_mobile_button _button" data-filter-open><span class="filter_before">Фильтр заведений</span></div>
-
 		</div>
 		
 	</div>
@@ -45,42 +72,29 @@
 	<div class="content_block _all_often">
 
 		<div class="often_searched">
-
 			<p class="pseudo_h2">Чаще всего ищут эти&nbsp;места</p>
 
 			<div class="all_blocks">
-
 				{% for slice in slices_for_listing %}
-
 					<div class="block">
-
 						<a href="/catalog/{{slice.alias}}/">
-
 							<img src="/images/slices/{{slice.image}}">
 							<p class="pseudo_h3">{{slice.name}}</p>
-
 						</a>
-
 					</div>
-
 				{% endfor %}
-
 			</div>
 
 			<div class="big_block">
-			
 				<a href="/popular/">
 					<img src="/images/index/listing_card_photo.svg">
 					<div class="mobil_img"></div>
 					<p class="pseudo_h3">Перейти ко всем залам</p>
 				</a>
-
 			</div>
-
 		</div>
 
 		<div class="how_work_block">
-
 			<p class="pseudo_h2">Как это работает</p>
 
 			<div class="how_work">
@@ -104,9 +118,7 @@
 					</div>
 					<div class="ball_text">Забронируйте подходящее место через звонок или&nbsp;форму обратной связи</div>
 				</div>
-
 			</div>
-
 		</div>
 
 		<div class="items_list active" id="listing_on" data-listing-list>

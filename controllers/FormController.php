@@ -8,6 +8,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\helpers\Html;
 use common\components\GorkoLeadApi;
+use common\components\TelegramBot;
 
 class FormController extends Controller
 {
@@ -43,6 +44,7 @@ class FormController extends Controller
 		$payload['details'] = '';
 		if (isset($_POST['coment_text']))
 			$payload['details'] .= $_POST['coment_text'] . '. ';
+			$payload['coment_text'] = $_POST['coment_text'];
 		if (isset($_POST['url']))
 			$payload['details'] .= 'Заявка отправлена с ' . $_POST['url'];
 		if (isset($_POST['restName']))
@@ -53,6 +55,11 @@ class FormController extends Controller
 			$payload['details'] .= ' Предпочтительный тип связи: ' . $_POST['type-connect'];
 
 		$resp = GorkoLeadApi::send_lead('v.gorko.ru', 'arendazala', $payload);
+
+		if (isset($_POST['premium'])){
+			$telegram_bot = new TelegramBot();
+			$telegram_bot->roomCallback($payload, 2, $_POST['room_id']);
+		}
 
 		\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		return $resp;
@@ -108,6 +115,7 @@ class FormController extends Controller
 			'name'							=>	'Имя и фамилия',
 			'position'						=>	'Должность',
 			'phone'							=>	'Телефон',
+			'email'							=>	'Электропочта',
 			'rest_name'						=>	'Название площадки',
 			'city'							=>	'Город',
 		];

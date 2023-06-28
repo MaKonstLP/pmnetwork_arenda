@@ -11,6 +11,7 @@ export default class Listing {
 		this.block = $block;
 		this.filter = new Filter($('[data-filter-wrapper]'));
 		this.yaMap = new YaMapAll(this.filter);
+		self.mobileMode = self.getScrollWidth() < 768 ? true : false;
 
 		//КЛИК ПО КНОПКЕ "ПОДОБРАТЬ"
 		$('[data-filter-button]').on('click', function () {
@@ -34,37 +35,8 @@ export default class Listing {
 			// self.getSwiper();
 		});
 
-		/* let showAllImages = false;
-		var galleryList = new Swiper('.listing_slider', {
-			modules: [Navigation, Pagination],
-			spaceBetween: 1,
-			slidesPerView: 1,
-			navigation: {
-				nextEl: '._listing_next',
-				prevEl: '._listing_prev',
-			},
-			pagination: {
-				el: '.listing_slider_pagination',
-			},
-			on: {
-				afterInit: () => {
-					this.slideTo(0);//убирает баг с тем, что после инициализации стрелки скрыты и имеют класс "swiper-button-lock"
-				},
-				slideChange: function () {
-					// показать все картинки реста
-					if (!showAllImages) {
-						showAllImages = true;
+		// this.splitInTwoRows();
 
-						$('.listing_slider').find('.item-img').show();
-						let sliderImages = $('.listing_slider').find('.item-img img');
-						sliderImages.each(function () {
-							let imageSrc = $(this).data('src');
-							$(this).attr('src', imageSrc);
-						})
-					}
-				},
-			},
-		}); */
 		let showAllImages = false;
 		document.querySelectorAll('.object_gallery').forEach(n => {
 
@@ -110,6 +82,8 @@ export default class Listing {
 		$('body').on('click', '.address_map', () => {
 			this.viewListing('right');
 		});
+
+		this.initCollectionsSlider();
 	}
 
 	initMainSlider() {
@@ -147,40 +121,20 @@ export default class Listing {
 		});
 	}
 
-	/* getSwiper() {
-		let showAllImages = false;
-		var galleryList = new Swiper('.listing_slider', {
-			modules: [Navigation, Pagination],
-			spaceBetween: 0,
-			slidesPerView: 1,
-			navigation: {
-				nextEl: '._listing_next',
-				prevEl: '._listing_prev',
-			},
-			pagination: {
-				el: '.listing_slider_pagination',
-			},
-			on: {
-				afterInit: () => {
-					this.slideTo(0);//убирает баг с тем, что после инициализации стрелки скрыты и имеют класс "swiper-button-lock"
+	initCollectionsSlider() {
+		if ($('.collections__slider')) {
+			let collectionsSlider = new Swiper(document.querySelector('.collections__slider'), {
+				modules: [Navigation],
+				spaceBetween: 16,
+				slidesPerView: 'auto',
+				// loop: true,
+				navigation: {
+					nextEl: '._collections_next',
+					prevEl: '._collections_prev',
 				},
-				slideChange: function () {
-					// показать все картинки реста
-					if (!showAllImages) {
-						showAllImages = true;
-
-						$('.listing_slider').find('.item-img').show();
-						let sliderImages = $('.listing_slider').find('.item-img img');
-						sliderImages.each(function () {
-							let imageSrc = $(this).data('src');
-							$(this).attr('src', imageSrc);
-						})
-					}
-				},
-			},
-		});
-		$('.listing_slider').find('._listing_next').removeClass('swiper-button-disabled');
-	} */
+			});
+		}
+	}
 
 	viewListing(id) {
 		if (id == "left") {
@@ -224,10 +178,12 @@ export default class Listing {
 				$('[data-listing-list]').html(response.listing);
 
 				// self.getSwiper();
+				// self.initCollectionsSlider();
 				self.initMainSlider();
 
 				$('[data-listing-title]').html(response.title);
 				$('[data-listing-breadcrumbs]').html(response.crumbs);
+				$('[data-listing-collections]').html(response.collection_posts);
 				$('[data-tags]').html(response.tags);
 				$('[data-listing-text-top]').html(response.text_top);
 				$('[data-listing-text-bottom]').html(response.text_bottom);
@@ -243,6 +199,9 @@ export default class Listing {
 						self.viewListing('right');
 					});
 				}
+
+				// self.splitInTwoRows();
+				self.initCollectionsSlider();
 
 				$('body').removeClass();
 				$('body').addClass(response.prazdnik_type);
@@ -269,8 +228,6 @@ export default class Listing {
 		self.filter.filterListingSubmit(page);
 		self.filter.promise.then(
 			response => {
-				// $('[data-listing-list]').append(response.listing);
-
 				let listingList = document.querySelector('[data-listing-list]');
 				let listingTitle = document.querySelector('[data-listing-title]');
 				let listingBreadcrumbs = document.querySelector('[data-listing-breadcrumbs]');
@@ -280,6 +237,7 @@ export default class Listing {
 				let loadmoreBtn = document.querySelector('[data-loadmore]');
 
 				listingList.insertAdjacentHTML('beforeend', response.listing);
+				self.initCollectionsSlider();
 				self.initMainSlider();
 				listingTitle.innerHTML = response.title;
 				listingBreadcrumbs.innerHTML = response.crumbs;
@@ -289,31 +247,37 @@ export default class Listing {
 				loadmoreBtn.innerHTML = response.loadMore;
 				document.title = response.seo_title;
 
-				
 
-				// $('[data-listing-title]').html(response.title);
-				// $('[data-listing-breadcrumbs]').html(response.crumbs);
-				// $('[data-listing-text-top]').html(response.text_top);
-				// $('[data-listing-text-bottom]').html(response.text_bottom);
-				// $('[data-pagination-wrapper]').html(response.pagination);
-				// document.title = response.seo_title;
-
-				// if (response.mapPageExistFlag) {
-				// 	let isButtonActive = $('.btn_list._right').hasClass('active');
-				// 	$('.btn_list._right p').unwrap().wrap('<a id="right" href="/catalog/' + response.url + 'map/" class="btn_list _right' + (isButtonActive ? ' active' : '') + '"></a>');
-				// } else {
-				// 	$('.btn_list._right p').unwrap().wrap('<div class="btn_list _right" id="right"></div>');
-				// 	$('div.btn_list._right').on('click', () => {
-				// 		self.viewListing('right');
-				// 	});
-				// }
-
-				// $('[data-loadmore]').html(response.loadMore);
 				self.block.removeClass('_loading');
 
 				history.pushState({}, '', '/catalog/' + response.url);
 				self.yaMap.refresh(self.filter);
 			}
+		);
+	}
+
+	// splitInTwoRows() {
+	// 	if (this.mobileMode) {
+	// 		let tags = $('.tag');
+	// 		let tagsWrap = $('.tags');
+	// 		let tagsLength = tags.length;
+	// 		if (tagsLength <= 2) {
+	// 			$('.tags__arrow').css('display', 'none');
+	// 			tagsWrap.css('height', 'auto');
+	// 		} else {
+	// 			let halfLength = Math.ceil(tagsLength / 2); // Определяем половину количества тегов
+	// 			// Разделяем теги на две части и оборачиваем их в блоки tags_row
+	// 			tags.slice(0, halfLength).wrapAll('<div class="tags__row"></div>');
+	// 			tags.slice(halfLength).wrapAll('<div class="tags__row"></div>');
+	// 		}
+	// 	}
+	// }
+
+	getScrollWidth() {
+		return Math.max(
+			document.body.scrollWidth, document.documentElement.scrollWidth,
+			document.body.offsetWidth, document.documentElement.offsetWidth,
+			document.body.clientWidth, document.documentElement.clientWidth
 		);
 	}
 }

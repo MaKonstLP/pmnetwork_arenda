@@ -20,12 +20,18 @@ use frontend\modules\arenda\models\SlicesOptionVia;
 use frontend\modules\arenda\models\SlicesExtraOption;
 use frontend\modules\arenda\models\SlicesExtraOptionVia;
 use frontend\modules\arenda\models\SubdomenFooterLinks;
+use frontend\modules\arenda\models\SubdomenHeaderMenu;
+use frontend\modules\arenda\models\SubdomenHeaderSubmenu;
 use frontend\modules\arenda\components\QueryFromSlice;
 use frontend\components\ParamsFromQuery;
 use common\models\RestaurantsPremium;
 use common\models\RoomsPremium;
 use yii\web\Controller;
 use yii\helpers\ArrayHelper;
+use common\models\FilterItems;
+use frontend\modules\pmnbd\models\SubdomenFilteritem;
+use common\models\elastic\FilterQueryConstructorElastic;
+use common\models\YamapInfo;
 
 
 class TestController extends Controller
@@ -933,67 +939,56 @@ class TestController extends Controller
 		} */
 
 
-		//*Добавление ссылок для меню в футере
-		/* $links = [
-			'Танцевальные залы' => 'tancevalnyy-zal',
-			'Отели/гостиницы' => 'oteli-i-gostinicy',
-			'Актовые залы' => 'aktovye-zaly',
-			'Веранды' => 'veranda',
-			'Летние площадки' => 'letnyaya-ploshchadka',
-			'Конференц-залы' => 'konferenc-zal',
-			'Кинозалы' => 'kinozaly',
-			'Рестораны' => 'restorany',
-			'Природа' => 'priroda',
-			'Арт-площадки' => 'art-ploshchadki',
-			'Банкетные залы' => 'banketnyy-zal',
-			'Лофты' => 'loft',
-			'Бары/пабы' => 'barypaby',
-			'Террасы' => 'terrasa',
-			'Коттеджи' => 'kottedji',
-			'Залы' => 'zaly',
-			'Кафе' => 'kafe',
-			'Клубы' => 'kluby',
-			'Шатры' => 'shatry',
-		];
 
-		$subdomen_list = Subdomen::find()
-			->where(['active' => 1])
-			->orderBy(['name' => SORT_ASC])
+		/* $header_menu = SubdomenHeaderMenu::find()
+			->with(['submenus' => function ($query) {
+				$query->andWhere(['active' => 1]);
+				$query->andWhere(['city_id' => Yii::$app->params['subdomen_id']]);
+			}])
+			->all(); */
+
+
+		//* ======== обновление таблицы "yamap_info" в общей БД START ========
+		$connection = new \yii\db\Connection([
+			'username' => 'root',
+			'password' => 'GxU25UseYmeVcsn5Xhzy',
+			'charset'  => 'utf8mb4',
+			'dsn' => 'mysql:host=localhost;dbname=pmn'
+		]);
+		$connection->open();
+		Yii::$app->set('db', $connection);
+
+
+		// $yamap_model = YamapInfo::find()->all();
+
+		$restaurants = Restaurants::find()
+			->with('yandexReview')
+			// ->where(['>', 'id', 5000])
+			// ->where(['>', 'id', 7000])
+			// ->where(['>', 'id', 9000])
+			// ->where(['>', 'id', 11000])
+			// ->where(['>', 'id', 12000])
+			->where(['>', 'id', 14000])
+			->limit(20000)
 			->all();
 
-		$filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
-		$slices_model = Slices::find()->all();
-
-		foreach ($subdomen_list as $key => $subdomen) {
-			$sort_key = 0;
-			foreach ($links as $link_key => $link) {
-				$slice_obj = new QueryFromSlice($link);
-
-				if ($slice_obj->flag) {
-					Yii::$app->params['subdomen_id'] = $subdomen['city_id'];
-					$params = $this->parseGetQuery($slice_obj->params, $filter_model, $slices_model);
-					$elastic_model = new ElasticItems;
-					$items = PremiumMixer::getItemsWithPremium($params['params_filter'], 30, 1, false, 'rooms', $elastic_model, false, false, false, false, false, true);
-
-					$subdomen_footer_link = SubdomenFooterLinks::find()->where(['city_id' => $subdomen['city_id']])->andWhere(['link' => $link])->one();
-					if (!$subdomen_footer_link) {
-						$subdomen_link = new SubdomenFooterLinks();
-						$subdomen_link['city_id'] = $subdomen['city_id'];
-						$subdomen_link['name'] = $link_key;
-						$subdomen_link['link'] = $link;
-						$subdomen_link['sort'] = $sort_key;
-						if ($items->total == 0) {
-							$subdomen_link['active'] = 0;
-						} else {
-							$subdomen_link['active'] = 1;
-						}
-						$subdomen_link->save();
-					}
-				}
-
-				$sort_key++;
+		//* добавление новых полей в таблицу "yamap_info"
+		foreach ($restaurants as $rest) {
+			$yamap_model = YamapInfo::find()->where(['gorko_id' => $rest->gorko_id])->one();
+			if (empty($yamap_model)) {
+				$model = new YamapInfo();
+				$model->gorko_id = $rest->gorko_id;
+				$model->name = $rest->name;
+				$model->latitude = $rest->latitude;
+				$model->longitude = $rest->longitude;
+				$model->save();
 			}
-		} */
+		}
+		//* ======== обновление таблицы "yamap_info" в общей БД END ========
+
+
+
+
 
 
 
@@ -1070,6 +1065,7 @@ class TestController extends Controller
 		//echo '<pre>';
 	}
 
+
 	public function actionCustom()
 	{
 		// $filter_model = Filter::find()->with('items')->asArray()->all();
@@ -1140,5 +1136,298 @@ class TestController extends Controller
 			}
 		}
 		return $message->send();
+	}
+
+	//*Обновление активных ссылок для меню в футере
+	public function actionUpdateActiveFooterLinks()
+	// /test/update-active-footer-links
+	{
+		$links = [
+			'Танцевальные залы' => 'tancevalnyy-zal',
+			'Отели/гостиницы' => 'oteli-i-gostinicy',
+			'Актовые залы' => 'aktovye-zaly',
+			'Веранды' => 'veranda',
+			'Летние площадки' => 'letnyaya-ploshchadka',
+			'Конференц-залы' => 'konferenc-zal',
+			'Кинозалы' => 'kinozaly',
+			'Рестораны' => 'restorany',
+			'Природа' => 'priroda',
+			'Арт-площадки' => 'art-ploshchadki',
+			'Банкетные залы' => 'banketnyy-zal',
+			'Лофты' => 'loft',
+			'Бары/пабы' => 'barypaby',
+			'Террасы' => 'terrasa',
+			'Коттеджи' => 'kottedji',
+			'Залы' => 'zaly',
+			'Кафе' => 'kafe',
+			'Клубы' => 'kluby',
+			'Шатры' => 'shatry',
+		];
+
+		$subdomen_list = Subdomen::find()
+			->where(['active' => 1])
+			->orderBy(['name' => SORT_ASC])
+			->all();
+
+		$filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
+		$slices_model = Slices::find()->all();
+
+		foreach ($subdomen_list as $key => $subdomen) {
+			$sort_key = 0;
+			foreach ($links as $link_key => $link) {
+				$slice_obj = new QueryFromSlice($link);
+
+				if ($slice_obj->flag) {
+					Yii::$app->params['subdomen_id'] = $subdomen['city_id'];
+					$params = $this->parseGetQuery($slice_obj->params, $filter_model, $slices_model);
+					$elastic_model = new ElasticItems;
+					$items = PremiumMixer::getItemsWithPremium($params['params_filter'], 30, 1, false, 'rooms', $elastic_model, false, false, false, false, false, true);
+
+					$subdomen_footer_link = SubdomenFooterLinks::find()->where(['city_id' => $subdomen['city_id']])->andWhere(['link' => $link])->one();
+					if (!$subdomen_footer_link) {
+						$subdomen_link = new SubdomenFooterLinks();
+						$subdomen_link['city_id'] = $subdomen['city_id'];
+						$subdomen_link['name'] = $link_key;
+						$subdomen_link['link'] = $link;
+						$subdomen_link['sort'] = $sort_key;
+						if ($items->total == 0) {
+							$subdomen_link['active'] = 0;
+						} else {
+							$subdomen_link['active'] = 1;
+						}
+						$subdomen_link->save();
+					}
+				}
+
+				$sort_key++;
+			}
+		}
+		echo 'ссылки обновлены';
+	}
+
+
+	//* обновление активных ссылок в хедере в зависимости от поддомена
+	public function actionUpdateActiveHeaderLinks()
+	// /test/update-active-header-links
+	{
+		$header_menu = [
+			'svadba' => [
+				'id' => 1,
+				'text' => '💍Свадьба',
+				'submenu' => [
+					[
+						'name' => 'Все площадки',
+						'link' => 'svadba',
+					],
+					[
+						'name' => 'Банкетные залы',
+						'link' => 'arenda-banketnogo-zala-dlya-svadby'
+					],
+					[
+						'name' => 'Рестораны',
+						'link' => 'arenda-restorana-na-svadbu',
+					],
+					[
+						'name' => 'Кафе',
+						'link' => 'arenda-kafe-dlya-svadby',
+					],
+					[
+						'name' => 'Лофты',
+						'link' => 'arenda-lofta-dlya-svadby',
+					],
+					[
+						'name' => 'На природе',
+						'link' => 'svadba-na-prirode',
+					],
+					[
+						'name' => 'Шатры',
+						'link' => 'arenda-shatrov-na-svadbu',
+					],
+					[
+						'name' => 'Веранды',
+						'link' => 'arenda-verandy-dlya-svadby',
+					],
+					[
+						'name' => 'У воды',
+						'link' => 'svadba-y-vody',
+					],
+					[
+						'name' => 'Коттеджи',
+						'link' => 'arenda-kottedzha-dlya-svadby',
+					],
+					[
+						'name' => 'Отели',
+						'link' => 'svadba-v-otele',
+					]
+				]
+			],
+			'den-rojdeniya' => [
+				'id' => 2,
+				'text' => '🎂День рождения',
+				'submenu' => [
+					[
+						'name' => 'Все площадки',
+						'link' => 'den-rojdeniya',
+					],
+					[
+						'name' => 'Банкетные залы',
+						'link' => 'arenda-banketnogo-zala-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'Рестораны',
+						'link' => 'arenda-restorana-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'Кафе',
+						'link' => 'arenda-kafe-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'Лофты',
+						'link' => 'arenda-lofta-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'На природе',
+						'link' => 'den-rozhdeniya-na-prirode',
+					],
+					[
+						'name' => 'Шатры',
+						'link' => 'arenda-terrasy-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'Веранды',
+						'link' => 'arenda-verandy-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'Коттеджи',
+						'link' => 'arenda-kottedzha-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'Клубы',
+						'link' => 'arenda-cluba-dlya-dnya-rozhdeniya',
+					],
+					[
+						'name' => 'Бары',
+						'link' => 'arenda-bara-dlya-dnya-rozhdeniya',
+					],
+				]
+			],
+			'korporativ' => [
+				'id' => 3,
+				'text' => '🤟Корпоратив',
+				'submenu' => [
+					[
+						'name' => 'Все площадки',
+						'link' => 'korporativ',
+					],
+					[
+						'name' => 'Площадки',
+						'link' => 'ploshchadki-dlya-korporativa',
+					],
+					[
+						'name' => 'Лофты',
+						'link' => 'loft-dlya-korporativa',
+					],
+					[
+						'name' => 'На природе',
+						'link' => 'zagorodnyye-ploshchadki-dlya-korporativa',
+					],
+					[
+						'name' => 'Рестораны',
+						'link' => 'restorany-dlya-korporativa',
+					],
+					[
+						'name' => 'Кафе',
+						'link' => 'kafe-dlya-korporativa',
+					],
+				]
+			],
+			'vypusknoy' => [
+				'id' => 4,
+				'text' => '🎓Выпускной',
+				'submenu' => [
+					[
+						'name' => 'Все площадки',
+						'link' => 'vypusknoy',
+					],
+					[
+						'name' => 'На природе',
+						'link' => 'vypusknoy-za-gorodom-na-prirode',
+					],
+				]
+			],
+			'novyy-god' => [
+				'id' => 5,
+				'text' => '⛄Новый год',
+				'submenu' => [
+					[
+						'name' => 'Все площадки',
+						'link' => 'novyy-god',
+					],
+				]
+			]
+		];
+
+		//сохраняем в БД основные пункты header menu
+		//расскомментировать если довляются новые пункты в меню
+		/* foreach ($header_menu as $key => $menu) {
+			$menu_item = SubdomenHeaderMenu::find()->where(['name' => $key])->one();
+			if (!$menu_item) {
+				$subdomen_menu = new SubdomenHeaderMenu();
+				$subdomen_menu['name'] = $key;
+				$subdomen_menu['text'] = $menu['text'];
+				$subdomen_menu->save();
+			}
+		} */
+
+
+		//выбираем сначала первую половину поддоменов и затем выбираем вторую половину (иначе может не хватить времени обработки скрипта)
+		$subdomen_list = Subdomen::find()
+			->where(['active' => 1])
+			// ->andWhere(['<=', 'id', 26])
+			->andWhere(['>=', 'id', 25])
+			->orderBy(['name' => SORT_ASC])
+			->all();
+
+		$filter_model = Filter::find()->with('items')->where(['active' => 1])->orderBy(['sort' => SORT_ASC])->all();
+		$slices_model = Slices::find()->all();
+
+		foreach ($subdomen_list as $subdomen) {
+			foreach ($header_menu as $menu_key => $menu) {
+				$sort_key = 0;
+				$menu_item = SubdomenHeaderMenu::find()->where(['name' => $menu_key])->one();
+				foreach ($menu['submenu'] as $submenu) {
+					$slice_obj = new QueryFromSlice($submenu['link']);
+
+					if ($slice_obj->flag) {
+						Yii::$app->params['subdomen_id'] = $subdomen['city_id'];
+						$params = $this->parseGetQuery($slice_obj->params, $filter_model, $slices_model);
+						$elastic_model = new ElasticItems;
+						$items = PremiumMixer::getItemsWithPremium($params['params_filter'], 30, 1, false, 'rooms', $elastic_model, false, false, false, false, false, true);
+
+						$subdomen_submenu = SubdomenHeaderSubmenu::find()
+							->where(['city_id' => $subdomen['city_id']])
+							->andWhere(['link' => $submenu['link']])
+							->one();
+						if (!$subdomen_submenu) {
+							$subdomen_submenu = new SubdomenHeaderSubmenu();
+							$subdomen_submenu['menu_id'] = $menu_item['id'];
+							$subdomen_submenu['city_id'] = $subdomen['city_id'];
+							$subdomen_submenu['name'] = $submenu['name'];
+							$subdomen_submenu['link'] = $submenu['link'];
+							$subdomen_submenu['sort'] = $sort_key;
+						}
+						if ($items->total == 0) {
+							$subdomen_submenu['active'] = 0;
+						} else {
+							$subdomen_submenu['active'] = 1;
+						}
+						$subdomen_submenu->save();
+					}
+					$sort_key++;
+				}
+			}
+		}
+
+		echo 'ссылки обновлены';
 	}
 }

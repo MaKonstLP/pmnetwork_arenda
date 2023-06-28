@@ -17,6 +17,7 @@ use common\models\SlicesExtended;
 use common\models\RestaurantsSpec;
 use common\models\elastic\ItemsFilterElastic;
 use frontend\components\PremiumMixer;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -52,9 +53,9 @@ class SiteController extends Controller
 				]
 			])->search();
 
-			// echo ('<pre>');
-			// print_r($aggs);
-			// exit;
+		// echo ('<pre>');
+		// print_r($aggs);
+		// exit;
 
 		$slicesForTag = array_reduce($aggs['aggregations']['specs']['ids']['buckets'], function ($acc, $item) {
 			if (
@@ -62,14 +63,65 @@ class SiteController extends Controller
 				&& ($restTypeSlice = RestaurantsSpec::find()->with('slice')->where(['id' => intval($item['key'])])->one())
 				&& ($sliceObj = $restTypeSlice->slice)
 			) {
+				$order = $item['key'] + 100;
+				switch ($sliceObj->alias) {
+					case 'svadba':
+						$order = 1;
+						break;
+					case 'den-rojdeniya':
+						$order = 2;
+						break;
+					case 'novyy-god':
+						$order = 3;
+						break;
+					case 'detskiy-den-rojdeniya':
+						$order = 4;
+						break;
+					case 'korporativ':
+						$order = 6;
+						break;
+					case 'vypusknoy':
+						$order = 7;
+						break;
+				}
+
 				$acc[] = [
 					'alias' => $sliceObj->alias,
 					'text' => $sliceObj->h1,
-					'count' => $item['doc_count']
+					'count' => $item['doc_count'],
+					'order' => $order
 				];
 			}
 			return $acc;
 		}, []);
+
+		$static_slices_for_tag = [
+			[
+				'alias' => 'gde-otmetit-8-marta',
+				'text' => 'Отметить 🌼8 марта',
+				'order' => 5
+			],
+			[
+				'alias' => 'gde-otmetit-den-svyatogo-valentina',
+				'text' => 'Отметить ❤️14 февраля',
+				'order' => 8
+			],
+			[
+				'alias' => 'gde-otmetit-23-fevralya',
+				'text' => 'Отметить 🧦23 февраля',
+				'order' => 9
+			],
+		];
+
+		foreach ($static_slices_for_tag as $key => $value) {
+			$slicesForTag[] = $value;
+		}
+		$slicesForTagForMobile = ArrayHelper::index($slicesForTag, 'order');
+		ksort($slicesForTagForMobile);
+
+		// echo ('<pre>');
+		// print_r($slicesForTag);
+		// exit;
 
 
 		$slicesForListing = SlicesExtended::find()
@@ -95,7 +147,7 @@ class SiteController extends Controller
 		$items = PremiumMixer::getItemsWithPremium([], 30, 1, false, 'rooms', $elastic_model, false, false, false, false, false, true);
 
 		$items = $items->items;
-		
+
 
 		$feature = false;
 
@@ -109,6 +161,7 @@ class SiteController extends Controller
 			'filter' => $filter,
 			'seo' => $seo,
 			'slices_for_tag' => $slicesForTag,
+			'slices_for_tag_for_mobile' => $slicesForTagForMobile,
 			'slices_for_listing' => $slicesForListing,
 			'items' => $items,
 			'feature' => $feature,

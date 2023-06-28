@@ -27,7 +27,8 @@ class Breadcrumbs {
 				break;
 			case 4:
 				$breadcrumbs=[
-					self::get_breadcrumbs(1)['/'],
+					// self::get_breadcrumbs(1)['/'],
+					'/' => 'Главная',
 					'/catalog/' => Breadcrumbs::getFilterRestTypes($params)
 				];
 				break;

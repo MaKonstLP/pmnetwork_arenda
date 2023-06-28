@@ -93,6 +93,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'price',
 			'capacity_reception',
 			'capacity',
+			'capacity_min',
 			'type',
 			'rent_only',
 			'banquet_price',
@@ -217,6 +218,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'price'                            => ['type' => 'integer'],
 					'capacity_reception'               => ['type' => 'integer'],
 					'capacity'                         => ['type' => 'integer'],
+					'capacity_min'                         => ['type' => 'integer'],
 					'type'                             => ['type' => 'integer'],
 					'rent_only'                        => ['type' => 'integer'],
 					'banquet_price'                    => ['type' => 'integer'],
@@ -363,8 +365,13 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->with('subdomen')
 			->with('yandexReview')
 			->where(['active' => 1])
-			->limit(100000)
-			->all();
+			->limit(100000);
+
+		if($params['gorko_id']){
+			$restaurants->andWhere(['gorko_id' => $params['gorko_id']]);
+		}
+
+		$restaurants = $restaurants->all();
 
 		$connection = new \yii\db\Connection($params['site_connection_config']);
 		$connection->open();
@@ -404,7 +411,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			}
 			echo ProgressWidget::widget(['done' => $rest_iter++, 'total' => $rest_count]);
 		}
-		echo 'Обновление индекса ' . self::index() . ' ' . self::type() . ' завершено<br>';
+		echo 'Обновление индекса ' . self::index() . ' ' . self::type() . ' завершено'."\n";
 	}
 
 	public static function softRefreshIndex()
@@ -711,6 +718,15 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			case 477247:
 				$record->restaurant_phone = '+7 961 887-50-00';
 				break;
+			case 455577:
+				$record->restaurant_phone = '+7 923 775-08-03';
+				break;
+			case 467041:
+				$record->restaurant_phone = '+7 978 770-83-95';
+				break;
+			case 483343:
+				$record->restaurant_phone = '+7 963 716-59-17';
+				break;
 			default:
 				$record->restaurant_phone = $restaurant->phone;
 				break;
@@ -835,6 +851,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->price = $room->price;
 		$record->capacity_reception = $room->capacity_reception;
 		$record->capacity = $room->capacity;
+		$record->capacity_min = $room->capacity_min;
 		$record->type = $room->type;
 		$record->rent_only = $room->rent_only;
 		$record->banquet_price = $room->banquet_price;

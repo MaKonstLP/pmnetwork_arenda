@@ -25,6 +25,8 @@ use backend\models\Slices;
 use common\models\GorkoApi;
 use common\models\GorkoApiTest;
 use common\models\Seo;
+use backend\modules\arenda\models\blog\BlogPost;
+use backend\modules\arenda\models\blog\BlogPostSlice;
 
 class ListingController extends Controller
 {
@@ -48,16 +50,10 @@ class ListingController extends Controller
 	public function actionSlice($slice)
 	{
 		$slice_obj = new QueryFromSlice($slice);
-		// echo ('<pre>');
-		// print_r($slice_obj);
-		// exit;
+
 		if ($slice_obj->flag) {
 			$this->view->params['menu'] = $slice;
 			$params = $this->parseGetQuery($slice_obj->params, $this->filter_model, $this->slices_model);
-
-			// echo ('<pre>');
-			// print_r($params);
-			// exit;
 
 			isset($_GET['page']) ? $params['page'] = $_GET['page'] : $params['page'];
 
@@ -70,16 +66,17 @@ class ListingController extends Controller
 			$slices_top = !empty($slice_obj->slices_top) ? $slice_obj->slices_top : '';
 
 			return $this->actionListing(
-				$page 			=	$params['page'],
-				$per_page		=	$this->per_page,
-				$params_filter	=	$params['params_filter'],
-				$breadcrumbs 	=	Breadcrumbs::get_breadcrumbs(2, $slice),
-				$canonical 		=	$canonical,
-				$type 			=	$slice,
-				$sliceOnMapFlag = false,
-				$feature			=	$slice_obj->seo['feature'],
-				$slices_top		=	$slices_top,
-				$static_tags	=	$params['static_tags'],
+				$page 				=	$params['page'],
+				$per_page			=	$this->per_page,
+				$params_filter		=	$params['params_filter'],
+				$breadcrumbs 		=	Breadcrumbs::get_breadcrumbs(2, $slice),
+				$canonical 			=	$canonical,
+				$type 				=	$slice,
+				$sliceOnMapFlag	=	false,
+				$feature				=	$slice_obj->seo['feature'],
+				$slices_top			=	$slices_top,
+				$static_tags		=	$params['static_tags'],
+				$slice_id			=	$slice_obj->slice_model['id'],
 			);
 		} else {
 
@@ -168,13 +165,13 @@ class ListingController extends Controller
 		}
 	}
 
-	public function actionListing($page, $per_page, $params_filter, $breadcrumbs, $canonical, $type = false, $sliceOnMapFlag = false, $feature = false, $slices_top = [], $static_tags = [])
+	public function actionListing($page, $per_page, $params_filter, $breadcrumbs, $canonical, $type = false, $sliceOnMapFlag = false, $feature = false, $slices_top = [], $static_tags = [], $slice_id = false)
 	{
 		$elastic_model = new ElasticItems;
 		$items = PremiumMixer::getItemsWithPremium($params_filter, $per_page, $page, false, 'rooms', $elastic_model, false, false, false, false, false, true);
 		//$items = new ItemsFilterElastic($params_filter, $per_page, $page, false, 'rooms', $elastic_model);
 
-		if($items->total == 0) {
+		if ($items->total == 0) {
 			Yii::$app->params['noindex_global'] = true;
 		}
 
@@ -197,10 +194,6 @@ class ListingController extends Controller
 				$rest_type_option_id = 99;
 			}
 		}
-
-		// echo ('<pre>');
-		// print_r($params_filter['rest_type']);
-		// exit;
 
 		//облако тегов
 		$tags_list = [];
@@ -297,14 +290,6 @@ class ListingController extends Controller
 		} else if (!$type) {
 			$seo = $this->getSeo($seo_type . "/map", $page, $items->total);
 		}
-
-		/* $seo['breadcrumbs'] = $breadcrumbs;
-		$this->setSeo($seo, $page, $canonical, $items->items);
-
-		if ($seo_type == 'listing' and count($params_filter) > 0) {
-			$seo['text_top'] = '';
-			$seo['text_bottom'] = '';
-		} */
 
 		$prettyPhone = Yii::$app->params['subdomen_phone'];
 
@@ -495,6 +480,19 @@ class ListingController extends Controller
 		}
 		// ===== schemaOrg Product END =====
 
+		// ===== вывод на срезах "Подборок ресторанов" START =====
+		$collection_posts = '';
+		if ($type) {
+			$collection_posts = BlogPost::findWithMedia()
+				->with('blogPostTags')
+				->joinWith('blogPostSlices')
+				->where(['published' => true])
+				// ->andWhere(['collection' => true])
+				->andWhere([BlogPostSlice::tableName() . '.slice_id' => $slice_id])
+				->andWhere([BlogPostSlice::tableName() . '.subdomen_id' => Yii::$app->params['subdomen_id']])
+				->all();
+		}
+		// ===== вывод на срезах "Подборок ресторанов" END =====
 
 		$seo['breadcrumbs'] = $breadcrumbs;
 		$this->setSeo($seo, $page, $canonical, $items->items);
@@ -503,12 +501,6 @@ class ListingController extends Controller
 			$seo['text_top'] = '';
 			$seo['text_bottom'] = '';
 		}
-
-		// echo ('<pre>');
-		// print_r($max_price);
-		// echo ('<pre>');
-		// print_r($min_price);
-		// exit;
 
 
 		// echo ('<pre>');
@@ -536,6 +528,7 @@ class ListingController extends Controller
 			'tags_list' => $tags_list,
 			'prazdnik_option_id' => $prazdnik_option_id,
 			'rest_type_option_id' => $rest_type_option_id,
+			'collection_posts' => $collection_posts,
 		));
 	}
 
@@ -637,9 +630,11 @@ class ListingController extends Controller
 		$tags_list = [];
 		$min_price = 99999;
 		$max_price = 0;
+		$collection_posts = '';
 		// $static_tags = $params['static_tags'];
 		if ($slice_url) {
 			$slice_obj = new QueryFromSlice($slice_url);
+			$slice_id = $slice_obj->slice_model['id'];
 
 			$feature = $slice_obj->seo['feature'];
 
@@ -659,20 +654,26 @@ class ListingController extends Controller
 				}
 			}
 
+			// ===== вывод на срезах "Подборок ресторанов" START =====
+			$collection_posts = BlogPost::findWithMedia()
+				->with('blogPostTags')
+				->joinWith('blogPostSlices')
+				->where(['published' => true])
+				->andWhere([BlogPostSlice::tableName() . '.slice_id' => $slice_id])
+				->andWhere([BlogPostSlice::tableName() . '.subdomen_id' => Yii::$app->params['subdomen_id']])
+				->all();
+			// ===== вывод на срезах "Подборок ресторанов" END =====
+
 			$seo = $this->getSeo($seo_type, $params['page'], $items->total, $min_price, $max_price);
 		} else {
 			$seo = $this->getSeo($seo_type, $params['page'], $items->total);
 		}
 
-		// if (!$slices_top && $static_tags) {
 		if (!$tags_list && $params['static_tags']) {
 			$tags_list = $this->getCloudTagsList($params['static_tags'], $elastic_model, $slices_top = false);
 		}
 		$tags = $this->renderPartial('//components/generic/slices_top.twig', array('tags_top' => $tags_list));
 
-
-		// $seo_type = $slice_url ? $slice_url : 'listing';
-		// $seo = $this->getSeo($seo_type, $params['page'], $items->total);
 
 		substr($params['listing_url'], 0, 1) == '?' ?
 			$seo['breadcrumbs'] = Breadcrumbs::get_breadcrumbs(4, false, $params['params_filter'])
@@ -723,6 +724,8 @@ class ListingController extends Controller
 				'prazdnik_option_id' => $prazdnik_option_id,
 				'rest_type_option_id' => $rest_type_option_id,
 			)),
+			// 'collection_posts' => $collection_posts,
+			'collection_posts' => $collection_posts ? $this->renderPartial('//components/generic/listing_collections.twig', array('collection_posts' => $collection_posts)) : '',
 			'pagination' => $pagination,
 			'url' => $params['listing_url'],
 			'title' => $title,

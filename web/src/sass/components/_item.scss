@@ -1182,8 +1182,8 @@ $fontFamilyLato: Lato;
 
 	@include for-mobile {
 		flex-flow: column;
-		height: 215px;
-		overflow: hidden;
+		// height: 215px;
+		// overflow: hidden;
 		order: 0;
 	}
 }

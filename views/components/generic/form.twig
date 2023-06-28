@@ -123,6 +123,13 @@
 			{% if venue_id is defined %}
 				<input type="hidden" name="venue_id" value="{{venue_id}}" />
 			{% endif %}
+			{% if room_id is defined %}
+				<input type="hidden" name="room_id" value="{{room_id}}" />
+			{% endif %}
+
+			{% if premium %}
+				<input type="hidden" name="premium" value="1" />
+			{% endif %}
 
 		</form>
 

@@ -1,0 +1,18 @@
+<span class="collections-title">Идеи, обзоры, подборки мест</span>
+<div class="collections">
+	<div class="collections_arrow _collections_prev"></div>
+	<div class="collections_arrow _collections_next"></div>
+	<div class="collections__slider swiper-container">
+		<div class="swiper-wrapper">
+			{% for post in collection_posts %}
+				<div class="collections__item swiper-slide">
+					<a class="collections__item-link" href="https://arendazala.net{{ post.getUrl() }}"></a>
+					<p class="collections__name">{{ post.name }}</p>
+					<div class="collections__img">
+						<img src="{{ post.collection_icon }}"></a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
