@@ -21,7 +21,8 @@ class Module extends \yii\base\Module
     public function init()
     {
         $subdomen = explode('.', $_SERVER['HTTP_HOST'])[0];
-        if($subdomen != 'arendazala'){
+
+        if($subdomen != 'arendazala' and $subdomen != 'arendazala_dev'){
             Yii::$app->params['subdomen'] = $subdomen;
 
             $subdomen_model = Subdomen::find()
@@ -29,7 +30,7 @@ class Module extends \yii\base\Module
                 ->one();
 
             if(!$subdomen_model)
-                throw new \yii\web\NotFoundHttpException();         
+                throw new \yii\web\NotFoundHttpException();
         }
         else{
             Yii::$app->params['subdomen'] = '';
