@@ -187,6 +187,8 @@ $fontFamilyLato: Lato;
 
 	@include for-pad {
 		width: 100%;
+		flex-direction: column;
+		align-items: center;
 		justify-content: center;
 		padding-left: 0px;
 	}
@@ -195,6 +197,166 @@ $fontFamilyLato: Lato;
 		width: 100%;
 		padding-left: 0;
 		margin-bottom: 0;
+	}
+
+	.object_meta_prazdnik {
+		flex: 0 0 100%;
+		width: 100%;
+		font-size: 12px;
+		color: #797c88;
+
+		@include for-smallmobile {
+			text-align: center;
+		}
+
+		//@include for-mobile {
+		//	margin-top: -5px;
+		//}
+	}
+
+	.price_block_wrap {
+		display: flex;
+		flex-direction: column;
+		//align-items: center;
+		margin: 0px auto;
+
+		@include for-pad {
+			margin-bottom: 10px;
+		}
+	}
+
+	.price_block {
+		display: flex;
+		align-items: center;
+		column-gap: 30px;
+
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 24px;
+
+		.price_arenda, .price_banket {
+			position: relative;
+		}
+
+		.price_block_title {
+			margin-bottom: 10px;
+		}
+
+		.item_meta_price {
+			font-size: 32px;
+			font-weight: 700;
+			line-height: 40px;
+			align-self: flex-end;
+
+			@include for-pad {
+				font-size: 28px;
+				line-height: 32px;
+			}
+
+			@include for-mobile {
+				font-size: 24px;
+				line-height: 120%;
+			}
+
+			@include for-smallmobile {
+				align-self: center;
+			}
+		}
+
+		.object_meta_tooltip_text {
+			display: none;
+			position: absolute;
+			background: #fff;
+			//left: 40px;
+			z-index: 10;
+			border: 1px solid #dadee1;
+			box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+			border-radius: 4px;
+			text-align: left;
+			color: #2c3044;
+			font-weight: 400;
+			font-size: 12px;
+			padding: 16px;
+			margin-top: 6px;
+
+			@include for-mobile {
+				//bottom: 12px;
+				//left: unset;
+				//right: calc(100% - 110px);
+			}
+
+			//@include for-smallmobile {
+			//	bottom: 12px;
+			//}
+
+			&::after {
+				content: "";
+				position: absolute;
+				top: -11px;
+				left: 26px;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 0 9px 11px 9px;
+				border-color: transparent transparent #ffffff transparent;
+
+				@include for-mobile {
+					left: unset;
+					right: 26px;
+				}
+			}
+
+			&::before {
+				content: "";
+				position: absolute;
+				top: -12px;
+				left: 25px;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 0 10px 12px 10px;
+				border-color: transparent transparent #dadee1 transparent;
+
+				@include for-mobile {
+					left: unset;
+					right: 25px;
+				}
+			}
+		}
+
+		.tooltip__header {
+			white-space: nowrap;
+		}
+
+		.price_link {
+			cursor: pointer;
+			border-bottom: 1px dashed rgba(#2C3044,.5);
+			padding-bottom: 0px;
+
+			&:hover {
+				.object_meta_tooltip_text {
+					display: block;
+				}
+			}
+
+			@include for-mobile{
+				&:hover {
+					.object_meta_tooltip_text {
+						display: block;
+						left: -50%;
+						top: calc(100% + 4px);
+					}
+				}
+			}
+		}
+
+		@include for-smallmobile {
+			flex-direction: column;
+
+			.price_arenda, .price_banket {
+				text-align: center;
+			}
+		}
 	}
 
 	.object_meta_block {
@@ -349,8 +511,9 @@ $fontFamilyLato: Lato;
 
 			@include for-mobile {
 				top: 100%;
-				left: unset;
-				right: calc(100% - 110px);
+				//left: unset;
+				//right: calc(100% - 110px);
+
 			}
 
 			&::after {
@@ -1033,6 +1196,26 @@ $fontFamilyLato: Lato;
 
 				a {
 					color: #2c3044;
+				}
+			}
+		}
+
+		.capacity {
+			padding: 10px;
+			border-radius: 4px;
+			background-color: $clrUltraLightGrey;
+			margin: 15px auto;
+
+			p {
+				text-align: center;
+				font-size: 20px;
+				font-weight: 700;
+				line-height: 24px;
+				color: #2C3044;
+
+				@include for-mobile {
+					font-size: 16px;
+					line-height: 20px;
 				}
 			}
 		}

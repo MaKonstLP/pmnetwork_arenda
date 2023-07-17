@@ -33,6 +33,25 @@ class ItemController extends Controller
 			]
 		])->one();
 
+//		echo '<pre>';
+//		print_r($item);
+//		die();
+
+		//расчет новой цены
+        if($item['restaurant_payment_model'] == 0) {
+            $price_person = $item['restaurant_price'];
+            $rent_room_only = 0;
+        } elseif ($item['restaurant_payment_model'] == 1) {
+            $price_person = $item['banquet_price_person'];
+            $rent_room_only = 0;
+        } elseif ($item['restaurant_payment_model'] == 2) {
+            $price_person = $item['restaurant_price'];
+            $rent_room_only = $item['rent_room_only'];
+        } elseif ($item['restaurant_payment_model'] == 3) {
+            $price_person = 0;
+            $rent_room_only = $item['rent_room_only'];
+        }
+
 		if (empty($item)) {
 			throw new NotFoundHttpException();
 		}
@@ -280,7 +299,10 @@ class ItemController extends Controller
 			'other_rooms' => $other_rooms,
 			'similar_rooms' => $similar_rooms,
 			'prazdnik_name' => $prazdnik_name ?? '',
-			'itemHaveSpecPrice' => $itemHaveSpecPrice
+			'itemHaveSpecPrice' => $itemHaveSpecPrice,
+            'price_person' => $price_person,
+            'rent_room_only' => $rent_room_only,
+
 		));
 	}
 

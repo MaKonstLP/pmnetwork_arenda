@@ -53,9 +53,9 @@ class SiteController extends Controller
 				]
 			])->search();
 
-		// echo ('<pre>');
-		// print_r($aggs);
-		// exit;
+//		 echo ('<pre>');
+//		 print_r($aggs);
+//		 die();
 
 		$slicesForTag = array_reduce($aggs['aggregations']['specs']['ids']['buckets'], function ($acc, $item) {
 			if (
@@ -153,9 +153,9 @@ class SiteController extends Controller
 
 		$feature = $feature ? $feature : '';
 
-		// echo ('<pre>');
-		// print_r($similar_rooms);
-		// exit;
+//		 echo ('<pre>');
+//		 print_r($items);
+//		 exit;
 
 		return $this->render('index.twig', [
 			'filter' => $filter,

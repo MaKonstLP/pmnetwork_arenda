@@ -24,28 +24,87 @@
 					<div class="item_meta_item">
 						{% if item.price %}
 							{# <span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span> #}
-							<span class="item_meta_text">от <span class="item_meta_price"><span class="rur">{{item.price}} </span>/чел.</span></span>
-							<div class="item_meta_tooltip">
-								<span>?</span>
-								<noindex>
-									<div class="item_meta_tooltip_text">
-										<p class="tooltip__header">
-											<span>Средний чек</span>
-											{{item.price}} ₽ (без напитков)
-										</p>
-										{% if item.room_prices and itemsHaveSpecPrice[item.id]%}
-											<div class="tooltip__price-list">
-												{% for price in item.room_prices %}
-													<div class="tooltip__price-item">
-														<span>{{price.spec_name}}</span>
-														<span>от {{price.price}} ₽/чел.</span>
+							<span class="item_meta_text">
+{#								от#}
+{#								<span class="item_meta_price"><span class="rur">{{item.price}} </span>/чел.</span>#}
+								{% if item.price_only_banket > 1 %}
+									<div class="price_only_banket">
+										<img class="" src="/images/item/food.svg" alt="">
+										и
+										<img class="price_icon wine" src="/images/item/wine.svg" alt="">
+										от <span class="item_meta_price"><span class="rur">{{item.price_only_banket}} </span>/чел.</span>
+										<div class="item_meta_tooltip">
+{#										<span>?</span>#}
+										<noindex>
+											<div class="item_meta_tooltip_text">
+												<p class="tooltip__header">
+													<span>Оплата только за еду и напитки{{ item.price_only_arenda > 1 ? '' : ', аренда в подарок' }}</span>
+												</p>
+												{% if item.room_prices and itemsHaveSpecPrice[item.id]%}
+													<div class="tooltip__price-list">
+														{% for price in item.room_prices %}
+															<div class="tooltip__price-item">
+																<span>{{price.spec_name}}</span>
+																<span>от {{price.price}} ₽/чел.</span>
+															</div>
+														{% endfor %}
 													</div>
-												{% endfor %}
+												{% endif %}
 											</div>
-										{% endif %}
+										</noindex>
 									</div>
-								</noindex>
-							</div>
+									</div>
+								{% endif %}
+
+								{% if item.price_only_arenda > 1 %}
+									<div class="price_only_arenda">
+										{{ item.rent_only == 0 ? 'или' : '+' }}
+										<img class="price_icon timer" src="/images/item/icons.svg" alt="">
+										<span class="item_meta_price"><span class="rur">{{item.price_only_arenda}} </span></span>
+										<div class="item_meta_tooltip">
+{#										<span>?</span>#}
+											<noindex>
+												<div class="item_meta_tooltip_text">
+													<p class="tooltip__header">
+														<span>Аренда без еды<br>{{item.price_only_arenda}} ₽</span>
+													</p>
+													{% if item.room_prices and itemsHaveSpecPrice[item.id]%}
+														<div class="tooltip__price-list">
+															{% for price in item.room_prices %}
+																<div class="tooltip__price-item">
+																	<span>{{price.spec_name}}</span>
+																	<span>от {{price.price}} ₽/чел.</span>
+																</div>
+															{% endfor %}
+														</div>
+													{% endif %}
+												</div>
+											</noindex>
+										</div>
+									</div>
+								{% endif %}
+							</span>
+{#							<div class="item_meta_tooltip">#}
+{#								<span>?</span>#}
+{#								<noindex>#}
+{#									<div class="item_meta_tooltip_text">#}
+{#										<p class="tooltip__header">#}
+{#											<span>Средний чек</span>#}
+{#											{{item.price}} ₽ (без напитков)#}
+{#										</p>#}
+{#										{% if item.room_prices and itemsHaveSpecPrice[item.id]%}#}
+{#											<div class="tooltip__price-list">#}
+{#												{% for price in item.room_prices %}#}
+{#													<div class="tooltip__price-item">#}
+{#														<span>{{price.spec_name}}</span>#}
+{#														<span>от {{price.price}} ₽/чел.</span>#}
+{#													</div>#}
+{#												{% endfor %}#}
+{#											</div>#}
+{#										{% endif %}#}
+{#									</div>#}
+{#								</noindex>#}
+{#							</div>#}
 						{% else %}
 							<span class="item_meta_text">цена по запросу</span>
 						{% endif %}

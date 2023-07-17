@@ -38,6 +38,18 @@
 		</div>
 	{% endif %}
 
+	<div class="capacity">
+
+		{% if item.capacity > 0 and item.capacity_reception > 0 %}
+			<p>Вместимость на банкет до {{item.capacity}} персон, и фуршет до {{item.capacity_reception}} персон</p>
+		{% elseif item.capacity > 0 and item.capacity_reception == 0 %}
+			<p>Вместимость на банкет до {{item.capacity}} персон</p>
+		{% elseif item.capacity == 0 and item.capacity_reception > 0 %}
+			<p>Вместимость на фуршет до {{item.capacity_reception}} персон</p>
+		{% endif %}
+
+	</div>
+
 	<div class="address" data-title-address>
 		<p>
 			<span>{{seo.address}}</span>

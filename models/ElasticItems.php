@@ -72,6 +72,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'restaurant_cake',
 			'restaurant_decor',
 			'restaurant_payment',
+			'restaurant_payment_model',
 			'restaurant_special',
 			'restaurant_welcome_zone',
 			'restaurant_scene',
@@ -97,6 +98,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'type',
 			'rent_only',
 			'banquet_price',
+			'banquet_price_person',
 			'bright_room',
 			'separate_entrance',
 			'type_name',
@@ -108,6 +110,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'images',
 			'description',
 			'room_prices',
+			'rent_room_only',
+			'rent_only',
 			'min_room_price',
 			'max_room_price',
 			'room_spec',
@@ -116,12 +120,15 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'prazdnik_options',
 			'rest_type_extra_options',
 			'rest_type_options',
+			'price_only_banket',
+			'price_only_arenda',
 		];
 	}
 
 	public static function index()
 	{
 		return 'pmn_arenda_rooms';
+//		return 'pmn_arenda_rooms1';
 	}
 
 	public static function type()
@@ -141,6 +148,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'restaurant_gorko_id'              => ['type' => 'integer'],
 					'restaurant_city_id'               => ['type' => 'integer'],
 					'restaurant_price'                 => ['type' => 'integer'],
+					'price_only_banket'                => ['type' => 'integer'],
+					'price_only_arenda'                => ['type' => 'integer'],
 					'restaurant_min_capacity'          => ['type' => 'integer'],
 					'restaurant_max_capacity'          => ['type' => 'integer'],
 					'restaurant_district'              => ['type' => 'integer'],
@@ -190,6 +199,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'restaurant_cake'                  => ['type' => 'integer'],
 					'restaurant_decor'                 => ['type' => 'integer'],
 					'restaurant_payment'               => ['type' => 'text'],
+					'restaurant_payment_model'         => ['type' => 'integer'],
 					'restaurant_special'               => ['type' => 'text'],
 					'restaurant_welcome_zone'          => ['type' => 'integer'],
 					'restaurant_scene'                 => ['type' => 'integer'],
@@ -222,6 +232,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'type'                             => ['type' => 'integer'],
 					'rent_only'                        => ['type' => 'integer'],
 					'banquet_price'                    => ['type' => 'integer'],
+					'banquet_price_person'             => ['type' => 'integer'],
 					'bright_room'                      => ['type' => 'integer'],
 					'separate_entrance'                => ['type' => 'integer'],
 					'type_name'                        => ['type' => 'text'],
@@ -244,6 +255,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 						'spec_name'                        => ['type' => 'text'],
 						'price'                            => ['type' => 'integer'],
 					]],
+                    'rent_room_only'                   => ['type' => 'integer'],
+                    'rent_only'                   => ['type' => 'integer'],
 					'min_room_price'                   => ['type' => 'integer'],
 					'max_room_price'                   => ['type' => 'integer'],
 					'room_spec'                        => ['type' => 'nested', 'properties' => [
@@ -366,6 +379,10 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->with('yandexReview')
 			->where(['active' => 1])
 			->limit(100000);
+
+//		echo '<pre>';
+//		print_r($params);
+//		die();
 
 		if($params['gorko_id']){
 			$restaurants->andWhere(['gorko_id' => $params['gorko_id']]);
@@ -651,6 +668,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->restaurant_decor = $rest_decor;
 
 		$record->restaurant_payment = $restaurant->payment;
+		$record->restaurant_payment_model = $room->payment_model;
 		$record->restaurant_special = $restaurant->special;
 
 		$rest_special_explode = array_map('trim', explode(',', $restaurant->special));
@@ -855,6 +873,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->type = $room->type;
 		$record->rent_only = $room->rent_only;
 		$record->banquet_price = $room->banquet_price;
+		$record->banquet_price_person = $room->banquet_price_person;
 		$record->bright_room = $room->bright_room;
 		$record->separate_entrance = $room->separate_entrance;
 		$record->type_name = $room->type_name;
@@ -992,6 +1011,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			}
 		}
 		$record->room_prices = $room_prices_arr;
+		$record->rent_room_only = $room->rent_room_only;
+		$record->rent_only = $room->rent_only;
 
 		$min_price = 99999;
 		$max_price = 0;
@@ -1007,6 +1028,28 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		}
 		$record->min_room_price = $min_price != 99999 ? $min_price : '';
 		$record->max_room_price = $max_price ? $max_price : '';
+
+        //новая цена
+        switch ($room->payment_model) {
+            case 0:
+                $price_only_banket = $room->price;
+                $price_only_arenda = 0;
+                break;
+            case 1:
+                $price_only_banket = $room->banquet_price_person;
+                $price_only_arenda = 0;
+                break;
+            case 2:
+                $price_only_banket = $room->price;
+                $price_only_arenda = $room->rent_room_only;
+                break;
+            case 3:
+                $price_only_banket = 0;
+                $price_only_arenda = $room->rent_room_only;
+                break;
+        }
+        $record->price_only_banket = $price_only_banket;
+        $record->price_only_banket = $price_only_arenda;
 
 		//Тип мероприятия зала
 		$room_spec = [];
