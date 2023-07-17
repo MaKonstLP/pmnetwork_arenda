@@ -127,8 +127,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 
 	public static function index()
 	{
-		return 'pmn_arenda_rooms';
-//		return 'pmn_arenda_rooms1';
+//		return 'pmn_arenda_rooms';
+		return 'pmn_arenda_rooms1';
 	}
 
 	public static function type()
@@ -1049,7 +1049,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
                 break;
         }
         $record->price_only_banket = $price_only_banket;
-        $record->price_only_banket = $price_only_arenda;
+        $record->price_only_arenda = $price_only_arenda;
 
 		//Тип мероприятия зала
 		$room_spec = [];
