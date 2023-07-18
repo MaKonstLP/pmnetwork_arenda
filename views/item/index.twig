@@ -92,7 +92,9 @@
 									</div>
 								{% endif %}
 								{% if item.price_only_arenda > 1 %}
-									{% if item.price_only_banket > 1 %}<div class="item_meta_price">{{ item.rent_only == 0 ? 'или' : '+' }}</div>{% endif %}
+									{% if item.price_only_banket > 1 %}
+										<div class="item_meta_price">{{ item.rent_only == 1 ? 'или' : '+' }}</div>
+									{% endif %}
 
 									<div class="price_arenda">
 										<p class="price_block_title">Аренда зала</p>
