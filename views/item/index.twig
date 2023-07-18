@@ -68,7 +68,9 @@
 										{% if item.banquet_price_min %}
 											<p class="price_block_title">❗ Мин. стоимость банкета {{ item.banquet_price_min }} ₽</p>
 										{% endif %}
-										от <span class="item_meta_price price_link">
+										<div>
+											от
+											<span class="item_meta_price price_link">
 											<span class="rur">{{item.price_only_banket}} </span>/чел.
 												<div class="object_meta_tooltip {{prazdnik_name|lower}}">
 													<noindex>
@@ -76,7 +78,7 @@
 															<p class="tooltip__header">
 																<span>Оплата только за еду и напитки{{ item.price_only_arenda > 1 ? '' : ', аренда в подарок' }}</span>
 {#																<span>Оплата {{ item.price_only_arenda > 1 ? '' : 'только' }} за еду и напитки{{ item.price_only_arenda > 1 ? '' : ', аренда в подарок' }}</span>#}
-{#																<br>от {{item.price}} ₽/чел.#}
+																{#																<br>от {{item.price}} ₽/чел.#}
 															</p>
 															{% if item.room_prices and itemHaveSpecPrice %}
 																<div class="tooltip__price-list">
@@ -92,6 +94,7 @@
 													</noindex>
 												</div>
 											</span>
+										</div>
 									</div>
 								{% endif %}
 								{% if item.price_only_arenda > 1 %}

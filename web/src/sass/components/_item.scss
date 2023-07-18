@@ -236,6 +236,10 @@ $fontFamilyLato: Lato;
 
 		.price_arenda, .price_banket {
 			position: relative;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
 		}
 
 		.price_block_title:last-of-type {
