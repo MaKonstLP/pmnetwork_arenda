@@ -65,6 +65,9 @@
 								{% if item.price_only_banket > 1 %}
 									<div class="price_banket">
 										<p class="price_block_title">За еду и напитки</p>
+										{% if item.banquet_price_min %}
+											<p class="price_block_title">❗ Мин. стоимость банкета {{ item.banquet_price_min }} ₽</p>
+										{% endif %}
 										от <span class="item_meta_price price_link">
 											<span class="rur">{{item.price_only_banket}} </span>/чел.
 												<div class="object_meta_tooltip {{prazdnik_name|lower}}">

@@ -238,9 +238,13 @@ $fontFamilyLato: Lato;
 			position: relative;
 		}
 
-		.price_block_title {
+		.price_block_title:last-of-type {
 			margin-bottom: 10px;
 		}
+
+		//.banquet_price_min {
+		//	margin-bottom: 10px;
+		//}
 
 		.item_meta_price {
 			font-size: 32px;

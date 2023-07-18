@@ -98,6 +98,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'type',
 			'rent_only',
 			'banquet_price',
+			'banquet_price_min',
 			'banquet_price_person',
 			'bright_room',
 			'separate_entrance',
@@ -127,8 +128,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 
 	public static function index()
 	{
-//		return 'pmn_arenda_rooms';
-		return 'pmn_arenda_rooms1';
+		return 'pmn_arenda_rooms';
 	}
 
 	public static function type()
@@ -232,6 +232,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'type'                             => ['type' => 'integer'],
 					'rent_only'                        => ['type' => 'integer'],
 					'banquet_price'                    => ['type' => 'integer'],
+					'banquet_price_min'                => ['type' => 'integer'],
 					'banquet_price_person'             => ['type' => 'integer'],
 					'bright_room'                      => ['type' => 'integer'],
 					'separate_entrance'                => ['type' => 'integer'],
@@ -873,6 +874,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->type = $room->type;
 		$record->rent_only = $room->rent_only;
 		$record->banquet_price = $room->banquet_price;
+		$record->banquet_price_min = $room->banquet_price_min;
 		$record->banquet_price_person = $room->banquet_price_person;
 		$record->bright_room = $room->bright_room;
 		$record->separate_entrance = $room->separate_entrance;
