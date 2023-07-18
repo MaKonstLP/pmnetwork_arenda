@@ -335,6 +335,10 @@ $fontFamilyLato: Lato;
 
 		.tooltip__header {
 			white-space: nowrap;
+
+			@include for-mobile {
+				white-space: normal;
+			}
 		}
 
 		.price_link {
@@ -352,7 +356,7 @@ $fontFamilyLato: Lato;
 				&:hover {
 					.object_meta_tooltip_text {
 						display: block;
-						//left: -50%;
+						left: -50%;
 						top: calc(100% + 4px);
 					}
 				}
