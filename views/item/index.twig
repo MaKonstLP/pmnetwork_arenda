@@ -60,7 +60,7 @@
 {#					<div class="object_meta_item object_meta_item_price">#}
 					<div class="price_block_wrap">
 
-						{% if item.price %}
+						{% if item.price_only_banket or item.price_only_arenda %}
 							<div class="price_block">
 								{% if item.price_only_banket > 1 %}
 									<div class="price_banket">
@@ -132,7 +132,7 @@
 								{% endif %}
 							</div>
 						{% else %}
-							<p class="object_meta_value"><span class="norur">по запросу</span></p>
+{#							<p class="object_meta_value"><span class="norur">по запросу</span></p>#}
 						{% endif %}
 					</div>
 

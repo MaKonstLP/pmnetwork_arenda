@@ -22,7 +22,7 @@
 			<div class="price-position">
 				<div class="price">
 					<div class="item_meta_item">
-						{% if item.price %}
+						{% if item.price_only_banket or item.price_only_arenda %}
 							{# <span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span> #}
 							<span class="item_meta_text">
 {#								от#}
@@ -58,7 +58,7 @@
 
 								{% if item.price_only_arenda > 1 %}
 									<div class="price_only_arenda">
-										{{ item.rent_only == 0 ? 'или' : '+' }}
+										{{  item.price_only_banket > 1 ? (item.rent_only == 0 ? 'или' : '+') : '' }}
 										<img class="price_icon timer" src="/images/item/icons.svg" alt="">
 										<span class="item_meta_price"><span class="rur">{{item.price_only_arenda}} </span></span>
 										<div class="item_meta_tooltip">

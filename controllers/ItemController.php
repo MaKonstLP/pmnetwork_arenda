@@ -33,10 +33,6 @@ class ItemController extends Controller
 			]
 		])->one();
 
-//		echo '<pre>';
-//		print_r($item);
-//		die();
-
 		//расчет новой цены
         if($item['restaurant_payment_model'] == 0) {
             $price_person = $item['restaurant_price'];
@@ -51,6 +47,10 @@ class ItemController extends Controller
             $price_person = 0;
             $rent_room_only = $item['rent_room_only'];
         }
+
+//        echo '<pre>';
+//        print_r($price_person);
+//        die();
 
 		if (empty($item)) {
 			throw new NotFoundHttpException();
