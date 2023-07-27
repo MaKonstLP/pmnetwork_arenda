@@ -379,6 +379,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->with('subdomen')
 			->with('yandexReview')
 			->where(['active' => 1])
+			// ->andWhere(['gorko_id' => 455577])
 			->limit(100000);
 
 //		echo '<pre>';
@@ -722,7 +723,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 				//$record->restaurant_phone = '+7 960 810-73-70';
 				break;
 			case 441099:
-				$record->restaurant_phone = '+7 902 510-50-60';
+				$record->restaurant_phone = '+7 930 036-84-71';
 				//$record->restaurant_phone = '+7 964 264-89-04';
 				break;
 			case 449941:
@@ -745,6 +746,9 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 				break;
 			case 483343:
 				$record->restaurant_phone = '+7 963 716-59-17';
+				break;
+			case 25631:
+				$record->restaurant_phone = '+7 964 102-64-81';
 				break;
 			default:
 				$record->restaurant_phone = $restaurant->phone;
@@ -899,6 +903,9 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 
 				//устанавливаем сортировку картинок зала как на горько
 				if ($room_id == 266201) {
+					ArrayHelper::multisort($images_sorted[$room_id][$image['event_id']], ['sort'], [SORT_ASC]);
+				}
+				if ($room_id == 280053) {
 					ArrayHelper::multisort($images_sorted[$room_id][$image['event_id']], ['sort'], [SORT_ASC]);
 				}
 			}

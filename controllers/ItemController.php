@@ -34,19 +34,19 @@ class ItemController extends Controller
 		])->one();
 
 		//расчет новой цены
-        if($item['restaurant_payment_model'] == 0) {
-            $price_person = $item['restaurant_price'];
-            $rent_room_only = 0;
-        } elseif ($item['restaurant_payment_model'] == 1) {
-            $price_person = $item['banquet_price_person'];
-            $rent_room_only = 0;
-        } elseif ($item['restaurant_payment_model'] == 2) {
-            $price_person = $item['restaurant_price'];
-            $rent_room_only = $item['rent_room_only'];
-        } elseif ($item['restaurant_payment_model'] == 3) {
-            $price_person = 0;
-            $rent_room_only = $item['rent_room_only'];
-        }
+//        if($item['restaurant_payment_model'] == 0) {
+//            $price_person = $item['restaurant_price'];
+//            $rent_room_only = 0;
+//        } elseif ($item['restaurant_payment_model'] == 1) {
+//            $price_person = $item['banquet_price_person'];
+//            $rent_room_only = 0;
+//        } elseif ($item['restaurant_payment_model'] == 2) {
+//            $price_person = $item['restaurant_price'];
+//            $rent_room_only = $item['rent_room_only'];
+//        } elseif ($item['restaurant_payment_model'] == 3) {
+//            $price_person = 0;
+//            $rent_room_only = $item['rent_room_only'];
+//        }
 
 //        echo '<pre>';
 //        print_r($price_person);
@@ -300,8 +300,8 @@ class ItemController extends Controller
 			'similar_rooms' => $similar_rooms,
 			'prazdnik_name' => $prazdnik_name ?? '',
 			'itemHaveSpecPrice' => $itemHaveSpecPrice,
-            'price_person' => $price_person,
-            'rent_room_only' => $rent_room_only,
+//            'price_person' => $price_person,
+//            'rent_room_only' => $rent_room_only,
 
 		));
 	}

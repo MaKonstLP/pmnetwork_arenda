@@ -30,7 +30,7 @@ class FormController extends Controller
 		if (isset($_POST['phone']))
 			$payload['phone'] = $_POST['phone'];
 		if (isset($_POST['guests']))
-			$payload['guests'] = $_POST['guests'];
+			$payload['guests'] = intval($_POST['guests']);
 		if (isset($_POST['cityID']))
 			$payload['city_id'] = $_POST['cityID'];
 		if (isset($_POST['event_type']))
