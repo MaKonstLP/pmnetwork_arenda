@@ -736,7 +736,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 				$record->restaurant_phone = '+7 993 007-79-37';
 				break;
 			case 477247:
-				$record->restaurant_phone = '+7 961 887-50-00';
+				$record->restaurant_phone = '+7 382 241-11-33';
 				break;
 			case 455577:
 				$record->restaurant_phone = '+7 923 775-08-03';
