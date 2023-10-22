@@ -16,6 +16,7 @@ use common\models\RoomsSpec;
 use common\models\RestaurantsPremium;
 use common\models\RoomsPremium;
 use common\models\Slices;
+use common\models\YamapInfo;
 use common\components\AsyncRenewImages;
 use common\widgets\ProgressWidget;
 
@@ -41,6 +42,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'restaurant_cover_url',
 			'restaurant_latitude',
 			'restaurant_longitude',
+            'restaurant_review_tags',
 			'restaurant_own_alcohol',
 			'restaurant_cuisine',
 			'restaurant_cuisine_child',
@@ -165,6 +167,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'restaurant_cover_url'             => ['type' => 'text'],
 					'restaurant_latitude'              => ['type' => 'text'],
 					'restaurant_longitude'             => ['type' => 'text'],
+					'restaurant_review_tags'           => ['type' => 'text'],
 					'restaurant_own_alcohol'           => ['type' => 'text'],
 					'restaurant_cuisine'               => ['type' => 'text'],
 
@@ -378,6 +381,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->with('imagesext')
 			->with('subdomen')
 			->with('yandexReview')
+            ->with('yamapInfo')
 			->where(['active' => 1])
 			->limit(100000);
 
@@ -540,6 +544,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->restaurant_cover_url = $restaurant->cover_url;
 		$record->restaurant_latitude = $restaurant->latitude;
 		$record->restaurant_longitude = $restaurant->longitude;
+		$record->restaurant_review_tags = isset($restaurant->yamapInfo->review_tags) ? $restaurant->yamapInfo->review_tags : '';
 		$record->restaurant_own_alcohol = $restaurant->own_alcohol;
 		$record->restaurant_cuisine = $restaurant->cuisine;
 

@@ -436,6 +436,34 @@ h4,
 	}
 }
 
+.stars {
+	position: relative;
+	width: 136px;
+	height: 24px;
+}
+
+.stars__empty {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(/images/stars_empty.svg);
+	background-repeat: no-repeat;
+	background-size: 136px 24px;
+}
+
+.stars__fill {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(/images/stars_fill.svg);
+	background-repeat: no-repeat;
+	background-size: 136px 24px;
+}
+
 /*Стили блока расположенного под меню на странице результатов поиска*/
 .head_block {
 	width: 100%;

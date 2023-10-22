@@ -338,15 +338,259 @@
 	</div>
 
 	{% if item.restaurant_rev_ya.id %}
-		<div id="reviews" class="item__review-yandex-wrap">
-			<div class="item__review-yandex">
-				<p class="item__review-title">Отзывы о {{item.restaurant_name}}</p>
-				<div style="width:auto;height:1320px;overflow:hidden;position:relative;">
-					<iframe style="width:100%;height:100%;border:1px solid #e6e6e6;border-radius:8px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/{{item.restaurant_rev_ya.id}}?comments"></iframe>
-					<a href="https://yandex.ru/maps/org/pansionat_sm_pension/{{item.restaurant_rev_ya.id}}" target="_blank" style="box-sizing:border-box;text-decoration:none;color:#b3b3b3;font-size:10px;font-family:YS Text,sans-serif;padding:0 20px;position:absolute;bottom:8px;width:100%;text-align:center;left:0;overflow:hidden;text-overflow:ellipsis;display:block;max-height:14px;white-space:nowrap;padding:0 16px;box-sizing:border-box">{{item.restaurant_name}} — Яндекс Карты</a>
-				</div>
+	<div class="reviews">
+		<div class="content_block _item">
+			<p class="reviews__title">Отзывы о {{item.name}} {{item.restaurant_name}}</p>
+
+			{% if review_tags_arr is not empty %}
+				{% if review_tags_arr|length > 5 %}
+					<div class="reviews-tags">
+						<div class="reviews-tags__wrap">
+							<div class="reviews-tags__title">
+								<span>Больше всего посетителям нравится</span>
+							</div>
+							<ul class="reviews-tags__list">
+								{% for tag_name,tag_percent in review_tags_arr %}
+									{% if tag_percent > 70 %}
+										<li>{{ tag_name }}</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				{% else %}
+					<div class="reviews-smalltags">
+						<div class="reviews-smalltags__wrap">
+							<div class="reviews-smalltags__title">
+								<span>Больше всего посетителям нравится</span>
+							</div>
+							<ul class="reviews-smalltags__list">
+								{% for tag_name,tag_percent in review_tags_arr %}
+									{% if tag_percent > 70 %}
+										<li>{{ tag_name }}</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			<div class="reviews__wrap">
+				{# !доделать отзывы START #}
+				{# <div class="reviews__our {% if item.restaurant_rev_ya.id %}_half{% endif %}">
+
+					<div class="reviews__our-header">
+						<p class="reviews__our-title">{{item.name}} {{item.restaurant_name}}</p>
+						<a href="/" class="reviews__our-logo">
+							<img src="/images/logo_img.svg">
+							<p class="reviews__our-logo-text">Аренда залов</p>
+						</a>
+					</div>
+
+					<div class="reviews__our-rating">
+						<p class="reviews__our-rating-count">4,5</p>
+						<div class="reviews__our-rating-wrap">
+							<div class="stars">
+								<div class="stars__empty"></div>
+								<div class="stars__fill" style="width:calc(4.5 * 20%)"></div>
+							</div>
+							<div class="reviews__our-rating-review">345 отзывов</div>
+						</div>
+					</div>
+
+					<div class="reviews__our-btn-block">
+						<p>Оцените заведение</p>
+						<div class="review-btn _button" data-review-btn>Оставить отзыв</div>
+					</div>
+
+					<div class="reviews__our-wrap">
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">Виктор Алексеевич</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(3 * 20%)"></div>
+								</div>
+								<p class="our-review__date">8 февраля</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all-0">
+								<label for="button_see_all-0"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									Наш любимый. Атмосфера, обслуживание, интерьер, выше всяких похвал. Очень вкусно готовят, работают супер повора. Цены не заоблачные, нои не дёшево, хотя без алкаголя вполне можно хорошо посидеть и вкусно покушать 1500-2000 с человека. Есть доставка любого блюда домой, если живёте не далеко. Летняя...Наш любимый. Атмосфера, обслуживание, интерьер, выше всяких похвал. Очень вкусно готовят, работают супер повора. Цены не заоблачные, нои не дёшево, хотя без алкаголя вполне можно хорошо посидеть и вкусно покушать 1500-2000 с человека. Есть доставка любого блюда домой, если живёте не далеко. Летняя...
+								</p>
+							</div>
+
+							<div class="our-review__images">
+								<a class="our-review__image" href="{{item.images[0].waterpath}}=s0" data-lightbox="review__image">
+									<img src="{{item.images[0].subpath}}=w56-h56-n-l95-rw" />
+								</a>
+								<a class="our-review__image" href="{{item.images[1].waterpath}}=s0" data-lightbox="review__image">
+									<img src="{{item.images[1].subpath}}=w56-h56-n-l95-rw" />
+								</a>
+								<a class="our-review__image" href="{{item.images[2].waterpath}}=s0" data-lightbox="review__image">
+									<img src="{{item.images[2].subpath}}=w56-h56-n-l95-rw" />
+								</a>
+							</div>
+						</div>
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">Alina B.</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(4 * 20%)"></div>
+								</div>
+								<p class="our-review__date">24 января</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all-1">
+								<label for="button_see_all-1"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									Очень классный ресторан! Праздновали здесь свадьбу в вип зале, все прошло душевно и замечательно! Очень вкусная еда, подача вовремя, гости не сидели голодными, а столы не были пустыми. Официанты оперативно все подавали/подливали, помогали настраивать свет, ставили цветы в вазы, все время присутствовали...
+								</p>
+							</div>
+						</div>
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">G.P.</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(4.6 * 20%)"></div>
+								</div>
+								<p class="our-review__date">17 декабря 2021</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all-2">
+								<label for="button_see_all-2"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									То место, которое искренне можно назвать любимым. При всем богатстве выбора ресторанов в районе университет-вернадка- юго-западная - Андиамо однозначно лучший. Во-первых, отличная кухня. Вкусно, чисто, хорошая подача. (Суши не страшно есть толькАндиамо однозначно лучший. Во-перднозначно луч...
+								</p>
+							</div>
+						</div>
+
+
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">G.P.</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(4.6 * 20%)"></div>
+								</div>
+								<p class="our-review__date">17 декабря 2021</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all">
+								<label for="button_see_all"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									То место, которое искренне можно назвать любимым. При всем богатстве выбора ресторанов в районе университет-вернадка- юго-западная - Андиамо однозначно лучший. Во-первых, отличная кухня. Вкусно, чисто, хорошая подача. (Суши не страшно есть толькАндиамо однозначно лучший. Во-перднозначно луч...
+								</p>
+							</div>
+						</div>
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">G.P.</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(4.6 * 20%)"></div>
+								</div>
+								<p class="our-review__date">17 декабря 2021</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all">
+								<label for="button_see_all"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									То место, которое искренне можно назвать любимым. При всем богатстве выбора ресторанов в районе университет-вернадка- юго-западная - Андиамо однозначно лучший. Во-первых, отличная кухня. Вкусно, чисто, хорошая подача. (Суши не страшно есть толькАндиамо однозначно лучший. Во-перднозначно луч...
+								</p>
+							</div>
+						</div>
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">G.P.</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(4.6 * 20%)"></div>
+								</div>
+								<p class="our-review__date">17 декабря 2021</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all">
+								<label for="button_see_all"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									То место, которое искренне можно назвать любимым. При всем богатстве выбора ресторанов в районе университет-вернадка- юго-западная - Андиамо однозначно лучший. Во-первых, отличная кухня. Вкусно, чисто, хорошая подача. (Суши не страшно есть толькАндиамо однозначно лучший. Во-перднозначно луч...
+								</p>
+							</div>
+						</div>
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">G.P.</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(4.6 * 20%)"></div>
+								</div>
+								<p class="our-review__date">17 декабря 2021</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all">
+								<label for="button_see_all"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									То место, которое искренне можно назвать любимым. При всем богатстве выбора ресторанов в районе университет-вернадка- юго-западная - Андиамо однозначно лучший. Во-первых, отличная кухня. Вкусно, чисто, хорошая подача. (Суши не страшно есть толькАндиамо однозначно лучший. Во-перднозначно луч...
+								</p>
+							</div>
+						</div>
+						<div class="our-review">
+							<div class="our-review__head">
+								<p class="our-review__author">G.P.</p>
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc(4.6 * 20%)"></div>
+								</div>
+								<p class="our-review__date">17 декабря 2021</p>
+							</div>
+
+							<div class="our-review__text-block">
+								<input type="checkbox" id="button_see_all">
+								<label for="button_see_all"><span>Показать полностью</span></label>
+								<p class="our-review__text">
+									То место, которое искренне можно назвать любимым. При всем богатстве выбора ресторанов в районе университет-вернадка- юго-западная - Андиамо однозначно лучший. Во-первых, отличная кухня. Вкусно, чисто, хорошая подача. (Суши не страшно есть толькАндиамо однозначно лучший. Во-перднозначно луч...
+								</p>
+							</div>
+						</div>
+
+					</div> #}
+
+					{# <div class="reviews__our-no-reviews">
+						<div class="stars">
+							<div class="stars__fill"></div>
+						</div>
+						<p>Наши пользователи еще не оставили ни одного отзыва.</p>
+						<div class="review-btn _button" data-review-btn>Оставить отзыв</div>
+					</div> #}
+
+
+				{# </div> #}
+				{# !доделать END #}
+
+				{% if item.restaurant_rev_ya.id %}
+					<div id="reviews-yandex" class="reviews__yandex-wrap">
+						<div class="reviews__yandex">
+							<div style="width:auto;height:1320px;overflow:hidden;position:relative;">
+								<iframe style="width:100%;height:100%;border:1px solid #e6e6e6;border-radius:8px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/{{item.restaurant_rev_ya.id}}?comments"></iframe>
+								<a href="https://yandex.ru/maps/org/pansionat_sm_pension/{{item.restaurant_rev_ya.id}}" target="_blank" style="box-sizing:border-box;text-decoration:none;color:#b3b3b3;font-size:10px;font-family:YS Text,sans-serif;padding:0 20px;position:absolute;bottom:8px;width:100%;text-align:center;left:0;overflow:hidden;text-overflow:ellipsis;display:block;max-height:14px;white-space:nowrap;padding:0 16px;box-sizing:border-box">{{item.restaurant_name}} — Яндекс Карты</a>
+							</div>
+						</div>
+					</div>
+				{% endif %}
 			</div>
 		</div>
+	</div>
 	{% endif %}
 
 	<div class="content_block _item">

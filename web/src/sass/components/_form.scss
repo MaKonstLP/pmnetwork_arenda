@@ -1,4 +1,4 @@
-input[name=first-name] {
+input[name="first-name"] {
 	display: none;
 }
 .form_wrapper {
@@ -928,5 +928,67 @@ input[name=first-name] {
 			}
 		}
 	}
-	
 }
+
+.popup_wrap__item-review {
+	display: none;
+	position: fixed;
+	z-index: 9999999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+
+	&._active {
+		display: flex;
+	}
+}
+
+/* ==== рейтинг звездами START ==== */
+.full-stars {
+	text-align: center;
+}
+
+.full-stars .rating-group {
+	display: inline-flex;
+}
+
+.full-stars input {
+	position: absolute;
+	left: -9999px;
+}
+
+.full-stars label {
+	display: block;
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+	margin: 0;
+}
+
+.full-stars label svg {
+	margin: 2px;
+	height: 40px;
+	width: 40px;
+	fill: #ffc839;
+	transition: fill 0.3s;
+}
+
+.full-stars input:checked ~ label svg {
+	stroke: #95b3cd;
+	fill: transparent;
+}
+
+.full-stars .rating-group:hover label svg {
+	fill: #ffc839;
+	fill-opacity: 0.1;
+	stroke: #ffc839;
+}
+
+.full-stars .rating-group input:hover ~ label svg {
+	stroke: #95b3cd;
+	fill: transparent;
+}
+/* ==== рейтинг звездами END ==== */

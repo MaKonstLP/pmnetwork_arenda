@@ -82,6 +82,14 @@ export default class Item {
 			}
 		})
 
+
+		$('[data-review-btn]').on('click', function () {
+			$('.popup_wrap__item-review').addClass('_active');
+			$('body').addClass('_popup_mode');
+			$('.header_menu').removeClass('_active');
+			$('.header_burger').removeClass('_active');
+		});
+
 		var galleryThumbs = new Swiper('.item_thumb_slider', {
 			modules: [Navigation, Thumbs],
 			spaceBetween: 5,

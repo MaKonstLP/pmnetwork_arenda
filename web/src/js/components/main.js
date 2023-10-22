@@ -99,7 +99,7 @@ export default class Main {
 		$('body').on('click', '[data-close-popup]', function () {
 			$('.popup_wrap').removeClass('_active');
 			$('.popup_wrap__item-mobile').removeClass('_active');
-			$('.popup_wrap__item-mobile').removeClass('_active');
+			$('.popup_wrap__item-review').removeClass('_active');
 			$('.listing_feedback_form').removeClass('_active');
 			$('.listing_feedback_form .comments_textarea').removeClass('_active');
 			$('.listing_feedback_form_main').addClass('_active');

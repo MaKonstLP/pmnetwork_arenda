@@ -1,0 +1,100 @@
+<div class="form_wrapper">
+
+    <div class="form_close" data-close-popup></div>
+
+    <div class="form_main">
+        <div class="form_title">
+            <p class="form_title_main">Оставьте свой отзыв</p>
+        </div>
+
+        <form class="form_block" action="" data-type={{ type }} data-rest-name data-rest-url>
+            <div class="form_inputs">
+                <div class="input_wrapper _big">
+                    <div class="input_label">Как вас зовут</div>
+                    <input type="text" name="name" data-required/>
+                </div>
+
+                <div class="radio_wrapper">
+                    <div class="input_label">Ваш рейтинг</div>
+
+                    <div class="full-stars">
+                        <div class="rating-group">
+                            <!-- рейтинг 1 -->
+                            <label for="star-1">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 1.29426L24.7351 12.5995C24.8792 12.9438 25.2031 13.1791 25.5751 13.2098L37.7902 14.2196L28.5015 22.2165C28.2187 22.4599 28.0949 22.8407 28.1806 23.2039L30.995 35.1333L20.5191 28.7703C20.2002 28.5766 19.7998 28.5766 19.4809 28.7703L9.00504 35.1333L11.8194 23.2039C11.9051 22.8407 11.7813 22.4599 11.4985 22.2164L2.20979 14.2196L14.4249 13.2098C14.7969 13.1791 15.1208 12.9438 15.2649 12.5995L14.8037 12.4064L15.2649 12.5995L20 1.29426Z"/>
+                                </svg>
+                            </label>
+                            <input name="rating" id="star-1" value="1" type="radio" checked />
+                            
+                            <!-- рейтинг 2 -->
+                            <label for="star-2">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 1.29426L24.7351 12.5995C24.8792 12.9438 25.2031 13.1791 25.5751 13.2098L37.7902 14.2196L28.5015 22.2165C28.2187 22.4599 28.0949 22.8407 28.1806 23.2039L30.995 35.1333L20.5191 28.7703C20.2002 28.5766 19.7998 28.5766 19.4809 28.7703L9.00504 35.1333L11.8194 23.2039C11.9051 22.8407 11.7813 22.4599 11.4985 22.2164L2.20979 14.2196L14.4249 13.2098C14.7969 13.1791 15.1208 12.9438 15.2649 12.5995L14.8037 12.4064L15.2649 12.5995L20 1.29426Z"/>
+                                </svg>
+                            </label>
+                            <input name="rating" id="star-2" value="2" type="radio" />
+                            
+                            <!-- рейтинг 3 -->
+                            <label for="star-3">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 1.29426L24.7351 12.5995C24.8792 12.9438 25.2031 13.1791 25.5751 13.2098L37.7902 14.2196L28.5015 22.2165C28.2187 22.4599 28.0949 22.8407 28.1806 23.2039L30.995 35.1333L20.5191 28.7703C20.2002 28.5766 19.7998 28.5766 19.4809 28.7703L9.00504 35.1333L11.8194 23.2039C11.9051 22.8407 11.7813 22.4599 11.4985 22.2164L2.20979 14.2196L14.4249 13.2098C14.7969 13.1791 15.1208 12.9438 15.2649 12.5995L14.8037 12.4064L15.2649 12.5995L20 1.29426Z"/>
+                                </svg>
+                            </label>
+                            <input name="rating" id="star-3" value="3" type="radio" />
+                            
+                            <!-- рейтинг 4 -->
+                            <label for="star-4">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 1.29426L24.7351 12.5995C24.8792 12.9438 25.2031 13.1791 25.5751 13.2098L37.7902 14.2196L28.5015 22.2165C28.2187 22.4599 28.0949 22.8407 28.1806 23.2039L30.995 35.1333L20.5191 28.7703C20.2002 28.5766 19.7998 28.5766 19.4809 28.7703L9.00504 35.1333L11.8194 23.2039C11.9051 22.8407 11.7813 22.4599 11.4985 22.2164L2.20979 14.2196L14.4249 13.2098C14.7969 13.1791 15.1208 12.9438 15.2649 12.5995L14.8037 12.4064L15.2649 12.5995L20 1.29426Z"/>
+                                </svg>
+                            </label>
+                            <input name="rating" id="star-4" value="4" type="radio" />
+                            
+                            <!-- рейтинг 5 -->
+                            <label for="star-5">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 1.29426L24.7351 12.5995C24.8792 12.9438 25.2031 13.1791 25.5751 13.2098L37.7902 14.2196L28.5015 22.2165C28.2187 22.4599 28.0949 22.8407 28.1806 23.2039L30.995 35.1333L20.5191 28.7703C20.2002 28.5766 19.7998 28.5766 19.4809 28.7703L9.00504 35.1333L11.8194 23.2039C11.9051 22.8407 11.7813 22.4599 11.4985 22.2164L2.20979 14.2196L14.4249 13.2098C14.7969 13.1791 15.1208 12.9438 15.2649 12.5995L14.8037 12.4064L15.2649 12.5995L20 1.29426Z"/>
+                                </svg>
+                            </label>
+                            <input name="rating" id="star-5" value="5" type="radio" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comments_textarea">
+                <div class="input_label">Комментарий<span class="not_necessary"> (необязательно)</span></div>
+                <textarea name="coment_text" class="comment_form" placeholder="По желанию укажите: дату мероприятия, бюджет или что-то еще"></textarea>
+            </div>
+
+            <div class="form_submit">
+                <input type="submit" class="_button" value="Отправить"/>
+
+                <div class="form_policy checkbox_item _active" data-form-privacy>
+                    <input type="checkbox" name="policy" class="personalData" checked="">
+                    <p class="checkbox_pseudo">
+                        Я согласен с <span> <a class="_link" href="https://arendazala.net/privacy/" target="_blank"> политикой обработки персональных данных</a></span>
+                    </p>
+                </div>
+            </div>
+
+            <input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />
+            {% if venue_id is defined %}
+                <input type="hidden" name="venue_id" value="{{venue_id}}" />
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="form_success" data-success>
+        <div class="form_success_title">
+            <p class="form_success_title_main">Заявка отправлена</p>
+        </div>
+
+        <div class="form_success_text">
+            <p class="form_success_text_main"><span data-success-name></span>, спасибо за проявленный интерес. Наши менеджеры свяжутся с вами в течение дня.</p>
+        </div>
+
+        <div class="form_success_close _link" data-success-close>Заполнить еще раз</div>
+    </div>
+</div>

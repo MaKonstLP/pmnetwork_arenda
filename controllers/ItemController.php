@@ -33,6 +33,21 @@ class ItemController extends Controller
 			]
 		])->one();
 
+        $review_tags_str = $item->restaurant_review_tags;
+        $review_tags_arr = [];
+
+        if ($review_tags_str != '') {
+            $review_tags_items = explode('||', $review_tags_str);
+            foreach ($review_tags_items as $review_tags_item) {
+                $parts = explode(':', $review_tags_item);
+                $review_tags_arr[$parts[0]] = (int)$parts[1];
+            }
+        }
+
+//      echo '<pre>';
+//		print_r($review_tags_arr);
+//		die;
+
 		//расчет новой цены
 //        if($item['restaurant_payment_model'] == 0) {
 //            $price_person = $item['restaurant_price'];
@@ -237,6 +252,7 @@ class ItemController extends Controller
 
 		if ($item->restaurant_premium) Yii::$app->params['premium_rest'] = true;
 		Yii::$app->params['rest_gorko_id'] = $item['restaurant_gorko_id'];
+		Yii::$app->params['room_gorko_id'] = $item['gorko_id'];
 
 		// ===== schemaOrg Product START =====
 		$json_str = '';
@@ -286,9 +302,9 @@ class ItemController extends Controller
 		$seo['desc'] = $item->restaurant_name;
 
 
-		// echo ('<pre>');
-		// print_r($item);
-		// exit;
+//		 echo ('<pre>');
+//		 print_r($review_tags_arr);
+//		 die;
 
 		return $this->render('index.twig', array(
 			'item' => $item,
@@ -300,6 +316,7 @@ class ItemController extends Controller
 			'similar_rooms' => $similar_rooms,
 			'prazdnik_name' => $prazdnik_name ?? '',
 			'itemHaveSpecPrice' => $itemHaveSpecPrice,
+            'review_tags_arr' => $review_tags_arr,
 //            'price_person' => $price_person,
 //            'rent_room_only' => $rent_room_only,
 

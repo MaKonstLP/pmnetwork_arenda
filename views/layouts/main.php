@@ -63,8 +63,8 @@ frontend\modules\arenda\assets\AppAsset::register($this);
 
 	gtag('config', 'UA-193001228-1');
 	// gtag('config', 'G-2RMENLSN37');
-	</script>
 
+    </script>
 </head>
 <body data-channel-id="2" class="<?if(isset($this->params['prazdnik_type']) && !empty($this->params['prazdnik_type'])) echo $this->params['prazdnik_type'];?>">
 <!-- Google Tag Manager (noscript) -->
@@ -367,6 +367,36 @@ height="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 	</div>
 
+	<?php if (isset(Yii::$app->params['room_gorko_id'])) : ?>
+		<div class="popup_wrap__item-review">
+			<div class="popup_layout" data-close-popup></div>
+
+			<div class="popup_form">
+				<?= $this->render('//components/generic/form_review.twig', array(
+					'type' => 'item-review', 
+					'venue_id' => isset(Yii::$app->params['rest_gorko_id']) ? Yii::$app->params['rest_gorko_id'] : '',
+					'room_id' => isset(Yii::$app->params['room_gorko_id']) ? Yii::$app->params['room_gorko_id'] : '',
+					))
+				?>
+			</div>
+		</div>
+	<?php endif; ?>
+
+<script>
+    function setCssVars() {
+        const title = document.querySelector('.reviews-tags__title') ? document.querySelector('.reviews-tags__title') : document.querySelector('.reviews-smalltags__title');
+        const heightTags = window.getComputedStyle(title).getPropertyValue('height');
+        const widthTags = window.getComputedStyle(title).getPropertyValue('width');
+        document.documentElement.style.setProperty('--heightTags', heightTags);
+        document.documentElement.style.setProperty('--widthTags', widthTags);
+    }
+
+    setCssVars();
+
+    window.addEventListener("resize", function() {
+        setCssVars();
+    });
+</script>
 <?php $this->endBody() ?>
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600&display=swap&subset=cyrillic" rel="stylesheet">
 <?php if (Yii::$app->params['subdomen_alias'] == 'nnovgorod'): ?>
