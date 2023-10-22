@@ -1363,12 +1363,45 @@ class TestController extends Controller
 						'name' => 'Все площадки',
 						'link' => 'novyy-god',
 					],
+					[
+						'name' => 'Кафе',
+						'link' => 'kafe-na-noviy-god',
+					],
+					[
+						'name' => 'Рестораны',
+						'link' => 'novogodnyaya-noch-v-restorane',
+					],
+					[
+						'name' => 'Банкетные залы',
+						'link' => 'banket-na-noviy-god',
+					],
+					[
+						'name' => 'Лофты',
+						'link' => 'arenda-lofta-na-noviy-god',
+					],
+					[
+						'name' => 'Коттеджи',
+						'link' => 'arenda-kottedzha-na-noviy-god',
+					],
+					[
+						'name' => 'Отели',
+						'link' => 'noviy-god-v-otele',
+					],
+					[
+						'name' => 'Клубы',
+						'link' => 'noviy-god-v-klube',
+					],
+					[
+						'name' => 'Бары',
+						'link' => 'noviy-god-v-bare',
+					],
 				]
 			]
 		];
 
+
 		//сохраняем в БД основные пункты header menu
-		//расскомментировать если довляются новые пункты в меню
+		//*расскомментировать если довляются новые пункты в меню
 		/* foreach ($header_menu as $key => $menu) {
 			$menu_item = SubdomenHeaderMenu::find()->where(['name' => $key])->one();
 			if (!$menu_item) {
@@ -1378,7 +1411,6 @@ class TestController extends Controller
 				$subdomen_menu->save();
 			}
 		} */
-
 
 		//выбираем сначала первую половину поддоменов и затем выбираем вторую половину (иначе может не хватить времени обработки скрипта)
 		$subdomen_list = Subdomen::find()
@@ -1395,6 +1427,7 @@ class TestController extends Controller
 			foreach ($header_menu as $menu_key => $menu) {
 				$sort_key = 0;
 				$menu_item = SubdomenHeaderMenu::find()->where(['name' => $menu_key])->one();
+
 				foreach ($menu['submenu'] as $submenu) {
 					$slice_obj = new QueryFromSlice($submenu['link']);
 
@@ -1408,6 +1441,7 @@ class TestController extends Controller
 							->where(['city_id' => $subdomen['city_id']])
 							->andWhere(['link' => $submenu['link']])
 							->one();
+
 						if (!$subdomen_submenu) {
 							$subdomen_submenu = new SubdomenHeaderSubmenu();
 							$subdomen_submenu['menu_id'] = $menu_item['id'];
@@ -1421,6 +1455,7 @@ class TestController extends Controller
 						} else {
 							$subdomen_submenu['active'] = 1;
 						}
+
 						$subdomen_submenu->save();
 					}
 					$sort_key++;

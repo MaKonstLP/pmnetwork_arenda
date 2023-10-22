@@ -167,12 +167,18 @@ export default class Main {
 
 		//клик по кнопке "Позвонить" в листинге
 		$('[data-listing-list]').on('click', '.item-info__btn-call', function () {
-			// $(this).addClass('_active');
-			ym(74721805, 'reachGoal', 'click_pozvonit_listing');
-
 			// ==== Gorko-calltracking ====
 			let phone = $(this).find('.item-info__phone').attr('href');
-			self.sendCalltracking(phone);
+			if (typeof ym === 'function') {
+				self.sendCalltracking(phone);
+				ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+			} else {
+				setTimeout(function () {
+					self.sendCalltracking(phone);
+					ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+				}, 3000);
+			}
+
 			if ($(this).closest('.item-block').data('premium-listing-id')) {
 				let data = new FormData();
 				data.append('gorko_id', $(this).closest('.item-block').data('premium-listing-id'));
@@ -338,6 +344,11 @@ export default class Main {
 			clientId = tracker.get('clientId');
 		})
 
+		let yaClientId = '';
+		ym(74721805, 'getClientID', function (id) {
+			yaClientId = id;
+		});
+
 		const data = new FormData();
 
 		if (this.mobileMode) {
@@ -346,6 +357,7 @@ export default class Main {
 
 		data.append('phone', phone);
 		data.append('clientId', clientId);
+		data.append('yaClientId', yaClientId);
 
 		$.ajax({
 			type: 'post',

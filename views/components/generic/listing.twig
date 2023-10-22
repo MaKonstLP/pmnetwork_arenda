@@ -22,7 +22,7 @@
 			<div class="price-position">
 				<div class="price">
 					<div class="item_meta_item">
-						{% if item.price_only_banket or item.price_only_arenda %}
+						{% if item.price_only_banket or item.rent_room_only %}
 							{# <span class="item_meta_text">от <span class="rur">{{item.price}} <span class="norur">руб.</span></span>/чел.</span> #}
 							<span class="item_meta_text">
 {#								от#}
@@ -38,7 +38,7 @@
 										<noindex>
 											<div class="item_meta_tooltip_text">
 												<p class="tooltip__header">
-													<span>Оплата только за еду и напитки{{ item.price_only_arenda > 1 ? '' : ', аренда в подарок' }}</span>
+													<span>Оплата только за еду и напитки{{ item.rent_room_only > 1 ? '' : ', аренда в подарок' }}</span>
 												</p>
 												{% if item.room_prices and itemsHaveSpecPrice[item.id]%}
 													<div class="tooltip__price-list">
@@ -56,28 +56,28 @@
 									</div>
 								{% endif %}
 
-								{% if item.price_only_arenda > 1 %}
+								{% if item.rent_room_only > 1 %}
 									<div class="price_only_arenda">
 										{{  item.price_only_banket > 1 ? (item.rent_only == 1 ? 'или' : '+') : '' }}
 										<img class="price_icon timer" src="/images/item/icons.svg" alt="">
-										<span class="item_meta_price"><span class="rur">{{item.price_only_arenda|replace(' ', '')|number_format(0, '.', item.price_only_arenda>9999 ? ' ' : '')}} </span></span>
+										<span class="item_meta_price"><span class="rur">{{item.rent_room_only|replace(' ', '')|number_format(0, '.', item.rent_room_only>9999 ? ' ' : '')}} </span></span>
 										<div class="item_meta_tooltip">
 {#										<span>?</span>#}
 											<noindex>
 												<div class="item_meta_tooltip_text">
 													<p class="tooltip__header">
-														<span>Аренда без еды<br>{{item.price_only_arenda|replace(' ', '')|number_format(0, '.', item.price_only_arenda>9999 ? ' ' : '')}} ₽</span>
+														<span>Аренда без еды<br>{{item.rent_room_only|replace(' ', '')|number_format(0, '.', item.rent_room_only>9999 ? ' ' : '')}} ₽</span>
 													</p>
-													{% if item.room_prices and itemsHaveSpecPrice[item.id]%}
-														<div class="tooltip__price-list">
-															{% for price in item.room_prices %}
-																<div class="tooltip__price-item">
-																	<span>{{price.spec_name}}</span>
-																	<span>от {{price.price|replace(' ', '')|number_format(0, '.', price.price>9999 ? ' ' : '')}} ₽/чел.</span>
-																</div>
-															{% endfor %}
-														</div>
-													{% endif %}
+{#													{% if item.room_prices and itemsHaveSpecPrice[item.id]%}#}
+{#														<div class="tooltip__price-list">#}
+{#															{% for price in item.room_prices %}#}
+{#																<div class="tooltip__price-item">#}
+{#																	<span>{{price.spec_name}}</span>#}
+{#																	<span>от {{price.price|replace(' ', '')|number_format(0, '.', price.price>9999 ? ' ' : '')}} ₽/чел.</span>#}
+{#																</div>#}
+{#															{% endfor %}#}
+{#														</div>#}
+{#													{% endif %}#}
 												</div>
 											</noindex>
 										</div>

@@ -79,7 +79,16 @@ export default class Form {
 
 				// ==== Gorko-calltracking ====
 				let phone = document.querySelector('.object_real_phone').innerHTML;
-				self.sendCalltracking(phone);
+				// self.sendCalltracking(phone);
+				if (typeof ym === 'function') {
+					self.sendCalltracking(phone);
+					ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+				} else {
+					setTimeout(function () {
+						self.sendCalltracking(phone);
+						ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+					}, 3000);
+				}
 			})
 
 			if ($('[data-page-type="listing"]').length > 0) {
@@ -114,7 +123,16 @@ export default class Form {
 
 						// ==== Gorko-calltracking ====
 						let phone = $(this).text();
-						self.sendCalltracking(phone);
+						// self.sendCalltracking(phone);
+						if (typeof ym === 'function') {
+							self.sendCalltracking(phone);
+							ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+						} else {
+							setTimeout(function () {
+								self.sendCalltracking(phone);
+								ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+							}, 3000);
+						}
 					});
 				}
 			}
@@ -520,45 +538,16 @@ export default class Form {
 			clientId = tracker.get('clientId');
 		})
 
-		/* let pageReferrer = '';
-		if (document.referrer) {
-			pageReferrer = document.referrer;
-		}
-
-		if (Cookies.get('a_ref_0')) {
-			Cookies.set('a_ref_1', pageReferrer, { expires: 365 });
-		} else {
-			Cookies.set('a_ref_0', pageReferrer, { expires: 365 });
-		}
-
-		//запись в куки utm_details
-		let currentUrl = '';
-		if (window.location.href) {
-			currentUrl = window.location.href;
-		}
-		let patternUtm = RegExp('utm_details=([^\&]*)', 'g');
-		let utmExist = patternUtm.exec(currentUrl);
-		let utm = {};
-		if (utmExist) {
-			let rows = utmExist[1].split('|');
-
-			for (let i = 0; i < rows.length; i++) {
-				let a = rows[i].split(':');
-				utm[a[0]] = a[1];
-			}
-		}
-		let utmJson = JSON.stringify(utm);
-
-		if (Cookies.get('a_utm_0')) {
-			Cookies.set('a_utm_1', utmJson, { expires: 365 });
-		} else {
-			Cookies.set('a_utm_0', utmJson, { expires: 365 });
-		} */
+		let yaClientId = '';
+		ym(74721805, 'getClientID', function (id) {
+			yaClientId = id;
+		});
 
 		const data = new FormData();
 
 		data.append('phone', phone);
 		data.append('clientId', clientId);
+		data.append('yaClientId', yaClientId);
 
 		$.ajax({
 			type: 'post',

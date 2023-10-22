@@ -20,7 +20,16 @@ export default class Item {
 
 			// ==== Gorko-calltracking ====
 			let phone = $(this).closest('.object_book_hidden').find('.object_real_phone').text();
-			self.sendCalltracking(phone);
+			// self.sendCalltracking(phone);
+			if (typeof ym === 'function') {
+				self.sendCalltracking(phone);
+				ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+			} else {
+				setTimeout(function () {
+					self.sendCalltracking(phone);
+					ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+				}, 3000);
+			}
 		});
 
 		Lightbox.option({
@@ -61,7 +70,16 @@ export default class Item {
 
 			// ==== Gorko-calltracking ====
 			let phone = $(this).attr('href');
-			self.sendCalltracking(phone);
+			// self.sendCalltracking(phone);
+			if (typeof ym === 'function') {
+				self.sendCalltracking(phone);
+				ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+			} else {
+				setTimeout(function () {
+					self.sendCalltracking(phone);
+					ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+				}, 3000);
+			}
 		})
 
 		var galleryThumbs = new Swiper('.item_thumb_slider', {
@@ -206,7 +224,16 @@ export default class Item {
 
 			// ==== Gorko-calltracking ====
 			let phone = $(this).text();
-			self.sendCalltracking(phone);
+			// self.sendCalltracking(phone);
+			if (typeof ym === 'function') {
+				self.sendCalltracking(phone);
+				ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+			} else {
+				setTimeout(function () {
+					self.sendCalltracking(phone);
+					ym(74721805, 'reachGoal', 'click_pozvonit_listing');
+				}, 3000);
+			}
 		});
 
 		//вызов галерии lightbox при клике по кнопке "Посмотреть фотографии"
@@ -244,6 +271,11 @@ export default class Item {
 			clientId = tracker.get('clientId');
 		})
 
+		let yaClientId = '';
+		ym(74721805, 'getClientID', function (id) {
+			yaClientId = id;
+		});
+
 		const data = new FormData();
 
 		if (this.mobileMode) {
@@ -252,6 +284,7 @@ export default class Item {
 
 		data.append('phone', phone);
 		data.append('clientId', clientId);
+		data.append('yaClientId', yaClientId);
 
 		$.ajax({
 			type: 'post',

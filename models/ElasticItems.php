@@ -379,18 +379,19 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->with('subdomen')
 			->with('yandexReview')
 			->where(['active' => 1])
-			// ->andWhere(['gorko_id' => 455577])
 			->limit(100000);
 
-//		echo '<pre>';
-//		print_r($params);
-//		die();
+		//echo '<pre>';
+		
 
 		if($params['gorko_id']){
 			$restaurants->andWhere(['gorko_id' => $params['gorko_id']]);
 		}
 
 		$restaurants = $restaurants->all();
+
+		//print_r($restaurants);
+		//exit;
 
 		$connection = new \yii\db\Connection($params['site_connection_config']);
 		$connection->open();
@@ -424,6 +425,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			$rooms_slug = [];
 			$iterator = 1;
 			foreach ($restaurant->rooms as $room) {
+				if(in_array($room->gorko_id, [286805, 286809])) continue;
 				$res = self::addRecord($room, $restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials, $restaurants_extra, $restaurants_location, $images_module, $restaurants_premium, $rooms_premium, $params, $rooms_slug, $iterator, $slices);
 				$rooms_slug = $res['rooms_slug'];
 				$iterator = $res['iterator'];
@@ -522,6 +524,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->id  = $room->id;
 		$record->restaurant_id = $restaurant->id;
 		$record->restaurant_city_id = $restaurant->city_id;
+		if($restaurant->gorko_id == 486123)
+			$record->restaurant_city_id = 3770;
 		$record->restaurant_gorko_id = $restaurant->gorko_id;
 		$record->restaurant_price = $restaurant->price;
 		$record->restaurant_min_capacity = $restaurant->min_capacity;
@@ -750,6 +754,24 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			case 25631:
 				$record->restaurant_phone = '+7 964 102-64-81';
 				break;
+			case 405361:
+				$record->restaurant_phone = '+7 423 237-02-02';
+				break;
+			case 144983:
+				$record->restaurant_phone = '+7 930 899-88-00';
+				break;
+			case 486401:
+				$record->restaurant_phone = '+7 909 785-90-53';
+				break;
+			case 486123:
+				$record->restaurant_phone = '+7 909 785-90-44';
+				break;
+			case 486823:
+				$record->restaurant_phone = '+7 926 686-17-79';
+				break;
+			case 443573:
+				$record->restaurant_phone = '8 4832 400-002';
+				break;
 			default:
 				$record->restaurant_phone = $restaurant->phone;
 				break;
@@ -900,6 +922,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			$room_ids[] = $room_id;
 			foreach ($images_ext as $image) {
 				$images_sorted[$room_id][$image['event_id']][] = $image;
+				ArrayHelper::multisort($images_sorted[$room_id][$image['event_id']], ['sort'], [SORT_ASC]);
 
 				//устанавливаем сортировку картинок зала как на горько
 				if ($room_id == 266201) {
