@@ -302,9 +302,9 @@ class ItemController extends Controller
 		$seo['desc'] = $item->restaurant_name;
 
 
-//		 echo ('<pre>');
-//		 print_r($review_tags_arr);
-//		 die;
+		// echo ('<pre>');
+		// print_r($item);
+		// exit;
 
 		return $this->render('index.twig', array(
 			'item' => $item,

@@ -73,6 +73,7 @@ export default class Main {
 
 		//открытие формы на листинге при клике по кнопке забронировать
 		$('body').on('click', '[data-listing-book]', function () {
+			let venue_id = $(this).data('listing-book');
 			let restName = $(this).closest('.item-block').find('.item_name span').text();
 			let restUrl = $(this).closest('.item-block').find('.name a').attr('href');
 			if ($(this).closest('.item-block').data('premium-listing-id')) {
@@ -92,6 +93,9 @@ export default class Main {
 			$('.popup_wrap').find('.form_block').attr('data-premium-listing-form-id', premium_id);
 			$('.popup_wrap').find('.form_block').attr('data-rest-name', restName);
 			$('.popup_wrap').find('.form_block').attr('data-rest-url', 'https://arendazala.net' + restUrl);
+			$('.popup_wrap').find('[name="venue_id"]').val(venue_id);
+
+			console.log($('.popup_wrap').find('[name="venue_id"]').val());
 
 			ym(74721805, 'reachGoal', 'click_zabronirovat');
 		});

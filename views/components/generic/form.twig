@@ -120,9 +120,9 @@
 			</div>
 
 			<input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />
-			{% if venue_id is defined %}
-				<input type="hidden" name="venue_id" value="{{venue_id}}" />
-			{% endif %}
+			
+			<input type="hidden" name="venue_id" value="{% if venue_id is defined %}{{venue_id}}{% endif %}" />
+			
 			{% if room_id is defined %}
 				<input type="hidden" name="room_id" value="{{room_id}}" />
 			{% endif %}

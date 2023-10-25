@@ -102,6 +102,10 @@
 
 					</div>
 
+					{% if type == 'item' %}
+						<input type="hidden" name="venue_id" value="{{venue_id}}" />
+					{% endif %}
+
 					<input type="hidden" name="_csrf" value="{{Declension.csrfToken()}}" />
 
 				</form>

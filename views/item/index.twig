@@ -167,7 +167,7 @@
 
 				{% if item.description != "" %}
 					<div class="item_description" data-seo-description data-seo-text>
-						<p class="_seo_text" id="mobile_but_all">{{ item.description }}</p>
+						<div class="_seo_text" id="mobile_but_all">{{ item.description|raw }}</div>
 						<button class="collapse_button _hidden">Подробнее о площадке</button>
 					</div>
 				{% endif %}
@@ -603,7 +603,7 @@
 		</div>
 
 		<div class="item_callback">
-			{{ this.render('//components/generic/callback.twig', {'type' : 'item'}) | raw }}
+			{{ this.render('//components/generic/callback.twig', {'type' : 'item', 'venue_id' : item.restaurant_gorko_id}) | raw }}
 		</div>
 	</div>
 

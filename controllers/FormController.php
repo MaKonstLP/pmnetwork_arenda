@@ -37,14 +37,15 @@ class FormController extends Controller
 			$payload['event_type'] = $_POST['event_type'];
 		if (isset($_POST['date_hidden']))
 			$payload['date'] = $_POST['date_hidden'];
-		if (isset($_POST['venue_id']))
+		if (isset($_POST['venue_id']) && $_POST['venue_id'])
 			$payload['venue_id'] = $_POST['venue_id'];
 		if (isset($_POST['count']))
 			$payload['email'] = $_POST['count'];
 		$payload['details'] = '';
-		if (isset($_POST['coment_text']))
+		if (isset($_POST['coment_text'])){
 			$payload['details'] .= $_POST['coment_text'] . '. ';
 			$payload['coment_text'] = $_POST['coment_text'];
+		}
 		if (isset($_POST['url']))
 			$payload['details'] .= 'Заявка отправлена с ' . $_POST['url'];
 		if (isset($_POST['restName']))

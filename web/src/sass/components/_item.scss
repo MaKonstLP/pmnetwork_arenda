@@ -983,10 +983,15 @@ $fontFamilyLato: Lato;
 		}
 	}
 	.item_description {
-		padding: 0 0px 0 0;
+		// padding: 0 0px 0 0;
+		margin-top: 15px;
 
 		@include for-pad {
 			padding: 0 20px;
+		}
+
+		@include for-mobile {
+			margin-top: 24px;
 		}
 	}
 	.item-block .vector_price {
@@ -1062,6 +1067,10 @@ $fontFamilyLato: Lato;
 		line-height: 24px;
 		color: #2c3044;
 		margin-bottom: 24px;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
 	}
 
 	button {
@@ -1073,6 +1082,11 @@ $fontFamilyLato: Lato;
 		color: #4471e6;
 		border-bottom: 1px dashed #4471e6;
 		cursor: pointer;
+
+		@include for-mobile {
+			display: block;
+			margin: 0 auto;
+		}
 	}
 
 	.mobile_button_text {
