@@ -17,6 +17,7 @@ use common\models\RestaurantsPremium;
 use common\models\RoomsPremium;
 use common\models\Slices;
 use common\models\YamapInfo;
+use common\models\Rooms;
 use common\components\AsyncRenewImages;
 use common\widgets\ProgressWidget;
 
@@ -383,6 +384,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->with('yandexReview')
             ->with('yamapInfo')
 			->where(['active' => 1])
+			//->andWhere(['gorko_id' => [475005, 466745]])
 			->limit(100000);
 
 		//echo '<pre>';
@@ -421,6 +423,12 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->all();
 		$rooms_premium = ArrayHelper::index($rooms_premium, 'gorko_id');
 
+		$rooms_local_model = Rooms::find()
+			->limit(100000)
+			->asArray()
+			->all();
+		$rooms_local_model = ArrayHelper::index($rooms_local_model, 'id');
+
 		$slices = Slices::find()->all();
 
 		$rest_count = count($restaurants);
@@ -430,7 +438,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			$iterator = 1;
 			foreach ($restaurant->rooms as $room) {
 				if(in_array($room->gorko_id, [286805, 286809])) continue;
-				$res = self::addRecord($room, $restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials, $restaurants_extra, $restaurants_location, $images_module, $restaurants_premium, $rooms_premium, $params, $rooms_slug, $iterator, $slices);
+				$res = self::addRecord($room, $restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials, $restaurants_extra, $restaurants_location, $images_module, $restaurants_premium, $rooms_premium, $params, $rooms_slug, $iterator, $slices, $rooms_local_model);
 				$rooms_slug = $res['rooms_slug'];
 				$iterator = $res['iterator'];
 			}
@@ -478,7 +486,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		);
 	}
 
-	public static function addRecord($room, $restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials, $restaurants_extra, $restaurants_location, $images_module, $restaurants_premium, $rooms_premium, $params, $rooms_slug, $iterator, $slices)
+	public static function addRecord($room, $restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials, $restaurants_extra, $restaurants_location, $images_module, $restaurants_premium, $rooms_premium, $params, $rooms_slug, $iterator, $slices, $rooms_local_model)
 	{
 		$premium = isset($restaurants_premium[$restaurant->gorko_id]);
 
@@ -537,9 +545,11 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->restaurant_district = $restaurant->district;
 		$record->restaurant_parent_district = $restaurant->parent_district;
 		$record->restaurant_alcohol = $restaurant->alcohol;
+		if($restaurant->gorko_id == 487315) $record->restaurant_alcohol = 0;
 		$record->restaurant_alcohol_stock = $restaurant->alcohol_stock;
 		$record->restaurant_firework = $restaurant->firework;
 		$record->restaurant_name = $restaurant->name;
+		if($restaurant->gorko_id == 487315) $record->restaurant_name = 'Тропики Лофт';
 		$record->restaurant_address = $restaurant->address;
 		$record->restaurant_cover_url = $restaurant->cover_url;
 		$record->restaurant_latitude = $restaurant->latitude;
@@ -777,6 +787,15 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			case 443573:
 				$record->restaurant_phone = '8 4832 400-002';
 				break;
+			case 487315:
+				$record->restaurant_phone = '+7 961 534-88-58';
+				break;
+			case 466745:
+				$record->restaurant_phone = '8 (8452) 491-549';
+				break;
+			case 475005:
+				$record->restaurant_phone = '+7 909 823-84-84';
+				break;
 			default:
 				$record->restaurant_phone = $restaurant->phone;
 				break;
@@ -842,7 +861,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 
 			array_push($restaurant_types, $restaurant_types_arr);
 		}
-		if ($premium) {
+		if ($premium && $restaurant->gorko_id != 487315) {
 			foreach ($premium_types as $premium_type => $premium_type_text) {
 				if (!in_array($premium_type, $restaurant_types_rest)) {
 					$restaurant_types_arr = [];
@@ -914,6 +933,12 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$record->features = $room->features;
 		$record->karaoke = str_contains(mb_strtolower($room->name), 'караоке') ? 1 : '';
 		$record->cover_url = $room->cover_url;
+
+		$description = '';
+		if (isset($rooms_local_model[$room->gorko_id]) && !empty($rooms_local_model[$room->gorko_id]['description'])) {
+			$description = $rooms_local_model[$room->gorko_id]['description'];
+		}
+		$record->description = $description;
 
 		//Картинки залов
 		$images = [];

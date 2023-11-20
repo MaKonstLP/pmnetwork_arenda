@@ -33,7 +33,11 @@ class ItemController extends Controller
 			]
 		])->one();
 
-        $review_tags_str = $item->restaurant_review_tags;
+		if (empty($item)) {
+			throw new NotFoundHttpException();
+		}
+
+		$review_tags_str = $item->restaurant_review_tags;
         $review_tags_arr = [];
 
         if ($review_tags_str != '') {
@@ -48,7 +52,7 @@ class ItemController extends Controller
 //		print_r($review_tags_arr);
 //		die;
 
-		//расчет новой цены
+//расчет новой цены
 //        if($item['restaurant_payment_model'] == 0) {
 //            $price_person = $item['restaurant_price'];
 //            $rent_room_only = 0;
@@ -66,10 +70,6 @@ class ItemController extends Controller
 //        echo '<pre>';
 //        print_r($price_person);
 //        die();
-
-		if (empty($item)) {
-			throw new NotFoundHttpException();
-		}
 
 		$itemHaveSpecPrice = false;
 		foreach ($item['room_prices'] as $room_price) {
@@ -301,6 +301,19 @@ class ItemController extends Controller
 		$seo['address'] = $item->restaurant_address;
 		$seo['desc'] = $item->restaurant_name;
 
+        $showReviewTags = false;
+        $countShowTags = 0;
+        if (!empty($review_tags_arr)) {
+            foreach ($review_tags_arr as $tag) {
+                if ($tag > 70) {
+                    $showReviewTags = true;
+                    $countShowTags++;
+                }
+            }
+        }
+
+        $review_tags_arr['isShow'] = $showReviewTags;
+        $review_tags_arr['countShow'] = $countShowTags;
 
 		// echo ('<pre>');
 		// print_r($item);

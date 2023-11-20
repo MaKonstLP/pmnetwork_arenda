@@ -342,8 +342,8 @@
 		<div class="content_block _item">
 			<p class="reviews__title">Отзывы о {{item.name}} {{item.restaurant_name}}</p>
 
-			{# {% if review_tags_arr is not empty %}
-				{% if review_tags_arr|length > 5 %}
+			{% if review_tags_arr.isShow %}
+				{% if review_tags_arr.countShow > 5 %}
 					<div class="reviews-tags">
 						<div class="reviews-tags__wrap">
 							<div class="reviews-tags__title">
@@ -374,7 +374,7 @@
 						</div>
 					</div>
 				{% endif %}
-			{% endif %} #}
+			{% endif %}
 
 			<div class="reviews__wrap">
 				{# !доделать отзывы START #}
